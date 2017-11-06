@@ -7,16 +7,28 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1>{{ title }}</h1>
-    <p>Welcome to {{ title }}</p>
+    <h1>{{ title }} Forum</h1>
+    <h3 id='userID'>User</h3>
+    <p>Welcome to the {{ title }} Forum. Lets chat!</p>
     
-    <div id="chat-area"></div>
-    <form id="messageForm">
-      <label>Enter Message</label>
-      <textarea id="message"></textarea>
-      <br>
-      <input type="submit" value="Send Message">
-    </form>
+    
+    <div id="mainDiv">
+    
+      <div id="chat-area"></div>
+       
+      <div>
+        <form id="messageForm">
+          <textarea id="message">Say hello...</textarea><br/>
+          <div>
+            username: <input type="text" id="username" value="anonymous">
+          </div>    
+          <input id="msgBttn" type="submit" value="Send Message"></input>
+        </form>
+      </div>
+       
+
+       
+    </div>
 
   </body>
   
@@ -27,27 +39,24 @@
     var $messageForm = $("#messageForm"); 
     var $message = $("#message"); 
     var $chat = $("#chat-area"); 
+    var $username = $("#username")
   
+    var socket = io.connect();
+    
   
-    console.log("connect socket.io");
-    var socket = io.connect(); 
     socket.on('new message', function(data) {
       console.log("socket.on: new message arived!")
       $chat.append('<div>' + data.msg + '</div>'); 
     }); 
           
     document.addEventListener("DOMContentLoaded", function(event) { 
-        //alert("hurrah");
         // when send message clicked
         $messageForm.submit(function(e) {
             console.log("button clicked");
-            e.preventDefault(); 
-            socket.emit('send message', $message.val()); 
+            e.preventDefault();
+            socket.emit('send message', $username.val() + ": " + $message.val()); 
             $message.val(''); 
         }); 
-        
-        
-
     }); 
     
 

@@ -8,28 +8,7 @@ var app = require('../app');
 var debug = require('debug')('chat-app:server');
 var http = require('http');
 
-// socket.io set up
 
-var io = require('socket.io').listen(server); 
-var connections = []; 
-
-
-io.sockets.on('connection', function(socket) {
-  connections.push(socket); 
-  console.log('Connected: %s sockets connected', connections.length); 
-
-  socket.on("disconnect", function(data) {
-     connections.splice(connections.indexOf(socket), 1); 
-     console.log('Disconnected: %s sockets connected', connections.length);
-  });
-  
-  socket.on('send message', function(data) {
-    console.log(data); 
-    io.sockets.emit('new message', {msg: data}); 
-  }) ; 
-  
- 
-}); 
 
   
 
@@ -116,3 +95,34 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+// socket.io set up
+
+console.log("nodejs: socket.io required");
+var io = require('socket.io')(server);
+var connections = []; 
+
+// when new members arrive
+io.sockets.on('connection', function(socket) {
+
+  connections.push(socket); 
+  console.log('Connected(' + connections.indexOf(socket)  +'): %s sockets connected', connections.length); 
+
+  
+
+// when members leave 
+  socket.on("disconnect", function(data) {
+     connections.splice(connections.indexOf(socket), 1); 
+     console.log('Disconnected: %s sockets connected', connections.length);
+  });
+  
+// when new message arrives
+// broadcast!
+  socket.on('send message', function(data) {
+    console.log("new message: " + data); 
+    io.sockets.emit('new message', {msg: data}); 
+  }); 
+  
+ 
+}); 
