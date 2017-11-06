@@ -1,7 +1,7 @@
 # CommonSync
 ## Notes:
 ### Commit 1
-Please run my code using **app.js** instead of **bin/www**. 
+Please run my code using **app.js** instead of **bin/www**, for the moment. 
 * updated the landing page from the default express one
   * added buttons 
   * updated fonts
