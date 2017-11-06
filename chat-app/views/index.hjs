@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  
+
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>{{ title }}</h1>
+    <p>Welcome to {{ title }}</p>
+    
+    <div id="chat-area"></div>
+    <form id="messageForm">
+      <label>Enter Message</label>
+      <textarea id="message"></textarea>
+      <br>
+      <input type="submit" value="Send Message">
+    </form>
+
+  </body>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+          
+    var $messageForm = $("#messageForm"); 
+    var $message = $("#message"); 
+    var $chat = $("#chat-area"); 
+  
+  
+    console.log("connect socket.io");
+    var socket = io.connect(); 
+    socket.on('new message', function(data) {
+      console.log("socket.on: new message arived!")
+      $chat.append('<div>' + data.msg + '</div>'); 
+    }); 
+          
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        //alert("hurrah");
+        // when send message clicked
+        $messageForm.submit(function(e) {
+            console.log("button clicked");
+            e.preventDefault(); 
+            socket.emit('send message', $message.val()); 
+            $message.val(''); 
+        }); 
+        
+        
+
+    }); 
+    
+
+    
+
+
+  </script>
+
+  
+</html>
