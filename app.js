@@ -8,6 +8,8 @@ var path = require('path');
 //include routes to views
 var index = require('./routes/index');
 var users = require('./routes/users');
+var login = require('./routes/login');
+var signup = require('./routes/signup');
 
 //make public folder public
 app.use(express.static(path.join(__dirname, 'public')));
@@ -16,6 +18,8 @@ app.set('view engine', 'jade');
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/signup', signup);
+app.use('/login', login);
 
 app.get('*', function(req, res, next) {
   var err = new Error();

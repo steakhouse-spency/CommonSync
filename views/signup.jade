@@ -1,1 +1,117 @@
-extends layout 
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Sign Up
+
+        // register form
+        form(method='POST' onSubmit="return checkform();")
+          div.fullName
+            label(for='name') Name:
+            input#name.form-control(type='text', placeholder='first and last' name='name' required)
+          div.userName
+            label(for='name') Username:
+            input#username.form-control(type='text', placeholder='username' name='username' required)
+          div.email
+            label(for='email') Email:
+            input#email.form-control(type='email', placeholder='name@email.com' name='email' required)
+          div.interests
+            label(for='interests') Interests: 
+            .checkboxtoprow
+              input(type="checkbox", name="networking", checked=(true===false ? "checked" : undefined))
+              span.interest1 Networking
+              input(type="checkbox", name="security", checked=(true===false ? "checked" : undefined))
+              span.interest2 Security
+              input(type="checkbox", name="web development", checked=(true===false ? "checked" : undefined))
+              span.interest3 Web Development
+              input(type="checkbox", name="mobile development", checked=(true===false ? "checked" : undefined))
+              span.interest4 Mobile Development
+            .checkboxbottomrow
+              input(type="checkbox", name="Java", checked=(true===false ? "checked" : undefined))
+              span.interest5 Java
+              input(type="checkbox", name="C++", checked=(true===false ? "checked" : undefined))
+              span.interest6 C++
+              input(type="checkbox", name="Python", checked=(true===false ? "checked" : undefined))
+              span.interest7 Python
+              input(type="checkbox", name="Javascript", checked=(true===false ? "checked" : undefined))
+              span.interest8 Javascript
+          div.passWord
+            label(for='pw') Password:
+            input#pw.form-control(type='password' name='password' required)
+          div.confirmPassWord
+            label(for='pw2') Confirm Password:
+            input#pw2.form-control(type='password' name='confirmPassword' required)
+          button.btn.btn-primary(type='submit' onclick="checkform();") Sign up
+          
+  script.
+    function checkform() {
+      var password = document.getElementById("pw").value;
+      var confirmPW = document.getElementById("pw2").value;
+      var name = document.getElementsByName("name")[0].value;
+      var username = document.getElementsByName("username")[0].value;
+      var email = document.getElementsByName("email")[0].value;
+      
+      //interests
+      var networking = document.getElementsByName("networking")[0].checked;
+      var security = document.getElementsByName("security")[0].checked;
+      var webdev = document.getElementsByName("web development")[0].checked;
+      var mobiledev = document.getElementsByName("mobile development")[0].checked;
+      var java = document.getElementsByName("Java")[0].checked;
+      var cpp = document.getElementsByName("C++")[0].checked;
+      var python = document.getElementsByName("Python")[0].checked;
+      var javascript = document.getElementsByName("Javascript")[0].checked;
+        
+      var myMap = new Map();
+      myMap.set("networking", networking);
+      myMap.set("security", security);
+      myMap.set("webdev", webdev);
+      myMap.set("mobiledev", mobiledev);
+      myMap.set("java", java);
+      myMap.set("cpp", cpp);
+      myMap.set("python", python);
+      myMap.set("javascript", javascript);
+    
+      // get all the inputs within the submitted form
+      var inputs = document.getElementsByTagName("input");
+      
+      for (var i = 0; i < inputs.length; i++) {
+          // only validate the inputs that have the required attribute
+          if(inputs[i].hasAttribute("required")){
+            if(inputs[i].value == ""){
+              // found an empty field that is required
+              alert("Please fill all required fields");
+              return false;
+            }
+            else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
+              alert('Input must be alphanumeric');
+              return false;
+            }
+          }
+      }
+      if(password !== confirmPW){
+        alert("The passwords must match!");
+        return false;
+      }
+      if(password.length < 8){
+        alert("The password must be at least 8 characters long!");
+        return false;
+      }
+      accessDB(password, email, username, name, myMap);
+      // todo: redirect to a new page after the user has been added to the database.
+      location.href="index";
+    }
+  
+    // todo: store the user data in firebase.
+    function accessDB(password, email, username, name, interests){
+      // variables list
+      // password = password
+      // email = email
+      // username = username
+      // full name = name
+      // interests = T/F key value pairs within myMap object
+      
+      return true;
+    }
+  
