@@ -101,10 +101,15 @@ function onListening() {
 
 console.log("nodejs: socket.io required");
 var io = require('socket.io')(server);
-var connections = []; 
+var connections = [];
+var total = 0;
+var userlist = {};
 
 // when new members arrive
 io.sockets.on('connection', function(socket) {
+  total++;
+  
+  io.sockets.emit('newuser', {total: total});
 
   connections.push(socket); 
   console.log('Connected(' + connections.indexOf(socket)  +'): %s sockets connected', connections.length); 
@@ -113,15 +118,38 @@ io.sockets.on('connection', function(socket) {
 
 // when members leave 
   socket.on("disconnect", function(data) {
+     total--;
+     console.log("user left");
+     io.sockets.emit('userleft', {total: total});
+     
+     
+     // send message to everyone total --
+     
+     
      connections.splice(connections.indexOf(socket), 1); 
      console.log('Disconnected: %s sockets connected', connections.length);
   });
   
-// when new message arrives
-// broadcast!
-  socket.on('send message', function(data) {
-    console.log("new message: " + data); 
-    io.sockets.emit('new message', {msg: data}); 
+
+  // new message received by server
+  // broadcast!
+  socket.on('send message', function(user, message) {
+    console.log("new message: " + message);
+    console.log("user:" + user);
+    
+    // check if new user
+    if(!(user in userlist)){
+      userlist[user] = 1;
+    }
+    
+    // stringify userlist
+      // check anon case
+    var allUsers = "";
+    for(var key in userlist){
+      allUsers +=  "<div>"+key + "</div>";
+    }
+    
+    io.sockets.emit('new message', {msg: user+": "+message, userlist: allUsers}); 
   }); 
   
  
