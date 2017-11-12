@@ -19,13 +19,11 @@ app.set('view engine', 'jade');
 app.use('/', index);
 app.use('/users', users);
 
-<<<<<<< HEAD
 //retrieve homepage login/signup button links  
 app.get('/login', login);
 app.get('/signup', signup);
 
-=======
->>>>>>> cd4b034919e44fd12606c21d8e653de743c3c5db
+
 app.get('*', function(req, res, next) {
   var err = new Error();
   err.status = 404;
@@ -37,11 +35,7 @@ app.use(function(err, req, res, next) {
   if (err.status !== 404) {
     return next();
   }
-<<<<<<< HEAD
   res.send(err.message || '404 Page Not Found!');
-=======
-  res.send(err.message || '404 Page Not Found');
->>>>>>> cd4b034919e44fd12606c21d8e653de743c3c5db
 });
 
 

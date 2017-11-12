@@ -10,18 +10,12 @@ var router = express.Router();
     
 //     alert(msg)
 // });
-<<<<<<< HEAD
 
-// GET home page. 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'CommonSync'});
-=======
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'CommonSync' ,
                         title2: 'Hi'});
 
->>>>>>> cd4b034919e44fd12606c21d8e653de743c3c5db
 });
 
 
