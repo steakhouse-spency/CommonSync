@@ -18,6 +18,8 @@ app.set('view engine', 'jade');
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/signup', signup);
+app.use('/login', login);
 
 //retrieve homepage login/signup button links  
 app.get('/login', login);
