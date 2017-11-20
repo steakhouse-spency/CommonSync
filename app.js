@@ -12,14 +12,14 @@ var login = require('./routes/login');
 var signup = require('./routes/signup');
 
 //make public folder public
-app.use(express.static(path.join(__dirname, 'public')));
+app.get(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/signup', signup);
-app.use('/login', login);
+app.get('/', index);
+app.get('/users', users);
+app.get('/signup', signup);
+app.get('/login', login);
 
 app.get('*', function(req, res, next) {
   var err = new Error();
@@ -28,7 +28,7 @@ app.get('*', function(req, res, next) {
 });
 
 // handling 404 errors
-app.use(function(err, req, res, next) {
+app.get(function(err, req, res, next) {
   if (err.status !== 404) {
     return next();
   }

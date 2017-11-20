@@ -10,11 +10,13 @@ var router = express.Router();
     
 //     alert(msg)
 // });
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'CommonSync' ,
                         title2: 'Hi'});
 
 });
+
 
 module.exports = router;
