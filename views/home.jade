@@ -1,0 +1,26 @@
+extends layout
+head
+  title #{title}
+  
+style.
+      body {margin:0;}
+      
+block content
+  body
+    #myTopnav.topnav
+      a.active(href='#home') Home
+      |   
+      a(href='#news') Join Project
+      |   
+      a(href='#contact') Create Project
+      |   
+      a(href='#about') Account
+      |   
+      a.icon(href='javascript:void(0);', style='font-size:15px;', onclick='myFunction()') &#x2630;
+      
+      .row
+          .column(class="left"  id="main_feed")
+          |   
+          .column(class="right" id="sidebar")
+          
+          

@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -16,10 +16,55 @@ a {
         color: #464646;
 }
 
-
-
 .index_buttons{
    display: flex; 
    justify-content: center; 
    align-items: center;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+  .column {
+     float: left;
+     padding: 2px;
+     margin:5px;
+}
+         .left {
+         width: 80%;
+         border-width: 1px;
+         border-color: blue;
+            padding: 2px;
+         }
+         .right {
+         width: 20%;
+         border-color: blue;
+         border-width:1px ;
+         border: medium;
+            padding: 2px;
+            float:right;
+         }
+         
+ /* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
