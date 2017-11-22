@@ -42,29 +42,20 @@ a {
   color: black;
 }
 
-  .column {
-     float: left;
-     padding: 2px;
-     margin:5px;
-}
-         .left {
+
+         #main_feed {
          width: 80%;
          border-width: 1px;
          border-color: blue;
             padding: 2px;
+            border-radius: 10px;
          }
-         .right {
+         #main_sidebar {
          width: 20%;
          border-color: blue;
          border-width:1px ;
          border: medium;
             padding: 2px;
             float:right;
+        background-color: grey
          }
-         
- /* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}

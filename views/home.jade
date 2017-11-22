@@ -3,24 +3,28 @@ head
   title #{title}
   
 style.
-      body {margin:0;}
+      main {margin:0;}
       
 block content
-  body
-    #myTopnav.topnav
-      a.active(href='#home') Home
-      |   
-      a(href='#news') Join Project
-      |   
-      a(href='#contact') Create Project
-      |   
-      a(href='#about') Account
-      |   
-      a.icon(href='javascript:void(0);', style='font-size:15px;', onclick='myFunction()') &#x2630;
-      
-      .row
-          .column(class="left"  id="main_feed")
+  .main.container
+    div.navbar
+        #myTopnav.topnav
+          a.active(href='#home') Home
           |   
-          .column(class="right" id="sidebar")
-          
-          
+          a(href='#news') Join Project
+          |   
+          a(href='#contact') Create Project
+          |   
+          a(href='#about') Account
+          |   
+          a.icon(href='javascript:void(0);', style='font-size:15px;', onclick='myFunction()') &#x2630;
+   div.home_page_body
+    body
+      section#main_feed
+         h1 Main Feed
+         p stuff will go here
+         
+        aside#main_sidebar 
+            h1 Sidebar 
+            p more stuff will go here 
+            
