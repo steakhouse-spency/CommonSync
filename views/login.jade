@@ -1,0 +1,47 @@
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Log In
+        form(method='POST' onSubmit='checkform();')
+          div.email
+            label(for='email') Email
+            input.form-control(type='text' id='email' placeholder='email' name='email' required)
+          div.password
+            label(for='password') Password
+            input.form-control(type='password' id='password' placeholder='password' name='password' required)
+          button.btn.btn-primary(type='submit' onclick="checkform();") Log in 
+
+  script.
+    function checkform(){
+      var password = document.getElementById("password").value;
+      var email = document.getElementById("email").value;
+      
+      var inputs = document.getElementsByTagName("input");
+      
+      for (var i = 0; i < inputs.length; i++) {
+          // only validate the inputs that have the required attribute
+          if(inputs[i].hasAttribute("required")){
+            if(inputs[i].value == ""){
+              // found an empty field that is required
+              alert("Please fill all required fields");
+              return false;
+            }
+            else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
+              alert('Input must be alphanumeric');
+              return false;
+            }
+          }
+      }
+      accessDB(password, email);
+      // todo: try and get the page to redirect after verifying the login
+      location.href="index";
+    }
+    
+    // todo: verify the user exists in firebase and return true or false
+    function accessDB(password, email){
+    
+      return true;
+    }
