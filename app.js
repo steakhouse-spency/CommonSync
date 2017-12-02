@@ -13,6 +13,8 @@ var users = require('./routes/users');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
 var home = require('./routes/home');
+var joinProject = require('./routes/joinProject');
+var createProject = require('./routes/createProject');
 
 
 //make public folder public
@@ -26,12 +28,20 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/signup', signup);
 app.use('/login', login);
+app.use('/createProject', createProject);
+app.use('/joinProject', joinProject);
 
 //retrieve homepage login/signup button links  
 console.log("Getting routes... ");
 app.get('/login', login);
 app.get('/signup', signup);
 app.get('/home', home);
+app.get('/createProject', createProject);
+app.get('/joinProject', joinProject);
+
+// may not be necessary
+// app.get('/joinProject', joinProject);
+// app.get('/createProject', createProject);
 
 app.get('*', function(req, res, next) {
   var err = new Error();

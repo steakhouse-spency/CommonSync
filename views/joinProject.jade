@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Join Project
+        form(name="searchProj", method='POST')
+            div.input
+                label(for='relevantTags') Search Project Tags: 
+                input(type="text", name="relevantTags")
+                input(type="submit", value="Search", onclick="checkform();")
+    script.
+        function checkform() {
+            var tag = document.getElementsByName("relevantTags")[0].value;
+            alert(tag);
+        }

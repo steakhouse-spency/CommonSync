@@ -1,0 +1,70 @@
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Create Project
+
+        // register form
+        form(method='POST' onSubmit="checkform();")
+          div.projectName
+            label(for='pName') Project Name: 
+            input#pName.form-control(type='text', placeholder='Project Name' name='pName' required)
+          div.projectOwner
+            label(for='pOwner') Project Owner: 
+            input#pOwner.form-control(type='text', placeholder='Project Owner' name='pOwner' required)
+          div.description
+            p 
+                span Enter the Project Description
+            p
+                textarea(cols='40', rows='10', name='textarea')
+          div.relevantTags
+            p
+                span Relevant Tags: 
+            p
+                textarea(cols='40', rows='10', name='tags' placeholder="Enter relevant project tags here separated by whitespace")
+          
+          button.btn.btn-primary(type='submit') Create Project
+          
+  script.
+    function checkform() {
+      var name = document.getElementsByName("pName")[0].value;
+      var owner = document.getElementsByName("pOwner")[0].value;
+      var description = document.getElementsByName("textarea")[0].value;
+      var tags = document.getElementsByName("tags")[0].value.split(' ');
+    
+      // get all the inputs within the submitted form
+      var inputs = document.getElementsByTagName("input");
+      
+      for (var i = 0; i < inputs.length; i++) {
+          // only validate the inputs that have the required attribute
+          if(inputs[i].hasAttribute("required")){
+            if(inputs[i].value == ""){
+              // found an empty field that is required
+              alert("Please fill all required fields");
+              return false;
+            }
+            else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
+              alert('Input must be alphanumeric');
+              return false;
+            }
+          }
+      }
+      
+      accessDB(name, owner, description, tags);
+      // todo: redirect to a new page after the project has been added to the database.
+      location.href="createProject";
+    }
+  
+    // todo: store the project data in firebase.
+    function accessDB(name, owner, description, tags){
+      // variables list
+      // name = project name
+      // owner = project owner
+      // description = string describing project
+      // tags = array with user inputted tags
+      
+      return true;
+    }
+  
