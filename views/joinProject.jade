@@ -8,10 +8,9 @@ block content
         form(name="searchProj", method='POST')
             div.input
                 label(for='relevantTags') Search Project Tags: 
-                input(type="text", name="relevantTags")
+                input(type="text", name="relevantTags" placeholder="Enter project tags separated by whitespace", size="40")
                 input(type="submit", value="Search", onclick="checkform();")
     script.
         function checkform() {
-            var tag = document.getElementsByName("relevantTags")[0].value;
-            alert(tag);
+            var tag = document.getElementsByName("relevantTags")[0].value.split(' ');
         }
