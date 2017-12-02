@@ -11,6 +11,34 @@ block content
                 input(type="text", name="relevantTags" placeholder="Enter project tags separated by whitespace", size="40")
                 input(type="submit", value="Search", onclick="checkform();")
     script.
-        function checkform() {
-            var tag = document.getElementsByName("relevantTags")[0].value.split(' ');
-        }
+    function checkform() {
+        var tags = document.getElementsByName("relevantTags")[0].value.split(' ');
+
+        var inputs = document.getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+          // only validate the inputs that have the required attribute
+          if(inputs[i].hasAttribute("required")){
+            if(inputs[i].value == ""){
+              // found an empty field that is required
+              alert("Please fill all required fields");
+              return false;
+            }
+            else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
+              alert('Input must be alphanumeric');
+              return false;
+            }
+          }
+      }
+      
+      accessDB(tags);
+      // todo: redirect to a new page after the project has been added to the database.
+      location.href="joinProject";
+    }
+  
+    // todo: store the project data in firebase.
+    function accessDB(tags){
+      // variables list
+      // tags = array with user inputted tags
+      
+      return true;
+    }
