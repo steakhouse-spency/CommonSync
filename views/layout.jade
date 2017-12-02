@@ -2,9 +2,17 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-
     script(type='text/javascript', src='/socket.io/socket.io.js')
-    script(type='text/javascript', src='/js/main.js')
+    script(src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js")
+    script.
+      var config = {
+      apiKey: "APIKEY",
+      authDomain: "common-sync.firebaseapp.com",
+      databaseURL: "https://common-sync.firebaseio.com",
+      projectId: "common-sync",
+      storageBucket: "common-sync.appspot.com",
+      messagingSenderId: "SENDER"
+      };
+      firebase.initializeApp(config);
   body
     block content
