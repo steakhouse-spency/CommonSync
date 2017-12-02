@@ -1,46 +1,75 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-// view engine setup
+var path = require('path');
+
+
+//include routes to views
+console.log("Setting up routes...");
+var index = require('./routes/index');
+var users = require('./routes/users');
+var login = require('./routes/login');
+var signup = require('./routes/signup');
+var home = require('./routes/home');
+var joinProject = require('./routes/joinProject');
+var createProject = require('./routes/createProject');
+
+
+//make public folder public
+
+console.log("Starting view engine...");
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', index);
 app.use('/users', users);
+app.use('/signup', signup);
+app.use('/login', login);
+app.use('/createProject', createProject);
+app.use('/joinProject', joinProject);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+//retrieve homepage login/signup button links  
+console.log("Getting routes... ");
+app.get('/login', login);
+app.get('/signup', signup);
+app.get('/home', home);
+app.get('/createProject', createProject);
+app.get('/joinProject', joinProject);
+
+// may not be necessary
+// app.get('/joinProject', joinProject);
+// app.get('/createProject', createProject);
+
+app.get('*', function(req, res, next) {
+  var err = new Error();
   err.status = 404;
   next(err);
 });
-
-// error handler
+ 
+// handling 404 errors
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  if (err.status !== 404) {
+    return next();
+  }
+  res.send(err.message || '404 Page Not Found');
 });
 
-module.exports = app;
+
+//displays port being used 
+http.listen(process.env.PORT, function() {
+  console.log(process.env.IP + ":" + process.env.PORT);
+});
+
+
+io.on('connection', function(socket) {
+  // io.emit({'msg': 'test'})
+  console.log("Socket.io test");
+  // console.log('a user connected');
+  // socket.on('chat message', function(msg) {
+  //   io.emit('chat message', msg);
+  // });
+});  
