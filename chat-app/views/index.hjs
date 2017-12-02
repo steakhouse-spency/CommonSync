@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  
+
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>{{ title }} Forum</h1>
+    <p>Welcome to the {{ title }} Forum. Lets chat!</p>
+    
+    <div id="mainDiv">
+      <div>
+        <form id="messageForm">
+          <textarea id="message">Say hello...</textarea><br/>
+          <div>
+            username: <input type="text" id="username" value="Anonymous">
+          </div>    
+          <input id="msgBttn" type="submit" value="Send Message"></input>
+        </form>
+      </div>
+      <div id="chat-area"></div>
+      <div id="total"></div>
+      <div id="userlist"></div>
+    </div>
+    
+    
+
+      
+      
+      
+       
+
+       
+  </body>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+          
+    var $messageForm = $("#messageForm"); 
+    var $message = $("#message"); 
+    var $chat = $("#chat-area"); 
+    var $userlist = $("#userlist");
+    var $username = $("#username");
+    var $total = $("#total");
+    var socket = io.connect();
+    
+  
+    socket.on('new message', function(data) {
+      console.log("socket.on: new message arived!")
+      $chat.html('<div>' + data.msg + '</div>' + $chat.html());
+      $userlist.html(data.userlist);
+      
+    });
+
+    socket.on('userleft', function(data) {
+      $total.html("Total Users: " + data.total);
+    });
+    socket.on('newuser', function(data) {
+      $total.html("Total Users: " + data.total);
+    });
+    
+          
+    document.addEventListener("DOMContentLoaded", function(event) { 
+        // when send message clicked
+        $messageForm.submit(function(e) {
+            console.log("button clicked");
+            e.preventDefault();
+            
+            socket.emit('send message', $username.val(), $message.val()); 
+            $message.val(''); 
+        }); 
+    }); 
+    
+
+    
+
+
+  </script>
+
+  
+</html>
