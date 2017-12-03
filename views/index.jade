@@ -3,14 +3,15 @@ head
   title #{title}
   
 block content
- #index_title
-   h1(align='center' id='index_title_h1' )= title
-   h2(align='center' id='index_title_subtitle' ) Dream Team: #{title}
- #index_buttons
-   center 
-    a(href='login')
-     button(type="button" ) Login
-    a(href='signup')
-     button(type="button") Sign-Up
-    a(href='home')
-     button(type="button") Home Test
+ #background_div
+  #index_title
+    h1(align='center' id='index_title_h1' )= title
+    h2(align='center' id='index_title_subtitle' ) "We here for a good time, not a long time"
+  #index_buttons
+    center 
+     a(href='login')
+      button(type="button" ) Login
+     a(href='signup')
+      button(type="button") Sign-Up
+     a(href='home')
+      button(type="button") Home Test
