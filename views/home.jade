@@ -1,12 +1,28 @@
 extends layout
+
 head
   title #{title}
   
+  link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
 style.
+
       main {margin:0;}
+      
+      body{
+        background: #333;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      table, th, td {
+        border: 5px solid black;
+        border-collapse: collapse;
+      }
+
       
 block content
   .main.container
+    //navigation bar code 
+    
     div.navbar
         #myTopnav.topnav
           a.active(href='#home') Home
@@ -17,6 +33,7 @@ block content
           |   
           a(href='#about') Account
           |   
+<<<<<<< HEAD
           a.icon(href='javascript:void(0);', style='font-size:15px;', onclick='myFunction()') &#x2630;
             a hello
    div.home_page_body
@@ -25,7 +42,97 @@ block content
          h1 Main Feed
          p stuff will go here
          
+=======
+          button.dropbtn(onclick='dropdown()') &#x2630
+            #myDropdown.dropdown-content 
+              a(href='#home') Settings
+              br
+              a(href='#about') Logout
+              br
+           
+          script.
+            console.log("nav bar loading...")
+              // When the user clicks on the dropdown button,
+              //toggle between hiding and showing the dropdown content 
+              
+              function dropdown() {
+                  console.log("dropdown function triggered");
+                  document.getElementById("myDropdown").classList.toggle("show");
+                  console.log("dropdown function success")
+                  }
+                // Close the dropdown if the user clicks outside of it
+                
+              window.onclick = function(event) {
+                  if (!event.target.matches('.dropbtn')) {
+                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                  var i;
+                  for (i = 0; i < dropdowns.length; i++) {
+                  var openDropdown = dropdowns[i];
+                  if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                  }
+                  }
+                  }
+                  }
+                console.log("done.");
+     //everything after the navigation bar 
+  
+    div.home_page_body
+      body
+        section#search_bar
+          .wrap
+            .search
+              input.searchTerm(type='text', placeholder='Search Projects')
+              button.searchButton(type='submit') &#x1F50D
+        section#main_feed
+          h1(align="center") Projects...
+          | Sort by: 
+          select#sortMenu
+           option(value='popular') Popular
+           |     
+           option(value='relevant') Relevant
+           |  
+           option(value='abc') Alphabetical
+           |     
+           option(value='recent') Recent
+          br
+          table#main_table
+            tr 
+              td 
+                strong Sample Post 
+                p Description of Post 
+                button.interestsBtn(onclick='interestsBtn()') Add to Interests
+                button.joinBtn(onclick='joinBtn()') Join
+             tr 
+              td 
+                strong Another Sample Post 
+                p Description of Post 
+                button.interestsBtn(onclick='interestsBtn()') Add to Interests
+                button.joinBtn(onclick='joinBtn()') Join
+>>>>>>> 78d1dc91473d07787abe54a81e16631ccd381f42
         aside#main_sidebar 
-            h1 Sidebar 
-            p more stuff will go here 
-            
+         h1 Sidebar 
+         p more stuff will go here 
+      
+      //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
+    
+    script.
+        function joinBtn(){
+          alert("Hello World!");
+        }
+        
+        function interestsBtn(){
+          alert("Hello World!");
+        }
+        
+                 
+      
+          
+                         
+
+              
+
+
+              
+        
+              

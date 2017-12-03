@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
 body {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -21,7 +24,7 @@ a {
    justify-content: center; 
    align-items: center;
 }
-
+/* navigation bar stuff*/
 .topnav {
   overflow: hidden;
   background-color: #333;
@@ -43,19 +46,139 @@ a {
 }
 
 
-         #main_feed {
-         width: 80%;
-         border-width: 1px;
-         border-color: blue;
-            padding: 2px;
-            border-radius: 10px;
-         }
-         #main_sidebar {
-         width: 20%;
-         border-color: blue;
-         border-width:1px ;
-         border: medium;
-            padding: 2px;
-            float:right;
-        background-color: grey
-         }
+ #main_feed {
+ width: 75%;
+ border-width: 1px;
+ border-color: blue;
+    padding: 2px;
+    border-radius: 10px;
+ }
+ 
+  #main_feed table {
+      width: 100%;
+      font-size: 20px;
+      border: 2px solid black;
+      margin: 3px;
+  }
+  
+ #main_feed table td {
+   border: 1px solid #333;
+   margin: 5px;
+   }
+ 
+ 
+ #main_sidebar {
+ width: 20%;
+ border-color: blue;
+ border-width:1px ;
+ border: medium;
+    padding: 2px;
+    float:right;
+background-color: grey
+ }
+         
+.dropbtn {
+    background-color: grey;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align: left;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+
+
+/*home page search bar stuff*/
+.search {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  margin: 10px;
+}
+
+.searchTerm {
+  float: left;
+  width: 100%;
+  border: 3px solid #333;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px;
+  outline: none;
+  color: #333;
+}
+
+.searchTerm:focus{
+  color: #333;
+}
+
+.searchButton {
+  position: absolute;  
+  right: -50px;
+  width: 40px;
+  height: 36px;
+  border: 1px solid #333;
+  background: #333;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 40%;
+  top: 50%;
+  left: 50%;
+}
+
+
+
+
+/* Home Page table rules */
+
+.joinBtn {
+  height: 30px;
+  width: 60px;
+  float: right;
+  background-color: lightblue;
+}
+
+.interestsBtn {
+  height: 30px;
+  width: 60px;
+  float: right;
+  background-color: lightblue;
+}
