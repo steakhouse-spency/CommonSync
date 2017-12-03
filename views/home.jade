@@ -72,10 +72,10 @@ block content
         section#search_bar
           .wrap
             .search
-              input.searchTerm(type='text', placeholder='Search Projects')
-              button.searchButton(type='submit') &#x1F50D
+              input.searchTerm(type='text', placeholder='Search Projects By Tags', size='35', name='pTags')
+              button.searchButton(type='submit' onclick='saveTags()') &#x1F50D
         section#main_feed
-          h1(align="center") Projects...
+          h1(align="center") Projects
           | Sort by: 
           select#sortMenu
            option(value='popular') Popular
@@ -87,18 +87,6 @@ block content
            option(value='recent') Recent
           br
           table#main_table
-            tr 
-              td 
-                strong Sample Post 
-                p Description of Post 
-                button.interestsBtn(onclick='interestsBtn()') Add to Interests
-                button.joinBtn(onclick='joinBtn()') Join
-             tr 
-              td 
-                strong Another Sample Post 
-                p Description of Post 
-                button.interestsBtn(onclick='interestsBtn()') Add to Interests
-                button.joinBtn(onclick='joinBtn()') Join
         aside#main_sidebar 
          h1 Sidebar 
          p more stuff will go here 
@@ -106,22 +94,53 @@ block content
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
     script.
-        function joinBtn(){
-          alert("Hello World!");
+        function saveTags(){
+          var tags = document.getElementsByName("pTags")[0].value.split(' ');
+          // have to access db to pull project info based on tag matches from array
+          returnProjects(tags);
+          addRow();
         }
         
-        function interestsBtn(){
-          alert("Hello World!");
-        }
-        
-                 
-      
+        function addRow(){
+          var table = document.getElementById("main_table");
           
-                         
-
-              
-
-
-              
+          var rowCount = table.rows.length;
+          var row = table.insertRow(rowCount);
+          
+          var data = document.createElement("td");
+          
+          var strong = document.createElement("strong");
+          var sample = document.createTextNode("Sample Post");
+          strong.appendChild(sample);
+          data.appendChild(strong);
+          
+          var para = document.createElement("p");
+          var description = document.createTextNode("Project Description");
+          para.appendChild(description);
+          data.appendChild(para);
+          
+          var add = document.createElement("button");
+          add.innerHTML = "Add to Interests";
+          add.addEventListener ("click", function() {
+            // add the tags to users collection of interests?
+            alert("Hello World!");
+          });
+          data.appendChild(add);
+          
+          var join = document.createElement("button");
+          join.innerHTML = "Join Project";
+          join.addEventListener ("click", function() {
+            // add user name to project collection of collaborators
+            alert("Hello World!");
+          });
+          data.appendChild(join);
+          
+          row.appendChild(data);
+          
+          table.appendChild(row);
+        }
         
-              
+        function returnProjects(tags){
+          
+        }
+        
