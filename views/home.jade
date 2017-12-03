@@ -31,13 +31,19 @@ block content
           |   
           a(href='#about') Account
           |   
+          a.icon(href='javascript:void(0);', style='font-size:15px;', onclick='myFunction()') &#x2630;
           button.dropbtn(onclick='dropdown()') &#x2630
             #myDropdown.dropdown-content 
               a(href='#home') Settings
               br
               a(href='#about') Logout
               br
-           
+   div.home_page_body
+    body
+      section#main_feed
+         h1 Main Feed
+         p stuff will go here
+         
           script.
             console.log("nav bar loading...")
               // When the user clicks on the dropdown button,
@@ -85,6 +91,7 @@ block content
            option(value='recent') Recent
           br
           table#main_table
+          
         aside#main_sidebar 
          h1 Sidebar 
          p more stuff will go here 
