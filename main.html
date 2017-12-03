@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Firebase Web Basics</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet">
+
+	<script src="https://use.fontawesome.com/939e9dd52c.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<div class="mainDiv" align="right">
+		<h1 align="left">CommonSync DB Web App</h1>
+		<textarea id ="mainText" placeholder="Enter text here..."></textarea>
+		<button id ="submitBtn" onclick = "submitClick()"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>		
+	</div>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script>
+
+ 
+  var config = {
+    apiKey: "AIzaSyAMHYGpu-H8_QgL2_XJJlZldZyOXHRu3Do",
+    authDomain: "common-sync.firebaseapp.com",
+    databaseURL: "https://common-sync.firebaseio.com",
+    projectId: "common-sync",
+    storageBucket: "common-sync.appspot.com",
+    messagingSenderId: "225743183786"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src ="fire.js"></script>
+
+</body>
+</html>

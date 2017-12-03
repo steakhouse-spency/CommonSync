@@ -13,5 +13,5 @@ Please run my code using **app.js** instead of **bin/www**, for the moment.
 * Routing between pages fixed, so the buttons work now 
 * Started working on signup and login forms
 
-Now that I have a understand express routing better hopefully linking between pages shouldnt't such a problem. The 
+Now that I have a understanding express routing better hopefully linking between pages shouldnt't such a problem. The 
 rest of the page should come smoothly. I can focus on other stuff now.
