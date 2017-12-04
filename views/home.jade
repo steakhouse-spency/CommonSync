@@ -47,7 +47,7 @@ block content
           script.
             console.log("nav bar loading...")
               // When the user clicks on the dropdown button,
-              //toggle between hiding and showing the dropdown content 
+              // toggle between hiding and showing the dropdown content 
               
               function dropdown() {
                   console.log("dropdown function triggered");
@@ -103,6 +103,8 @@ block content
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
           // have to access db to pull project info based on tag matches from array
           returnProjects(tags);
+          
+          // for each project that gets returned addrow(project);
           addRow();
         }
         
@@ -114,21 +116,25 @@ block content
           
           var data = document.createElement("td");
           
+          // todo: load database title into this variable
+          var postTitle = "Sample Post";
           var strong = document.createElement("strong");
-          var sample = document.createTextNode("Sample Post");
+          var sample = document.createTextNode(postTitle);
           strong.appendChild(sample);
           data.appendChild(strong);
           
+          // todo: load database description into this variable
+          var dbDesc = "Project Description";
           var para = document.createElement("p");
-          var description = document.createTextNode("Project Description");
+          var description = document.createTextNode(dbDesc);
           para.appendChild(description);
           data.appendChild(para);
           
           var add = document.createElement("button");
           add.innerHTML = "Add to Interests";
           add.addEventListener ("click", function() {
-            // add the tags to users collection of interests?
-            alert("Hello World!");
+            // add the tags to users collection of interests in the db
+            alert(sample.nodeValue);
           });
           data.appendChild(add);
           
@@ -136,7 +142,8 @@ block content
           join.innerHTML = "Join Project";
           join.addEventListener ("click", function() {
             // add user name to project collection of collaborators
-            alert("Hello World!");
+            // may have to get username from cookie here
+            alert(description.nodeValue);
           });
           data.appendChild(join);
           
