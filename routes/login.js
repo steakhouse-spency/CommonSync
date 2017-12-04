@@ -6,6 +6,7 @@ var router = express.Router();
 router.get('/login', function(req, res, next) {
     console.log("Login... ");
   res.render('login', { title: 'CommonSync'});
+
 });
 
 console.log("done.");

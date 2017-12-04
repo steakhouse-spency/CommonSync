@@ -1,4 +1,6 @@
+var firebase = require("firebase");
 var express = require('express');
+
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -13,9 +15,11 @@ var users = require('./routes/users');
 var login = require('./routes/login');
 var signup = require('./routes/signup');
 var home = require('./routes/home');
+var createProject = require('./routes/createProject');
 
 
 //make public folder public
+
 console.log("Starting view engine...");
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
@@ -23,15 +27,17 @@ app.set('view engine', 'jade');
 
 app.use('/', index);
 app.use('/users', users);
-
+app.use('/signup', signup);
+app.use('/login', login);
+app.use('/createProject', createProject);
 
 //retrieve homepage login/signup button links  
 console.log("Getting routes... ");
 app.get('/login', login);
 app.get('/signup', signup);
 app.get('/home', home);
+app.get('/createProject', createProject);
 
- 
 app.get('*', function(req, res, next) {
   var err = new Error();
   err.status = 404;
@@ -43,7 +49,7 @@ app.use(function(err, req, res, next) {
   if (err.status !== 404) {
     return next();
   }
-  res.send(err.message || '404 Page Not Found!');
+  res.send(err.message || '404 Page Not Found');
 });
 
 

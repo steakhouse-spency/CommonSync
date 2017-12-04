@@ -1,0 +1,40 @@
+body {
+  width:100%;
+  height: 100%;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: url("https://previews.123rf.com/images/kentoh/kentoh0803/kentoh080300118/2762021-Cool-generic-turqouise-wallpaper-clipart-with-template-focus-Stock-Photo.jpg");
+}
+
+a {
+  color: #00B7FF;
+}
+
+#mainDiv{
+    width:90%;
+    height: 80%;
+}
+#msgBttn{
+  width:20%;
+  height:40px;
+}
+
+#message{
+  width:80%;
+  height: 50px;
+}
+#chat-area{
+  overflow-y:auto;
+  width:100%;
+  height: 300px;
+  background-color: pink;
+  padding: 10px
+
+}
+#userlist{
+  overflow-y:auto;
+  width:100%;
+  height: 200px;
+  background-color: grey;
+  padding: 10px
+}
