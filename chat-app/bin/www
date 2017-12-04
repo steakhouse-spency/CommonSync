@@ -1,0 +1,156 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('chat-app:server');
+var http = require('http');
+
+
+
+  
+
+
+
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+
+// socket.io set up
+
+console.log("nodejs: socket.io required");
+var io = require('socket.io')(server);
+var connections = [];
+var total = 0;
+var userlist = {};
+
+// when new members arrive
+io.sockets.on('connection', function(socket) {
+  total++;
+  
+  io.sockets.emit('newuser', {total: total});
+
+  connections.push(socket); 
+  console.log('Connected(' + connections.indexOf(socket)  +'): %s sockets connected', connections.length); 
+
+  
+
+// when members leave 
+  socket.on("disconnect", function(data) {
+     total--;
+     console.log("user left");
+     io.sockets.emit('userleft', {total: total});
+     
+     
+     // send message to everyone total --
+     
+     
+     connections.splice(connections.indexOf(socket), 1); 
+     console.log('Disconnected: %s sockets connected', connections.length);
+  });
+  
+
+  // new message received by server
+  // broadcast!
+  socket.on('send message', function(user, message) {
+    console.log("new message: " + message);
+    console.log("user:" + user);
+    
+    // check if new user
+    if(!(user in userlist)){
+      userlist[user] = 1;
+    }
+    
+    // stringify userlist
+      // check anon case
+    var allUsers = "";
+    for(var key in userlist){
+      allUsers +=  "<div>"+key + "</div>";
+    }
+    
+    io.sockets.emit('new message', {msg: user+": "+message, userlist: allUsers}); 
+  }); 
+  
+ 
+}); 

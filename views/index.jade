@@ -1,5 +1,16 @@
 extends layout
-
+head
+  title #{title}
+  
 block content
-  h1= title
-  p Dream Team: #{title}
+ #index_title
+   h1(align='center' id='index_title_h1' )= title
+   h2(align='center' id='index_title_subtitle' ) Dream Team: #{title}
+ #index_buttons
+   center 
+    a(href='login')
+     button(type="button" ) Login
+    a(href='signup')
+     button(type="button") Sign-Up
+    a(href='home')
+     button(type="button") Home Test
