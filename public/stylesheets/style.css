@@ -45,6 +45,12 @@ a {
   color: black;
 }
 
+/* home page stuff */
+#homePage_feed
+{
+   display: flex;
+   width: 100%;
+}
 
  #main_feed {
  width: 75%;
@@ -68,13 +74,14 @@ a {
  
  
  #main_sidebar {
- width: 20%;
+width: 20%;
  border-color: blue;
  border-width:1px ;
  border: medium;
     padding: 2px;
     float:right;
-background-color: grey
+background-color: grey;
+margin: 15px;
  }
          
 .dropbtn {
