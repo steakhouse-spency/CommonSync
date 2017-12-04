@@ -68,13 +68,14 @@ a {
  
  
  #main_sidebar {
- width: 20%;
- border-color: blue;
- border-width:1px ;
- border: medium;
-    padding: 2px;
-    float:right;
-background-color: grey
+    width: 130px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 8px 0;
  }
          
 .dropbtn {

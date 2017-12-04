@@ -77,12 +77,12 @@ block content
   
     div.home_page_body
       body
-        section#search_bar
+        div#search_bar
           .wrap
             .search
               input.searchTerm(type='text', placeholder='Search Projects')
               button.searchButton(type='submit') &#x1F50D
-        section#main_feed
+        div#main_feed
           h1(align="center") Projects...
           | Sort by: 
           select#sortMenu
@@ -107,7 +107,7 @@ block content
                 p Description of Post 
                 button.interestsBtn(onclick='interestsBtn()') Add to Interests
                 button.joinBtn(onclick='joinBtn()') Join
-        aside#main_sidebar 
+        div#main_sidebar 
          h1 Sidebar 
          p more stuff will go here 
       
