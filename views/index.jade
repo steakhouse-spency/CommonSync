@@ -30,39 +30,46 @@ html(lang='en')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
-  body(style='background-color: #bbbcbf')
-    nav.navbar.navbar-inverse(style="margin-bottom:-4px;")
+  body(style='background-color:#efefef')
+    nav.navbar.navbar-inverse(style="border-color: transparent;margin-bottom:-4px;background-color:#efefef")
       .container-fluid
         .navbar-header
-          a.navbar-brand(href='#') Common Sync
+          a.navbar-brand(href='#', style='font-size:x-large;color: #47CC7E; text-shadow: -.5px 0 black, 0 .5px black, .5px 0 black, 0 -.5px black;') Common Sync
         ul.nav.navbar-nav.navbar-right
           li
-            a(href='signup')
-              span.glyphicon.glyphicon-user
-              |  Sign Up
-          li
-            a(href='login')
+            a(href='login',style="color:black")
               span.glyphicon.glyphicon-log-in
               |  Login
-    .jumbotron.text-center(style="padding-top: 4%;background-image: url('http://www.clker.com/cliparts/c/J/k/p/5/u/gear-green-md.png');")
-      h1(align='center' id='index_title_h1' style=" text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;font-size:150px;color:#262728; text-shadow: -5px 0 black, 0 5px black, 5px 0 black, 0 -5px black;padding-bottom:5%")= title
-    p(align='center' id='index_title_subtitle' style='font-size:xx-large;font-style: italic;' ) "We're here for a good time, not a long time"
+          li
+            a(href='signup',style="color:black")
+              span.glyphicon.glyphicon-user
+              |  Sign Up
+          
+    .jumbotron.text-center(style="padding-top: 4%;background-color: #47CC7E;")
+      h1(align='center' id='index_title_h1' style="font-style: bold;font-size:150px;color:#efefef; text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;padding-bottom:2%")= title
+      h2(align='center' style="font-style: bold;font-size:xxx-large;color:black") Start Collaborating Today!
+      a.btn.btn-primary.btn-lg(href='/signup',role='button', style="color:black;background-color:#efefef; border-color:black") Collab Now!
+
+    p(align='center' id='index_title_subtitle' style='color:black;font-size:xx-large;font-style: bold;' ) How does Common Sync work?
+    br
     .container
       .row
-        .col-sm-4
-          h3 Connect
-          p with individuals around the world!
-          img(src="http://images.clipartpanda.com/network-clipart-network-clipart-network-999px.png" style="width:100%; ")
-        .col-sm-4
-          h3 Collaborate
-          p on projects that interest you!
-          img(src="http://emeraldprotech.com/images/teamwork2.png" style="width:100%; ")
+        .col-sm-4(style="background-color: #b6b6b6;")
+          h3 Join
+          p Create a personalized Common Sync profile that connects you with your personal interests.
+          img(src="http://images.clipartpanda.com/network-clipart-network-clipart-network-999px.png" style="display:block;margin:auto;width:200px; height:200px ")
+        .col-sm-4(style="")
+          h3 Organize
+          p Create or join multiple Common Sync projects that are related to your personal interests.
+          img(src="http://emeraldprotech.com/images/teamwork2.png" style="display:block;margin:auto;width:200px; height:200px;")
 
-        .col-sm-4
-          h3 Innovate
-          p  for the future!
-          img(src="http://images.clipartpanda.com/innovation-clipart-open_innovation_on.png" style="width:100%;")
+        .col-sm-4(style="background-color: #b6b6b6;")
+          h3 Collobarate
+          p  Gain experience working with like-minded individauls around the world!
+          img(src="http://images.clipartpanda.com/innovation-clipart-open_innovation_on.png" style="display:block;margin:auto;margin: auto;width:200px; height:200px")
+    br
+    p(align='center' id='index_title_subtitle' style='font-size:xx-large;font-style: italic;' ) "We're here for a good time, not a long time"
 
-  
-      button(type="button") Home Test
+    br
+    button(type="button") Home Test
       
