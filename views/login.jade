@@ -15,7 +15,7 @@ block content
     .row
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Log In
-        form(method='POST' onSubmit='checkform();')
+        form(target ="_blank" name="myForm")
           div.email
             label(for='email') Email
             input.form-control(type='text' id='email' placeholder='email' name='email' required)
@@ -26,32 +26,76 @@ block content
 
   script.
     function checkform(){
-      var password = document.getElementById("password").value;
-      var email = document.getElementById("email").value;
+      var password = document.getElementById('password').value;
+      var email = document.getElementById('email').value;
       
       var inputs = document.getElementsByTagName("input");
-      
-      for (var i = 0; i < inputs.length; i++) {
-          // only validate the inputs that have the required attribute
-          if(inputs[i].hasAttribute("required")){
-            if(inputs[i].value == ""){
-              // found an empty field that is required
-              alert("Please fill all required fields");
-              return false;
-            }
-            else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
-              alert('Input must be alphanumeric');
-              return false;
-            }
-          }
-      }
+
       accessDB(password, email);
-      // todo: try and get the page to redirect after verifying the login
+    }
+    
+    function accessDB(password, email){
+    
+      database = firebase.database();
+      var ref = database.ref('Users');
+      ref.on('value', gotData, errData);
+      return true;
+    }
+    
+    function gotData(data){
+      var email = document.getElementById('email').value;
+      console.log(data.val());
+      var users = data.val();
+      var keys = Object.keys(users);
+      console.log(keys);
+      for(var i=0; i< keys.length; i++){
+        var k = keys[i];
+        var username = users[k].username;
+        var useremail = users[k].email;
+     
+        if(useremail==email){
+          console.log(" found it");
+          //console.log(useremail, username);
+          WriteCookie();
+          ReadCookie();
+          return true;
+          //to do: refernce another page after login in 
+        }
+      }
+      return false;
+      alert("The user email and or password was entered incorretly!");
+    }
+    
+    function errData(err){
+      console.log('Error!');
+      window.alert(err);
+    }
+    
+    function WriteCookie(){
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      console.log(email, password);
+      if( email == ""  || password == ""){
+          alert("Enter some value!");
+          return;
+      }
+      cookievalue= escape(email) + ";";
+      document.cookie="email=" + cookievalue;
+      console.log("Setting Email : " + "email=" + cookievalue );
+      
+      cookievalueP= escape(password) + ";";
+      document.cookie="password=" + cookievalueP;
+      console.log("Setting Password : " + "password=" + cookievalueP );
       
     }
     
-    // todo: verify the user exists in firebase and return true or false
-    function accessDB(password, email){
-    
-      return true;
+    function ReadCookie(){
+      var allcookies = document.cookie;
+      console.log("All Cookies : " + allcookies );
+      cookiearray = allcookies.split(';');
+      for(var i=0; i<cookiearray.length; i++){
+        name = cookiearray[i].split('=')[0];
+        value = cookiearray[i].split('=')[1];
+        console.log("Key is : " + name + " and Value is : " + value);
+      }
     }
