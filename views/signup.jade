@@ -1,6 +1,17 @@
 extends layout
+block nav-content
+  li
+    a#blck(href='login')
+      span.glyphicon.glyphicon-log-in
+      |  Login
+  li
+    a#blck(href='/')
+      span.glyphicon.glyphicon-exit
+      |  Cancel
+  
+      
 block content
-  .main.container
+  .main.container(style="margin-top: 5%")
     .row
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Sign Up
@@ -41,6 +52,8 @@ block content
             label(for='pw2') Confirm Password:
             input#pw2.form-control(type='password' name='confirmPassword' required)
             button.btn.btn-primary(type = 'submit' onclick="submitClick();") Data base test
+          // button.btn.btn-primary(type='submit' onclick="checkform();") Sign up
+  
 
           
           
