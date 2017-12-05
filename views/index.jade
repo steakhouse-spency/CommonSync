@@ -10,28 +10,69 @@ block nav-content
       |  Sign Up
 
 block content
-  .jumbotron.text-center(id='jtron')
+  .jumbotron.text-center#jtron
+    h3(align="center" id="jtron-intro")
+      | Join over 
+      u 4
+      |  people with the world's leading 
+      u Collaboration Platform
     h1(align='center' id='jtron-text')=title
-    h2(align='center' id="jtron-lower-text") Start Collaborating Today!
-    a.btn.btn-primary.btn-lg(href='/signup' role='button' id="jtron-button") Collab Now!
-
-  p(align='center' style='color:black;font-size:xx-large;' ) How does Common Sync work?
-  br
-  .container
-    .row
-      .col-sm-4#col-container
-        h3 Join
-        p Create a personalized Common Sync profile that connects you to your personal interests.
-        img(id="col-image" src="http://images.clipartpanda.com/network-clipart-network-clipart-network-999px.png")
-      .col-sm-4
-        h3 Organize
-        p Create or join multiple Common Sync projects that are related to your personal interests.
-        img(id="col-image" src="http://emeraldprotech.com/images/teamwork2.png")
-      .col-sm-4#col-container
-        h3 Collaborate
-        p  Gain experience working with like-minded individauls around the world!
-        img(id="col-image" src="http://www.clker.com/cliparts/B/a/V/8/7/n/gear-hi.png")
+    h2(align='center' id="jtron-lower-text") SYNCHRONIZING THE WORLD
+    hr(style="width:15%; border-color:black; margin-top:4%; margin-bottom:4%")
+    p#jtron-lower-p
+        | Begin your Common Sync journey today.
+        br
+        | As soon as you’ve set-up your account you can start collaborating with people around the world!
+    a.btn.btn-primary.btn-lg(href='/signup' role='button' id="jtron-button") Sync Now!
+    a.btn.btn-primary.btn-lg(href='#jtron2' role='button' id="jtron-button") Learn More
+  .jumbotron.text-center.jtron-white#jtron2
+    h1#jtron2-title(align='center') How does Common Sync work?
+    h3(align='center' style='color:black;font-size:xx-large;margin-top:5%' ) 3 easy steps:
+    .container(style="margin-top:5%")
+      .row
+        .col-sm-4#col-container
+          a(href="#jtron3")
+            h2#jtron2-steps-text Join
+          a(href="#jtron3")
+            img(src="https://cdn1.iconfinder.com/data/icons/material-core/20/account-circle-512.png" style=" width: 100px; height:100px")
+        .col-sm-4
+          a(href="#jtron4")
+            h2#jtron2-steps-text Organize
+          a(href="#jtron4")
+            img(href="#jtron4" src="/img/new_puzzle.png" style=" width: 100px; height:100px")
+        .col-sm-4#col-container
+          a(href="#jtron5")
+            h2#jtron2-steps-text Collaborate
+          a(href="#jtron5")
+            img( src="https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Settings-3-512.png" style=" width: 100px; height:100px")
   
+  .container-fluid#jtron3(style="height:100vh")
+    .row
+      .col-sm-4.col-white.col-side
+        h1 Join and personalize your Common Sync account.
+      .col-sm-8
+        h3 Create a personalized Common Sync profile that connects you to your personal interests.
+        img(id="col-image" src="http://images.clipartpanda.com/network-clipart-network-clipart-network-999px.png")
+  .container-fluid#jtron4(style="height:100vh")
+    .row
+      .col-sm-8.col-green
+        h3 Join and personalize your Common Sync account.
+      .col-sm-4.col-white.col-side
+        h1 Organize.
+  .container-fluid#jtron5(style="height:100vh")
+    .row
+      .col-sm-4.col-white.col-side.text-center
+        h1 Collaborate with the world!
+      .col-sm-8.col-green
+        h3 Gain experience working with like-minded individauls around the world!
+
+
+
+  .jumbotron.text-center.jtron-white#jtron-footer
     p#cs-quote(align='center') "We're here for a good time, not a long time"
     p(align='center' style='padding-bottom:5%') -Developers at Common Sync
-    
+  
+    .footer-text
+      | ©2017 Common Sync, Inc. All Rights Reserved.
+      br.hide-xs
+      |  This website may contain mature content. 
