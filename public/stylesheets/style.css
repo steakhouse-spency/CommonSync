@@ -2,21 +2,23 @@
 
 
 body {
-  padding: 0px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background-color: #b6b6b6;
+    padding: 0px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
  
 #index_title_h1 {font-size: 100px;
-        color: #464646;
+    color: #464646;
 }
 
 #index_title_subtitle {
-  font-size: 30px;
-        color: #464646;
+
+    font-size: 30px;
+    color: #464646;
 }
 
 .index_buttons{
@@ -125,6 +127,67 @@ margin: 15px;
 .show {display:block;}
 
 
+<<<<<<< HEAD
+/*thottie*/
+#bd{
+    background-color: black;
+}
+
+#jtron{
+    padding-top: 4%;
+    background-color: #66c182;
+}
+
+#jtron-text{
+    font-style: bold;
+    font-size:150px;
+    color:#efefef;
+    text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+    padding-bottom:3%;
+}
+
+#jtron-lower-text{
+    font-style: bold;
+    font-size:xxx-large;
+    color:black;
+}
+#jtron-button{
+    color:black;
+    background-color:#efefef; 
+    border-color:black;
+}
+#nav-bar{
+    margin-bottom:-4px;
+    background-color: #efefef;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+#nav-bar-brand{
+    color:#66c182;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-size: x-large;
+}
+
+#col-container{
+    background-color: #efefef;;
+}
+#col-image{
+    display:block;
+    margin:auto;
+    width:200px; 
+    height:200px;
+}
+#blck{
+    color:black;
+}
+
+
+#cs-quote{
+    padding-top: 5%;
+    font-size:xx-large;
+    font-style: italic;
+=======
 /*home page search bar stuff*/
 .search {
   width: 100%;
@@ -188,4 +251,5 @@ margin: 15px;
   width: 60px;
   float: right;
   background-color: lightblue;
+>>>>>>> bf0bc95943128e203833d1f8d33447de88b98519
 }
