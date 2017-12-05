@@ -45,7 +45,20 @@ block content
          p stuff will go here
          
           script.
+            function ReadCookie(){
+            var allcookies = document.cookie;
+            console.log("All Cookies : " + allcookies );
+            cookiearray = allcookies.split(';');
+            for(var i=0; i<cookiearray.length; i++)
+            {
+              name = cookiearray[i].split('=')[0];
+              value = cookiearray[i].split('=')[1];
+              console.log("Key is : " + name + " and Value is : " + value);
+            }
+              
+            }
             console.log("nav bar loading...")
+            ReadCookie();
               // When the user clicks on the dropdown button,
               //toggle between hiding and showing the dropdown content 
               
@@ -99,6 +112,7 @@ block content
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
     script.
+        
         function saveTags(){
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
           // have to access db to pull project info based on tag matches from array
@@ -148,4 +162,5 @@ block content
         function returnProjects(tags){
           
         }
+        
         
