@@ -214,6 +214,44 @@ background-color: grey
 }
 .col-side{
     height: 100vh;
+    padding-top: 15%;
+}
+.col-left{
+    text-align: right;
+    padding-right:2%;
+
+}
+.desc-left{
+    text-align:right;
+    padding-right:2%;
+}
+.col-right{
+    text-align: left;
+    padding-left:2%;
+}
+.desc-right{
+    text-align: left;
+    padding-left:2%;
+}
+
+.desc-side{
+    padding-top: 16%;
+}
+#col-text{
+    color:#66c182;
+    text-shadow: 2px 3px 1px  black;
+    font-size: 80px;
+}
+#desc-text{
+    font-size:40px;
+    color:white;
+    text-shadow: 2px 2.5px 5px  black;
+    line-height: 130%;
+    letter-spacing: 5px;
+
+
+
+    
 }
 
 .jtron-green{
