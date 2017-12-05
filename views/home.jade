@@ -45,9 +45,9 @@ block content
          p stuff will go here
          
           script.
-            console.log("nav bar loading...");
+            console.log("nav bar loading...")
               // When the user clicks on the dropdown button,
-              // toggle between hiding and showing the dropdown content 
+              //toggle between hiding and showing the dropdown content 
               
               function dropdown() {
                   console.log("dropdown function triggered");
@@ -73,83 +73,54 @@ block content
   
     div.home_page_body
       body
-        div#search_bar
+        section#search_bar
           .wrap
             .search
               input.searchTerm(type='text', placeholder='Search Projects By Tags', size='35', name='pTags')
               button.searchButton(type='submit' onclick='saveTags()') &#x1F50D
-        section#homePage_feed
-          div#main_feed
-            h1(align="center") Projects
-            | Sort by: 
-            select#sortMenu
-             option(value='popular') Popular
-             |     
-             option(value='relevant') Relevant
-             |  
-             option(value='abc') Alphabetical
-             |     
-             option(value='recent') Recent
-            br
-            form
-              table#main_table
-                tr 
-                  td 
-                    strong Sample Post 
-                    p Description of Post 
-                    button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
-                    button.joinBtn(onclick='joinBtn()') Join
-                 tr 
-                  td 
-                    strong Another Sample Post 
-                    p Description of Post 
-                    button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
-                    button#joinBtn.joinBtn(onclick='joinBtn()') Join
-          div#main_sidebar 
-           h1 Sidebar 
-           p more stuff will go here 
-      
+        section#main_feed
+          h1(align="center") Projects
+          | Sort by: 
+          select#sortMenu
+           option(value='popular') Popular
+           |     
+           option(value='relevant') Relevant
+           |  
+           option(value='abc') Alphabetical
+           |     
+           option(value='recent') Recent
+          br
+          div(style='display:flex;')
+            div(style='overflow:scroll;height:500px;width:100%;overflow:auto;')
+             table#main_table
+            aside#main_sidebar
+              h1#sidebarT Sidebar 
+              p#sidebarP more stuff will go here 
+        
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
     script.
-    
-  
-        //if user clicks interestsBtn
-        
-        function likeBtn() {
-          //update user intersts in firbase table 
-          
-          
-          
-          //change the color 
-          
-           var property = document.getElementById("interestBtn");
-          if (liked == false) {
-              liked=true;        
-              console.log("color should be changin");
-          }
-          else {
-              like=false;
-               console.log("color should go bck to normal");
-          }
-          
-          }
- 
-        //if user clicks on join button 
-        function join(){
-          
-        }
-        
         function saveTags(){
+          // If the user doesn't enter anything into the field and clicks the search button, don't search!
+          var emptyField = document.getElementsByName("pTags")[0].value;
+          if(emptyField == null || emptyField == ""){
+            return false;
+          }
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
           // have to access db to pull project info based on tag matches from array
           returnProjects(tags);
-          
-          // for each project that gets returned addrow(project);
-          addRow();
+          var list = [
+            { title: 'Underwater Basket Weaving', description: 'thishhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh'},
+            { title: 'Some Dope Ass Project', description: 'is a'},
+            { title: 'Competetive Napping', description: 'test'}
+          ];
+          for(x in list){
+            addRow(list[x]);
+          }
         }
         
-        function addRow(){
+        function addRow(x){
+          console.log(x);
           var table = document.getElementById("main_table");
           
           var rowCount = table.rows.length;
@@ -158,15 +129,16 @@ block content
           var data = document.createElement("td");
           
           // todo: load database title into this variable
-          var postTitle = "Sample Post";
+          var postTitle = x.title;
           var strong = document.createElement("strong");
           var sample = document.createTextNode(postTitle);
           strong.appendChild(sample);
           data.appendChild(strong);
           
           // todo: load database description into this variable
-          var dbDesc = "Project Description";
+          var dbDesc = x.description;
           var para = document.createElement("p");
+          para.setAttribute('style', 'max-width:900px; word-wrap:break-word');
           var description = document.createTextNode(dbDesc);
           para.appendChild(description);
           data.appendChild(para);
@@ -175,6 +147,9 @@ block content
           add.innerHTML = "Add to Interests";
           add.addEventListener ("click", function() {
             // add the tags to users collection of interests in the db
+            document.getElementById("sidebarT").innerHTML = "Project Description";
+            document.getElementById("sidebarP").innerHTML = dbDesc;
+            document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
             alert(sample.nodeValue);
           });
           data.appendChild(add);
