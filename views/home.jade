@@ -31,7 +31,37 @@ block content
           |   
           a(href='#about') Account
           |   
-          a.icon(href='javascript:void(0);', style='font-size:15px;', onclick='myFunction()') &#x2630;
+          button.dropbtn(onclick='dropdown()') &#x2630
+           #myDropdown.dropdown-content 
+            a(href='#home') Settings
+            br
+            a(href='#about') Logout
+            br
+          script.
+              console.log("nav bar loading...")
+                // When the user clicks on the dropdown button,
+                //toggle between hiding and showing the dropdown content 
+                
+                function dropdown() {
+                    console.log("dropdown function triggered");
+                    document.getElementById("myDropdown").classList.toggle("show");
+                    console.log("dropdown function success")
+                    }
+                  // Close the dropdown if the user clicks outside of it
+                  
+                window.onclick = function(event) {
+                    if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                    }
+                    }
+                    }
+                    }
+                  console.log("done.");
     div.home_page_body
       body
         div#search_bar
@@ -52,7 +82,6 @@ block content
              |     
              option(value='recent') Recent
             br
-            form
               table#main_table
                 tr 
                   td 
