@@ -73,81 +73,78 @@ block content
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
     script.
-    
-  
-        //if user clicks interestsBtn
-        
-        function likeBtn() {
-          //update user intersts in firbase table 
+          //if user clicks interestsBtn
           
-          
-          
-          //change the color 
-          
-           var property = document.getElementById("interestBtn");
-          if (liked == false) {
-              liked=true;        
-              console.log("color should be changin");
+          function likeBtn() {
+            //update user intersts in firbase table 
+            
+            
+            
+            //change the color 
+            
+             var property = document.getElementById("interestBtn");
+            if (liked == false) {
+                liked=true;        
+                console.log("color should be changin");
+            }
+            else {
+                like=false;
+                 console.log("color should go bck to normal");
+            }
+            
+            }
+      
+          //if user clicks on join button 
+          function join(){
+            
           }
-          else {
-              like=false;
-               console.log("color should go bck to normal");
+          
+          function saveTags(){
+            var tags = document.getElementsByName("pTags")[0].value.split(' ');
+            // have to access db to pull project info based on tag matches from array
+            returnProjects(tags);
+            addRow();
           }
           
+          function addRow(){
+            var table = document.getElementById("main_table");
+            
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+            
+            var data = document.createElement("td");
+            
+            var strong = document.createElement("strong");
+            var sample = document.createTextNode("Sample Post");
+            strong.appendChild(sample);
+            data.appendChild(strong);
+            
+            var para = document.createElement("p");
+            var description = document.createTextNode("Project Description");
+            para.appendChild(description);
+            data.appendChild(para);
+            
+            var add = document.createElement("button");
+            add.innerHTML = "Add to Interests";
+            add.addEventListener ("click", function() {
+              // add the tags to users collection of interests?
+              alert("Hello World!");
+            });
+            data.appendChild(add);
+            
+            var join = document.createElement("button");
+            join.innerHTML = "Join Project";
+            join.addEventListener ("click", function() {
+              // add user name to project collection of collaborators
+              alert("Hello World!");
+            });
+            data.appendChild(join);
+            
+            row.appendChild(data);
+            
+            table.appendChild(row);
           }
- 
-        //if user clicks on join button 
-        function join(){
           
-        }
-        
-        function saveTags(){
-          var tags = document.getElementsByName("pTags")[0].value.split(' ');
-          // have to access db to pull project info based on tag matches from array
-          returnProjects(tags);
-          addRow();
-        }
-        
-        function addRow(){
-          var table = document.getElementById("main_table");
-          
-          var rowCount = table.rows.length;
-          var row = table.insertRow(rowCount);
-          
-          var data = document.createElement("td");
-          
-          var strong = document.createElement("strong");
-          var sample = document.createTextNode("Sample Post");
-          strong.appendChild(sample);
-          data.appendChild(strong);
-          
-          var para = document.createElement("p");
-          var description = document.createTextNode("Project Description");
-          para.appendChild(description);
-          data.appendChild(para);
-          
-          var add = document.createElement("button");
-          add.innerHTML = "Add to Interests";
-          add.addEventListener ("click", function() {
-            // add the tags to users collection of interests?
-            alert("Hello World!");
-          });
-          data.appendChild(add);
-          
-          var join = document.createElement("button");
-          join.innerHTML = "Join Project";
-          join.addEventListener ("click", function() {
-            // add user name to project collection of collaborators
-            alert("Hello World!");
-          });
-          data.appendChild(join);
-          
-          row.appendChild(data);
-          
-          table.appendChild(row);
-        }
-        
-        function returnProjects(tags){
-          
-        }
-        
+          function returnProjects(tags){
+            
+          }
