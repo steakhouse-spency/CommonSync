@@ -45,11 +45,11 @@ block content
             h2#jtron2-steps-text Collaborate
           a(href="#jtron5")
             img( src="https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Settings-3-512.png" style=" width: 100px; height:100px")
-  
   .container-fluid#jtron3(style="height:100vh")
     .row
       .col-sm-4.col-white.col-side.col-left
         h1#col-text Join the community
+        a.btn.btn-primary.btn-lg(href='#jtron4' role='button' id="jtron-button") Next
       .col-sm-8.desc-side.desc-right
         h1#desc-text Add personal interests to your Common Sync account so we can connect you to the appropriate people and projects.
         img(id="col-image" src="http://images.clipartpanda.com/network-clipart-network-clipart-network-999px.png")
@@ -57,21 +57,26 @@ block content
     .row
       .col-sm-8.col-green.desc-side.desc-left
         h1#desc-text Organize your ideas by creating projects or simply joining existing projects
+        img#col-image(src="http://moziru.com/images/puzzle-clipart-student-cooperation-9.png")
       .col-sm-4.col-white.col-side.col-right
         h1#col-text Organize on our platform
+        a.btn.btn-primary.btn-lg(href='#jtron3' role='button' id="jtron-button") Back
+        a.btn.btn-primary.btn-lg(href='#jtron5' role='button' id="jtron-button") Next
   .container-fluid#jtron5(style="height:100vh")
     .row
       .col-sm-4.col-white.col-side.col-left
         h1#col-text Collaborate with the world
+        a.btn.btn-primary.btn-lg(href='#jtron4' role='button' id="jtron-button") Back
+        a.btn.btn-primary.btn-lg(href='/signup' role='button' id="jtron-button") Sign up!
       .col-sm-8.col-green.desc-side.desc-right
         h1#desc-text Work with individuals around the world on projects that you enjoy!
+        img#col-image(src="http://moziru.com/images/gears-clipart-cartoon-15.png")
         
-        
-  .jumbotron.text-center#jtron-footer
-    p#cs-quote(align='center') "We're here for a good time, not a long time"
-    p(align='center' style='padding-bottom:5%') -Developers at Common Sync
-  
-    .footer-text
-      | ©2017 Common Sync, Inc. All Rights Reserved.
-      br.hide-xs
-      |  This website may contain mature content. 
+  .jumbotron#jtron-footer
+      p#cs-quote(align='center') "We're here for a good time, not a long time"
+      p(align='center' ) -Developers at Common Sync
+      img(src="https://www.canbike.org/public/images/030414/Bitcoin_Accepted_Here_Business_Sign_Horizontal-4800px.png" style="margin-bottom:2%;width:150px; height:60px")
+      .footer-text
+        | ©2017 Common Sync, Inc. All Rights Reserved.
+        br.hide-xs
+        |  This website may contain mature content. 

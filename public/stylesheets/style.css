@@ -198,10 +198,11 @@ background-color: grey
 
 
 #jtron-footer{
-    background-color: #efefef;
+    background-color: #66c182;
     height: 10vh;
-    margin:0;
-    padding-bottom: 5%;
+    margin-bottom:30px;
+    text-align: center;
+    padding-top: 0;
 }
 
 
@@ -282,8 +283,9 @@ background-color: grey
 #col-image{
     display:block;
     margin:auto;
-    width:200px; 
-    height:200px;
+    width:250px; 
+    height:250px;
+    padding-top: 2%
 }
 #blck{
     color:black;
@@ -291,9 +293,9 @@ background-color: grey
 
 
 #cs-quote{
-    padding-top: 5%;
     font-size:xx-large;
     font-style: italic;
+    padding-top:5%;
 }
 .footer-text-pane {
     position: absolute;
