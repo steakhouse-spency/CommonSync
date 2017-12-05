@@ -1,38 +1,58 @@
 extends layout
+
 head
   title #{title}
   
+  link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
 style.
+
       main {margin:0;}
+      
+      body{
+        background: #333;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      table, th, td {
+        border: 5px solid black;
+        border-collapse: collapse;
+      }
+
       
 block content
   .main.container
+    //navigation bar code 
+    
     div.navbar
         #myTopnav.topnav
           a.active(href='#home') Home
-          |   
-          a(href='joinProject') Join Project
           |   
           a(href='createProject') Create Project
           |   
           a(href='#about') Account
           |   
-          button.dropbtn(onclick='myFunction()') &#x2630
+          a.icon(href='javascript:void(0);', style='font-size:15px;', onclick='myFunction()') &#x2630;
+          button.dropbtn(onclick='dropdown()') &#x2630
             #myDropdown.dropdown-content 
               a(href='#home') Settings
               br
               a(href='#about') Logout
               br
-           
+   div.home_page_body
+    body
+      section#main_feed
+         h1 Main Feed
+         p stuff will go here
+         
           script.
-              console.log("script test");
-              // When the user clicks on the button,
+            console.log("nav bar loading...")
+              // When the user clicks on the dropdown button,
               //toggle between hiding and showing the dropdown content 
               
-              function myFunction() {
-                  console.log("myFunction triggered");
+              function dropdown() {
+                  console.log("dropdown function triggered");
                   document.getElementById("myDropdown").classList.toggle("show");
-                  console.log("myFunction success");
+                  console.log("dropdown function success")
                   }
                 // Close the dropdown if the user clicks outside of it
                 
@@ -48,20 +68,84 @@ block content
                   }
                   }
                   }
-                console.log("script finish");
+                console.log("done.");
+     //everything after the navigation bar 
+  
     div.home_page_body
-    body
-      section#main_feed
-         h1 Main Feed
-         p stuff will go here
-         
+      body
+        section#search_bar
+          .wrap
+            .search
+              input.searchTerm(type='text', placeholder='Search Projects By Tags', size='35', name='pTags')
+              button.searchButton(type='submit' onclick='saveTags()') &#x1F50D
+        section#main_feed
+          h1(align="center") Projects
+          | Sort by: 
+          select#sortMenu
+           option(value='popular') Popular
+           |     
+           option(value='relevant') Relevant
+           |  
+           option(value='abc') Alphabetical
+           |     
+           option(value='recent') Recent
+          br
+          table#main_table
+          
         aside#main_sidebar 
-            h1 Sidebar 
-            p more stuff will go here 
+         h1 Sidebar 
+         p more stuff will go here 
+      
+      //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
-              
-
-
-              
+    script.
+        function saveTags(){
+          var tags = document.getElementsByName("pTags")[0].value.split(' ');
+          // have to access db to pull project info based on tag matches from array
+          returnProjects(tags);
+          addRow();
+        }
         
-              
+        function addRow(){
+          var table = document.getElementById("main_table");
+          
+          var rowCount = table.rows.length;
+          var row = table.insertRow(rowCount);
+          
+          var data = document.createElement("td");
+          
+          var strong = document.createElement("strong");
+          var sample = document.createTextNode("Sample Post");
+          strong.appendChild(sample);
+          data.appendChild(strong);
+          
+          var para = document.createElement("p");
+          var description = document.createTextNode("Project Description");
+          para.appendChild(description);
+          data.appendChild(para);
+          
+          var add = document.createElement("button");
+          add.innerHTML = "Add to Interests";
+          add.addEventListener ("click", function() {
+            // add the tags to users collection of interests?
+            alert("Hello World!");
+          });
+          data.appendChild(add);
+          
+          var join = document.createElement("button");
+          join.innerHTML = "Join Project";
+          join.addEventListener ("click", function() {
+            // add user name to project collection of collaborators
+            alert("Hello World!");
+          });
+          data.appendChild(join);
+          
+          row.appendChild(data);
+          
+          table.appendChild(row);
+        }
+        
+        function returnProjects(tags){
+          
+        }
+        

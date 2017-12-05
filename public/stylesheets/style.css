@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
 body {
     background-color: #b6b6b6;
     padding: 0px;
@@ -23,7 +26,7 @@ a {
    justify-content: center; 
    align-items: center;
 }
-
+/* navigation bar stuff*/
 .topnav {
   overflow: hidden;
   background-color: #333;
@@ -46,12 +49,26 @@ a {
 
 
  #main_feed {
- width: 80%;
+ width: 75%;
  border-width: 1px;
  border-color: blue;
     padding: 2px;
     border-radius: 10px;
  }
+ 
+  #main_feed table {
+      width: 100%;
+      font-size: 20px;
+      border: 2px solid black;
+      margin: 3px;
+  }
+  
+ #main_feed table td {
+   border: 1px solid #333;
+   margin: 5px;
+   }
+ 
+ 
  #main_sidebar {
  width: 20%;
  border-color: blue;
@@ -103,6 +120,7 @@ background-color: grey
 .show {display:block;}
 
 
+<<<<<<< HEAD
 /*thottie*/
 #bd{
     background-color: black;
@@ -162,4 +180,69 @@ background-color: grey
     padding-top: 5%;
     font-size:xx-large;
     font-style: italic;
+=======
+/*home page search bar stuff*/
+.search {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  margin: 10px;
+}
+
+.searchTerm {
+  float: left;
+  width: 100%;
+  border: 3px solid #333;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px;
+  outline: none;
+  color: #333;
+}
+
+.searchTerm:focus{
+  color: #333;
+}
+
+.searchButton {
+  position: absolute;  
+  right: -50px;
+  width: 40px;
+  height: 36px;
+  border: 1px solid #333;
+  background: #333;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 40%;
+  top: 50%;
+  left: 50%;
+}
+
+
+
+
+/* Home Page table rules */
+
+.joinBtn {
+  height: 30px;
+  width: 60px;
+  float: right;
+  background-color: lightblue;
+}
+
+.interestsBtn {
+  height: 30px;
+  width: 60px;
+  float: right;
+  background-color: lightblue;
+>>>>>>> bf0bc95943128e203833d1f8d33447de88b98519
 }
