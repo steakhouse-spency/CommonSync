@@ -1,11 +1,10 @@
 extends layout
-
+block nav-content
 head
   title #{title}
   
   link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
 style.
-
       main {margin:0;}
       
       body{
@@ -17,51 +16,49 @@ style.
         border: 5px solid black;
         border-collapse: collapse;
       }
-
-      
 block content
   .main.container
     //navigation bar code 
-    
+   
     div.navbar
-        #myTopnav.topnav
-          a.active(href='#home') Home
-          |   
-          a(href='createProject') Create Project
-          |   
-          a(href='#about') Account
-          |   
-          button.dropbtn(onclick='dropdown()') &#x2630
-           #myDropdown.dropdown-content 
-            a(href='#home') Settings
-            br
-            a(href='#about') Logout
-            br
-          script.
-              console.log("nav bar loading...")
-                // When the user clicks on the dropdown button,
-                //toggle between hiding and showing the dropdown content 
+      #myTopnav.topnav
+        a.active(href='#home') Home
+        |   
+        a(href='createProject') Create Project
+        |   
+        a(href='#about') Account  
+        |   
+        button.dropbtn(onclick='dropdown()') &#x2630
+         #myDropdown.dropdown-content 
+          a(href='#home') Settings
+          br
+          a(href='#about') Logout
+          br
+        script.
+            console.log("nav bar loading...")
+              // When the user clicks on the dropdown button,
+              //toggle between hiding and showing the dropdown content 
+              
+              function dropdown() {
+                  console.log("dropdown function triggered");
+                  document.getElementById("myDropdown").classList.toggle("show");
+                  console.log("dropdown function success")
+                  }
+                // Close the dropdown if the user clicks outside of it
                 
-                function dropdown() {
-                    console.log("dropdown function triggered");
-                    document.getElementById("myDropdown").classList.toggle("show");
-                    console.log("dropdown function success")
-                    }
-                  // Close the dropdown if the user clicks outside of it
-                  
-                window.onclick = function(event) {
-                    if (!event.target.matches('.dropbtn')) {
-                    var dropdowns = document.getElementsByClassName("dropdown-content");
-                    var i;
-                    for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                    }
-                    }
-                    }
-                    }
-                  console.log("done.");
+              window.onclick = function(event) {
+                  if (!event.target.matches('.dropbtn')) {
+                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                  var i;
+                  for (i = 0; i < dropdowns.length; i++) {
+                  var openDropdown = dropdowns[i];
+                  if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                  }
+                  }
+                  }
+                  }
+                console.log("done.");
     div.home_page_body
       body
         div#search_bar
@@ -81,99 +78,98 @@ block content
              option(value='abc') Alphabetical
              |     
              option(value='recent') Recent
-            br
-              table#main_table
-                tr 
-                  td 
-                    strong Sample Post 
-                    p Description of Post 
-                    button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
-                    button.joinBtn(onclick='joinBtn()') Join
-                 tr 
-                  td 
-                    strong Another Sample Post 
-                    p Description of Post 
-                    button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
+            table#main_table
+              tr 
+                td 
+                  strong Sample Post 
+                  p Description of Post 
+                  button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
+                  button.joinBtn(onclick='joinBtn()') Join
+               tr 
+                td 
+                  strong Another Sample Post 
+                  p Description of Post 
+                  button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
                     button#joinBtn.joinBtn(onclick='joinBtn()') Join
           div#main_sidebar 
            h1 Sidebar 
-           p more stuff will go here 
-      
+           p  more stuff will go here 
+    
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
     script.
-          //if user clicks interestsBtn
+        //if user clicks interestsBtn
+        
+        function likeBtn() {
+          //update user intersts in firbase table 
           
-          function likeBtn() {
-            //update user intersts in firbase table 
-            
-            
-            
-            //change the color 
-            
-             var property = document.getElementById("interestBtn");
-            if (liked == false) {
-                liked=true;        
-                console.log("color should be changin");
-            }
-            else {
-                like=false;
-                 console.log("color should go bck to normal");
-            }
-            
-            }
-      
-          //if user clicks on join button 
-          function join(){
-            
+          
+          
+          //change the color 
+          
+           var property = document.getElementById("interestBtn");
+          if (liked == false) {
+              liked=true;        
+              console.log("color should be changin");
+          }
+          else {
+              like=false;
+               console.log("color should go bck to normal");
           }
           
-          function saveTags(){
-            var tags = document.getElementsByName("pTags")[0].value.split(' ');
-            // have to access db to pull project info based on tag matches from array
-            returnProjects(tags);
-            addRow();
           }
+    
+        //if user clicks on join button 
+        function join(){
           
-          function addRow(){
-            var table = document.getElementById("main_table");
-            
-            var rowCount = table.rows.length;
-            var row = table.insertRow(rowCount);
-            
-            var data = document.createElement("td");
-            
-            var strong = document.createElement("strong");
-            var sample = document.createTextNode("Sample Post");
-            strong.appendChild(sample);
-            data.appendChild(strong);
-            
-            var para = document.createElement("p");
-            var description = document.createTextNode("Project Description");
-            para.appendChild(description);
-            data.appendChild(para);
-            
-            var add = document.createElement("button");
-            add.innerHTML = "Add to Interests";
-            add.addEventListener ("click", function() {
-              // add the tags to users collection of interests?
-              alert("Hello World!");
-            });
-            data.appendChild(add);
-            
-            var join = document.createElement("button");
-            join.innerHTML = "Join Project";
-            join.addEventListener ("click", function() {
-              // add user name to project collection of collaborators
-              alert("Hello World!");
-            });
-            data.appendChild(join);
-            
-            row.appendChild(data);
-            
-            table.appendChild(row);
-          }
+        }
+        
+        function saveTags(){
+          var tags = document.getElementsByName("pTags")[0].value.split(' ');
+          // have to access db to pull project info based on tag matches from array
+          returnProjects(tags);
+          addRow();
+        }
+        
+        function addRow(){
+          var table = document.getElementById("main_table");
           
-          function returnProjects(tags){
-            
-          }
+          var rowCount = table.rows.length;
+          var row = table.insertRow(rowCount);
+          
+          var data = document.createElement("td");
+          
+          var strong = document.createElement("strong");
+          var sample = document.createTextNode("Sample Post");
+          strong.appendChild(sample);
+          data.appendChild(strong);
+          
+          var para = document.createElement("p");
+          var description = document.createTextNode("Project Description");
+          para.appendChild(description);
+          data.appendChild(para);
+          
+          var add = document.createElement("button");
+          add.innerHTML = "Add to Interests";
+          add.addEventListener ("click", function() {
+            // add the tags to users collection of interests?
+            alert("Hello World!");
+          });
+          data.appendChild(add);
+          
+          var join = document.createElement("button");
+          join.innerHTML = "Join Project";
+          join.addEventListener ("click", function() {
+            // add user name to project collection of collaborators
+            alert("Hello World!");
+          });
+          data.appendChild(join);
+          
+          row.appendChild(data);
+          
+          table.appendChild(row);
+        }
+        
+        function returnProjects(tags){
+          
+        }
