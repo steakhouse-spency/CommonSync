@@ -47,6 +47,10 @@ a {
   color: black;
 }
 
+#homePage_feed{
+    display: flex;
+    width: 100%;
+}
 
  #main_feed {
  width: 75%;
@@ -74,9 +78,10 @@ a {
  border-color: blue;
  border-width:1px ;
  border: medium;
-    padding: 2px;
+    padding: 10px;
     float:right;
-background-color: grey
+background-color: grey;
+margin:10px;
  }
          
 .dropbtn {
@@ -119,7 +124,6 @@ background-color: grey
 
 .show {display:block;}
 
-
 /*Nav*/
 #nav-bar{
     margin-bottom:-4px;
@@ -132,7 +136,6 @@ background-color: grey
     text-shadow: 1px 2px 1px  black;
     font-size: x-large;
 }
-
 
 
 /*jumbotron1*/
