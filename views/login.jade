@@ -16,18 +16,18 @@ block content
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Log In
         form(target ="_blank" name="myForm")
-          div.email
-            label(for='email') Email
-            input.form-control(type='text' id='email' placeholder='email' name='email' required)
+          div.username
+            label(for='username') Username
+            input.form-control(type='text' id='username' placeholder='username' name='username' required)
           div.password
             label(for='password') Password
             input.form-control(type='password' id='password' placeholder='password' name='password' required)
-          button.btn.btn-primary(type='submit' onclick="checkform();") Log in 
-
+          button.btn.btn-primary(type='submit' onclick="checkform();" formaction ='home') Log in
+          
   script.
     function checkform(){
       var password = document.getElementById('password').value;
-      var email = document.getElementById('email').value;
+      var username = document.getElementById('username').value;
       
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");
@@ -47,71 +47,81 @@ block content
           }
       }
 
-      accessDB(password, email);
     }
     
-    function accessDB(password, email){
+    function accessDB(password, username){
     
-      database = firebase.database();
-      var ref = database.ref('Users');
-      ref.on('value', gotData, errData);
+    database = firebase.database();
+    var ref = database.ref('Users');
+    ref.on('value', gotData, errData);
+    //window.alert(email, password);
+    
       return true;
     }
-    
-    function gotData(data){
-      var email = document.getElementById('email').value;
-      console.log(data.val());
-      var users = data.val();
-      var keys = Object.keys(users);
-      console.log(keys);
-      for(var i=0; i< keys.length; i++){
-        var k = keys[i];
-        var username = users[k].username;
-        var useremail = users[k].email;
+    function gotData(data)
+    {
+    var user = document.getElementById('username').value;
+    console.log(data.val());
+    var users = data.val();
+    var keys = Object.keys(users);
+    console.log(keys);
+    for(var i=0; i< keys.length; i++)
+    {
+      var k = keys[i];
+      var username = users[k].username;
+      var useremail = users[k].email;
      
-        if(useremail==email){
-          console.log(" found it");
-          //console.log(useremail, username);
-          WriteCookie();
-          ReadCookie();
-          return true;
-          //to do: refernce another page after login in 
-        }
-      }
-      return false;
-      alert("The user email and or password was entered incorretly!");
-    }
     
-    function errData(err){
+     if( user == username)
+     {
+      console.log(" found it");
+      //console.log(useremail, username);
+      WriteCookie();
+      //ReadCookie()
+       
+     }
+     //to do: refernce another page after login in
+     
+    }
+      
+    }
+    function errData(err)
+    {
       console.log('Error!');
       window.alert(err);
     }
-    
-    function WriteCookie(){
-      var email = document.getElementById('email').value;
+    function WriteCookie()
+    {
+      var username = document.getElementById('username').value;
       var password = document.getElementById('password').value;
-      console.log(email, password);
-      if( email == ""  || password == ""){
+      console.log(username, password);
+      if( username == ""  || password == "")
+      {
           alert("Enter some value!");
           return;
       }
-      cookievalue= escape(email) + ";";
-      document.cookie="email=" + cookievalue;
-      console.log("Setting Email : " + "email=" + cookievalue );
+      cookievalue= escape(username) + ";";
+      document.cookie="username=" + cookievalue;
+      console.log("Setting Username : " + "username=" + cookievalue );
       
       cookievalueP= escape(password) + ";";
       document.cookie="password=" + cookievalueP;
       console.log("Setting Password : " + "password=" + cookievalueP );
       
     }
-    
-    function ReadCookie(){
+     function ReadCookie()
+     {
       var allcookies = document.cookie;
       console.log("All Cookies : " + allcookies );
       cookiearray = allcookies.split(';');
-      for(var i=0; i<cookiearray.length; i++){
-        name = cookiearray[i].split('=')[0];
-        value = cookiearray[i].split('=')[1];
-        console.log("Key is : " + name + " and Value is : " + value);
+      for(var i=0; i<cookiearray.length; i++)
+      {
+      name = cookiearray[i].split('=')[0];
+      value = cookiearray[i].split('=')[1];
+      console.log("Key is : " + name + " and Value is : " + value);
+        
       }
-    }
+      }
+            
+            
+

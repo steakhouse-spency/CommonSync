@@ -15,6 +15,7 @@ var login = require('./routes/login');
 var signup = require('./routes/signup');
 var home = require('./routes/home');
 var createProject = require('./routes/createProject');
+var settings = require('./routes/settings');
 
 
 //make public folder public
@@ -36,6 +37,7 @@ app.get('/login', login);
 app.get('/signup', signup);
 app.get('/home', home);
 app.get('/createProject', createProject);
+app.get('/settings',settings);
 
 app.get('*', function(req, res, next) {
   var err = new Error();
