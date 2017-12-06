@@ -2,7 +2,7 @@
 
 
 body {
-    background-color: #b6b6b6;
+    background-color: #66c182;
     padding: 0px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
@@ -119,6 +119,12 @@ margin:10px;
     background-color: #ddd;
 }
 
+/*Nav*/
+#nav-bar{
+    margin-bottom:-4px;
+    background-color: #efefef;
+    border-color: transparent;
+}
 .dropdown:hover .dropdown-content {
     display: block;
 }
@@ -126,42 +132,154 @@ margin:10px;
 #bd{
     background-color: black;
 }
+#nav-bar-brand{
+    color:#66c182;
+    text-shadow: 1px 2px 1px  black;
+    font-size: x-large;
+}
+
+
+/*jumbotron1*/
 
 #jtron{
-    padding-top: 4%;
+    padding-top: 8%;
     background-color: #66c182;
-}
+    height: 100vh;
+    margin:0;
 
+}
 #jtron-text{
-    font-style: bold;
+    margin-top:0;
     font-size:150px;
     color:#efefef;
-    text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
-    padding-bottom:3%;
+    text-shadow: 3px 5px 10px  black;
+    /*text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;*/
 }
-
-#jtron-lower-text{
-    font-style: bold;
-    font-size:xxx-large;
+#jtron-intro{
+    font-style:italic;
+    font-size: 25px;
+    padding-left: 15%;
+    padding-right: 15%;
     color:black;
 }
+#jtron-lower-text{
+    font-size:xx-large;
+    color:#efefef;
+    text-shadow: 2px 3px 5px  black;
+    letter-spacing: 9px;
+
+}
+#jtron-lower-p{
+    font-size:25px;
+    font-style:italic;
+    padding-left: 15%;
+    padding-right: 15%;
+    color: black;
+
+}
+
 #jtron-button{
     color:black;
     background-color:#efefef; 
     border-color:black;
+    margin-left: 1%;
 }
-#nav-bar{
-    margin-bottom:-4px;
+
+.jtron2{
+    padding-top: 8%;
     background-color: #efefef;
-    border-top-color: transparent;
-    border-left-color: transparent;
-    border-right-color: transparent;
+    height: 100vh;
+    margin:0;
 }
-#nav-bar-brand{
+#jtron2-title{
     color:#66c182;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    font-size: x-large;
+    text-shadow: 2px 3px 1px  black;
 }
+#jtron2-steps-text{
+    color:#66c182;
+    text-shadow: 1px 2px 1px  black;
+}
+
+
+#jtron-footer{
+    background-color: #66c182;
+    height: 10vh;
+    margin-bottom:30px;
+    text-align: center;
+    padding-top: 0;
+}
+
+
+.col-green{
+    background-color:#66c182;
+
+}
+.col-white{
+    background-color: #efefef;
+}
+.col-side{
+    height: 100vh;
+    padding-top: 15%;
+}
+.col-left{
+    text-align: right;
+    padding-right:2%;
+
+}
+.desc-left{
+    text-align:right;
+    padding-right:2%;
+}
+.col-right{
+    text-align: left;
+    padding-left:2%;
+}
+.desc-right{
+    text-align: left;
+    padding-left:2%;
+}
+
+.desc-side{
+    padding-top: 16%;
+}
+#col-text{
+    color:#66c182;
+    text-shadow: 2px 3px 1px  black;
+    font-size: 80px;
+}
+#desc-text{
+    font-size:40px;
+    color:white;
+    text-shadow: 2px 2.5px 5px  black;
+    line-height: 130%;
+    letter-spacing: 5px;
+
+
+
+    
+}
+
+.jtron-green{
+    padding-top: 8%;
+    background-color: #66c182;
+    height: 100vh;
+    margin:0;
+}
+.jtron-white{
+    padding-top: 8%;
+    background-color: #efefef;
+    height: 100vh;
+    margin:0;
+}
+.text-center{
+    padding-top:10%;
+}
+
+
+
+
+
+
 
 #col-container{
     background-color: #efefef;;
@@ -169,8 +287,9 @@ margin:10px;
 #col-image{
     display:block;
     margin:auto;
-    width:200px; 
-    height:200px;
+    width:250px; 
+    height:250px;
+    padding-top: 2%
 }
 #blck{
     color:black;
@@ -178,10 +297,29 @@ margin:10px;
 
 
 #cs-quote{
-    padding-top: 5%;
     font-size:xx-large;
     font-style: italic;
-=======
+    padding-top:5%;
+}
+.footer-text-pane {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: table;
+    text-align: center;
+}
+.footer-text-pane {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: table;
+    text-align: center;
+}
+
+
+
+
+
 /*home page search bar stuff*/
 .search {
   width: 100%;
@@ -195,7 +333,7 @@ margin:10px;
   width: 100%;
   border: 3px solid #333;
   padding: 5px;
-  height: 20px;
+  height: 35px;
   border-radius: 5px;
   outline: none;
   color: #333;

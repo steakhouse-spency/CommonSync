@@ -20,7 +20,7 @@ block content
   .main.container
     //navigation bar code 
    
-    div.navbar
+   div.navbar
       #myTopnav.topnav
         a.active(href='home') Home
         |   
@@ -59,9 +59,23 @@ block content
                   }
                   }
                 console.log("done.");
+      script.
+        function ReadCookie(){
+        var allcookies = document.cookie;
+        console.log("All Cookies : " + allcookies );
+        cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++)
+        {
+          name = cookiearray[i].split('=')[0];
+          value = cookiearray[i].split('=')[1];
+          console.log("Key is : " + name + " and Value is : " + value);
+        }
+          
+        }
+        ReadCookie();
     div.home_page_body
       body
-        div#search_bar
+        section#search_bar
           .wrap
             .search
               input.searchTerm(type='text', placeholder='Search Projects By Tags', size='35', name='pTags')
@@ -78,60 +92,36 @@ block content
              option(value='abc') Alphabetical
              |     
              option(value='recent') Recent
-            table#main_table
-              tr 
-                td 
-                  strong Sample Post 
-                  p Description of Post 
-                  button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
-                  button.joinBtn(onclick='joinBtn()') Join
-               tr 
-                td 
-                  strong Another Sample Post 
-                  p Description of Post 
-                  button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
-                    button#joinBtn.joinBtn(onclick='joinBtn()') Join
+            br
+            div(style='overflow:scroll;height:500px;width:100%;overflow:auto;')
+              table#main_table
           div#main_sidebar 
-           h1 Sidebar 
-           p  more stuff will go here 
-    
+           h1#sidebarT Sidebar 
+           p#sidebarP more stuff will go here 
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
-    
+ 
     script.
-        //if user clicks interestsBtn
-        
-        function likeBtn() {
-          //update user intersts in firbase table 
-          
-          
-          
-          //change the color 
-          
-           var property = document.getElementById("interestBtn");
-          if (liked == false) {
-              liked=true;        
-              console.log("color should be changin");
-          }
-          else {
-              like=false;
-               console.log("color should go bck to normal");
-          }
-          
-          }
-    
-        //if user clicks on join button 
-        function join(){
-          
-        }
-        
         function saveTags(){
+          // If the user doesn't enter anything into the field and clicks the search button, don't search!
+          var emptyField = document.getElementsByName("pTags")[0].value;
+          if(emptyField == null || emptyField == ""){
+            return false;
+          }
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
           // have to access db to pull project info based on tag matches from array
           returnProjects(tags);
-          addRow();
+          var list = [
+            { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
+            { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
+            { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
+          ];
+          for(x in list){
+            addRow(list[x]);
+          }
         }
-        
-        function addRow(){
+          
+        function addRow(x){
+          console.log(x);
           var table = document.getElementById("main_table");
           
           var rowCount = table.rows.length;
@@ -139,29 +129,38 @@ block content
           
           var data = document.createElement("td");
           
+          // todo: load database title into this variable
+          var postTitle = x.title;
           var strong = document.createElement("strong");
-          var sample = document.createTextNode("Sample Post");
+          var sample = document.createTextNode(postTitle);
           strong.appendChild(sample);
           data.appendChild(strong);
           
+          // todo: load database description into this variable
+          var dbDesc = x.description;
           var para = document.createElement("p");
-          var description = document.createTextNode("Project Description");
+          para.setAttribute('style', 'max-width:900px; word-wrap:break-word');
+          var description = document.createTextNode(dbDesc);
           para.appendChild(description);
           data.appendChild(para);
           
           var add = document.createElement("button");
-          add.innerHTML = "Add to Interests";
+          add.innerHTML = "&#9733";
           add.addEventListener ("click", function() {
-            // add the tags to users collection of interests?
-            alert("Hello World!");
+            // add the tags to users collection of interests in the db
+            document.getElementById("sidebarT").innerHTML = "Project Description";
+            document.getElementById("sidebarP").innerHTML = dbDesc;
+            document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
+            alert(sample.nodeValue);
           });
           data.appendChild(add);
           
           var join = document.createElement("button");
-          join.innerHTML = "Join Project";
+          join.innerHTML = "Join";
           join.addEventListener ("click", function() {
             // add user name to project collection of collaborators
-            alert("Hello World!");
+            // may have to get username from cookie here
+            alert(description.nodeValue);
           });
           data.appendChild(join);
           
@@ -173,3 +172,5 @@ block content
         function returnProjects(tags){
           
         }
+        
+        
