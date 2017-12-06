@@ -84,7 +84,7 @@ block content
               alert("Please fill all required fields");
               return false;
             }
-            else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
+            else if(/[^a-zA-Z0-9@. ]/.test(inputs[i].value)) {
               alert('Input must be alphanumeric');
               return false;
             }
@@ -93,7 +93,6 @@ block content
       
       accessDB(name, owner, description, tags);
       // todo: redirect to a new page after the project has been added to the database.
-      location.href="createProject";
     }
   
     // todo: store the project data in firebase.
