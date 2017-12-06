@@ -46,9 +46,22 @@ block content
          p stuff will go here
          
           script.
-            console.log("nav bar loading...");
-            // When the user clicks on the dropdown button,
-            //toggle between hiding and showing the dropdown content 
+            function ReadCookie(){
+            var allcookies = document.cookie;
+            console.log("All Cookies : " + allcookies );
+            cookiearray = allcookies.split(';');
+            for(var i=0; i<cookiearray.length; i++)
+            {
+              name = cookiearray[i].split('=')[0];
+              value = cookiearray[i].split('=')[1];
+              console.log("Key is : " + name + " and Value is : " + value);
+            }
+              
+            }
+            console.log("nav bar loading...")
+            ReadCookie();
+              // When the user clicks on the dropdown button,
+              //toggle between hiding and showing the dropdown content 
               
             function dropdown() {
               console.log("dropdown function triggered");
@@ -102,7 +115,8 @@ block content
       
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
-      script.
+    script.
+        
         function saveTags(){
           // If the user doesn't enter anything into the field and clicks the search button, don't search!
           var emptyField = document.getElementsByName("pTags")[0].value;
@@ -174,3 +188,5 @@ block content
         function returnProjects(tags){
           
         }
+        
+        
