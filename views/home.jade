@@ -18,6 +18,30 @@ block nav-content
             a(href='#about') Logout
             br
      script.
+      console.log("nav bar loading...")
+              // When the user clicks on the dropdown button,
+              //toggle between hiding and showing the dropdown content 
+              
+              function dropdown() {
+                  console.log("dropdown function triggered");
+                  document.getElementById("myDropdown").classList.toggle("show");
+                  console.log("dropdown function success")
+                  }
+                // Close the dropdown if the user clicks outside of it
+                
+              window.onclick = function(event) {
+                  if (!event.target.matches('.dropbtn')) {
+                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                  var i;
+                  for (i = 0; i < dropdowns.length; i++) {
+                  var openDropdown = dropdowns[i];
+                  if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                  }
+                  }
+                  }
+                  }
+                console.log("done.");
 
 head
   title #{title}
@@ -81,23 +105,8 @@ block content
            p  more stuff will go here 
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
-    script.
-        //if user clicks interestsBtn
-        
-        function likeBtn() {
-          //update user intersts in firebase table 
-          //change the color 
-          
-           var property = document.getElementById("interestBtn");
-          if (liked == false) {
-              liked=true;        
-              console.log("color should be changin");
-          }
-          else {
-              like=false;
-               console.log("color should go bck to normal");
-          }
-        var projects = Object();
+  script.
+      var projects = Object();
         function returnProjects(){
           database = firebase.database();
           var ref = database.ref('Projects');
@@ -120,8 +129,8 @@ block content
         }
         
         function errData(err){
-        console.log('Error!');
-        window.alert(err);
+          console.log('Error!');
+          window.alert(err);
         }
         
         returnProjects();
@@ -148,13 +157,6 @@ block content
           if(emptyField == null || emptyField == ""){
             return false;
           }
-    
-        //if user clicks on join button 
-        function join(){
-          
-        }
-        
-        function saveTags(){
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
           // have to access db to pull project info based on tag matches from array
           returnProjects();
@@ -190,19 +192,20 @@ block content
           // todo: load database title into this variable
           var postTitle = x.project_name;
           var strong = document.createElement("strong");
-          var sample = document.createTextNode("Sample Post");
+          var sample = document.createTextNode(postTitle);
           strong.appendChild(sample);
           data.appendChild(strong);
           
           // todo: load database description into this variable
           var dbDesc = x.project_description;
           var para = document.createElement("p");
-          var description = document.createTextNode("Project Description");
+          para.setAttribute('style', 'max-width:900px; word-wrap:break-word');
+          var description = document.createTextNode(dbDesc);
           para.appendChild(description);
           data.appendChild(para);
           
           var add = document.createElement("button");
-          add.innerHTML = "Add to Interests";
+          add.innerHTML = "&#9733";
           add.addEventListener ("click", function() {
             // add the tags to users collection of interests in the db
             document.getElementById("sidebarT").innerHTML = "Project Owners:";
@@ -213,16 +216,13 @@ block content
           data.appendChild(add);
           
           var join = document.createElement("button");
-          join.innerHTML = "Join Project";
+          join.innerHTML = "Join";
           join.addEventListener ("click", function() {
             // add user name to project collection of collaborators
-            alert("Hello World!");
+            // may have to get username from cookie here
+            alert(description.nodeValue);
           });
           data.appendChild(join);
           row.appendChild(data);
           
-          table.appendChild(row);
-        }
-        function returnProjects(tags){
-          
-        }
+          table.appendChild(row);}
