@@ -1,5 +1,47 @@
 extends layout
 block nav-content
+  li
+    a#blck(href='home')
+      |  Home
+  li
+    a#blck(href='createProject')
+      |  Create Project
+  li
+     a#blck(href='#')
+      |  Account
+  li
+     button#blck.dropbtn(onclick='dropdown()')
+      |  &#x2630
+     #myDropdown.dropdown-content 
+            a(href='settings') Settings
+            br
+            a(href='#about') Logout
+            br
+     script.
+            console.log("nav bar loading...")
+              // When the user clicks on the dropdown button,
+              //toggle between hiding and showing the dropdown content 
+              
+              function dropdown() {
+                  console.log("dropdown function triggered");
+                  document.getElementById("myDropdown").classList.toggle("show");
+                  console.log("dropdown function success")
+                  }
+                // Close the dropdown if the user clicks outside of it
+                
+              window.onclick = function(event) {
+                  if (!event.target.matches('.dropbtn')) {
+                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                  var i;
+                  for (i = 0; i < dropdowns.length; i++) {
+                  var openDropdown = dropdowns[i];
+                  if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                  }
+                  }
+                  }
+                  }
+                console.log("done."); 
 style.
   * {box-sizing: border-box}
   body {font-family: "Lato", sans-serif;}

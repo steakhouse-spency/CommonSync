@@ -1,22 +1,23 @@
 extends layout
-
-block content
-  .main.container
-    div.navbar
-      #myTopnav.topnav
-        a.active(href='home') Home
-        |   
-        a(href='createProject') Create Project
-        |   
-        a(href='#about') Account  
-        |   
-        button.dropbtn(onclick='dropdown()') &#x2630
-        #myDropdown.dropdown-content 
-           a(href='settings') Settings
-           br
-           a(href='#about') Logout
-           br
-        script.
+block nav-content
+  li
+    a#blck(href='home')
+      |  Home
+  li
+    a#blck(href='createProject')
+      |  Create Project
+  li
+     a#blck(href='#')
+      |  Account
+  li
+     button#blck.dropbtn(onclick='dropdown()')
+      |  &#x2630
+     #myDropdown.dropdown-content 
+            a(href='settings') Settings
+            br
+            a(href='#about') Logout
+            br
+     script.
             console.log("nav bar loading...")
               // When the user clicks on the dropdown button,
               //toggle between hiding and showing the dropdown content 
@@ -40,7 +41,9 @@ block content
                   }
                   }
                   }
-                console.log("done.");
+                console.log("done."); 
+block content
+  .main.container
     .row
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Create Project
@@ -142,4 +145,3 @@ block content
       
     return true;
     }
-   
