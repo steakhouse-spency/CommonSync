@@ -47,43 +47,6 @@ style.
   body {font-family: "Lato", sans-serif;}
   
 block content 
-    div.navbar
-      #myTopnav.topnav
-        a.active(href='home') Home
-        |   
-        a(href='createProject') Create Project
-        |   
-        a(href='#about') Account  
-        |   
-        button.dropbtn(onclick='dropdown()') &#x2630
-        #myDropdown.dropdown-content 
-         a(href='settings') Settings
-         a(href='#about') Logout
-        script.
-            console.log("nav bar loading...")
-              // When the user clicks on the dropdown button,
-              //toggle between hiding and showing the dropdown content 
-              
-              function dropdown() {
-                  console.log("dropdown function triggered");
-                  document.getElementById("myDropdown").classList.toggle("show");
-                  console.log("dropdown function success")
-                  }
-                // Close the dropdown if the user clicks outside of it
-                
-              window.onclick = function(event) {
-                  if (!event.target.matches('.dropbtn')) {
-                  var dropdowns = document.getElementsByClassName("dropdown-content");
-                  var i;
-                  for (i = 0; i < dropdowns.length; i++) {
-                  var openDropdown = dropdowns[i];
-                  if (openDropdown.classList.contains('show')) {
-                  openDropdown.classList.remove('show');
-                  }
-                  }
-                  }
-                  }
-                console.log("done.");
     body#settings_header
         center 
             h1  Settings 
