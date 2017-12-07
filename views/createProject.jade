@@ -65,22 +65,22 @@ block content
       
       for (var i = 0; i < inputs.length; i++) {
           // only validate the inputs that have the required attribute
-          // if(inputs[i].hasAttribute("required")){
-          //   if(inputs[i].value == ""){
-          //     // found an empty field that is required
-          //     alert("Please fill all required fields");
-          //     return false;
-          //   }
-          //   else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
-          //     alert('Input must be alphanumeric');
-          //     return false;
-          //   }
-          //}
+          if(inputs[i].hasAttribute("required")){
+            if(inputs[i].value == ""){
+              // found an empty field that is required
+              alert("Please fill all required fields");
+              return false;
+            }
+            else if(/[^a-zA-Z0-9@. ]/.test(inputs[i].value)) {
+              alert('Input must be alphanumeric');
+              return false;
+            }
+          }
       }
       
       accessDB(name, owner, description, tags, userEname, userPvalue);
       // todo: redirect to a new page after the project has been added to the database.
-     // location.href="createProject";
+
     }
   
     // todo: store the project data in firebase.

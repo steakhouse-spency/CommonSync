@@ -1,10 +1,11 @@
 extends layout
-block nav-content
+
 head
   title #{title}
   
   link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
 style.
+
       main {margin:0;}
       
       body{
@@ -16,11 +17,13 @@ style.
         border: 5px solid black;
         border-collapse: collapse;
       }
+
+      
 block content
   .main.container
     //navigation bar code 
-   
-   div.navbar
+    
+    div.navbar
       #myTopnav.topnav
         a.active(href='home') Home
         |   
@@ -73,11 +76,8 @@ block content
           
         }
         ReadCookie();
-       
-        
     div.home_page_body
       body
-       a(href='createProject') Create Project
         section#search_bar
           .wrap
             .search
@@ -86,15 +86,15 @@ block content
         section#homePage_feed
           div#main_feed
             h1(align="center") Projects
-            | Sort by: 
-            select#sortMenu
-             option(value='popular') Popular
-             |     
-             option(value='relevant') Relevant
-             |  
-             option(value='abc') Alphabetical
-             |     
-             option(value='recent') Recent
+            // | Sort by: 
+            // select#sortMenu
+            // option(value='popular') Popular
+            // |     
+            // option(value='relevant') Relevant
+            // |  
+            // option(value='abc') Alphabetical
+            // |     
+            // option(value='recent') Recent
             br
             div(style='overflow:scroll;height:500px;width:100%;overflow:auto;')
               table#main_table
@@ -104,6 +104,7 @@ block content
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
  
     script.
+        var projects = Object();
         function returnProjects(){
           database = firebase.database();
           var ref = database.ref('Projects');
@@ -111,34 +112,44 @@ block content
           console.log("Got into proj function");
           return true;
         }
+        
         function gotData(data){
           console.log("Going to read data now hehe");
           
-          //var user = document.getElementById('Projects').value;
           console.log(data.val());
-          var projects = data.val();
-          Object.keys(projects).forEach(function(key){
-          console.log(key, projects[key]);
-          });
-          //var keys = Object.keys(projects);
-          //console.log(keys);
-          // for(var i=0; i< keys.length; i++){
-          //     var k = keys[i];
-          //     console.log(k);
-          //     var project = projects[k].project_description;
-          //     // console.log(project);
-            
-          // }
-          console.log("Finished traversing");
+          projects = data.val();
+          // Object.keys(projects).forEach(function(key){
+          // console.log(key, projects[key]);
+          // });
           
+          console.log("Finished traversing");
+          return projects;
         }
+        
         function errData(err){
         console.log('Error!');
         window.alert(err);
-          
         }
+        
         returnProjects();
         function saveTags(){
+          // if the user has not signed in or the cookie for some reason has become erased, redirect the user back to the login page
+          var allcookies = document.cookie;
+          //console.log("All Cookies : " + allcookies );
+          cookiearray = allcookies.split(';');
+          for(var i=0; i<cookiearray.length; i++){
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+            //console.log("Key is : " + name + " and Value is : " + value);
+          }
+          if(name == "" || name == undefined){
+            return false;
+            //redirect to login.jade, then return false
+          }
+          if(!tableIsEmpty()){
+            return false;
+          }
+          
           // If the user doesn't enter anything into the field and clicks the search button, don't search!
           var emptyField = document.getElementsByName("pTags")[0].value;
           if(emptyField == null || emptyField == ""){
@@ -147,14 +158,24 @@ block content
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
           // have to access db to pull project info based on tag matches from array
           returnProjects();
-          var list = [
-            { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
-            { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
-            { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
-          ];
-          for(x in list){
-            addRow(list[x]);
+          // Object.keys(projects).forEach(function(key){
+          //   console.log(key, projects[key]);
+          // });
+          // var list = [
+          //   { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
+          //   { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
+          //   { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
+          // ];
+          
+          for(y in projects){
+            for(x in projects[y]){
+              addRow(projects[y][x]);
+            }
           }
+        }
+        
+        function tableIsEmpty() {
+          return (/^(\s|&nbsp;)*$/.test(document.getElementById("main_table").innerHTML));
         }
           
         function addRow(x){
@@ -167,14 +188,14 @@ block content
           var data = document.createElement("td");
           
           // todo: load database title into this variable
-          var postTitle = x.title;
+          var postTitle = x.project_name;
           var strong = document.createElement("strong");
           var sample = document.createTextNode(postTitle);
           strong.appendChild(sample);
           data.appendChild(strong);
           
           // todo: load database description into this variable
-          var dbDesc = x.description;
+          var dbDesc = x.project_description;
           var para = document.createElement("p");
           para.setAttribute('style', 'max-width:900px; word-wrap:break-word');
           var description = document.createTextNode(dbDesc);
@@ -185,10 +206,10 @@ block content
           add.innerHTML = "&#9733";
           add.addEventListener ("click", function() {
             // add the tags to users collection of interests in the db
-            document.getElementById("sidebarT").innerHTML = "Project Description";
-            document.getElementById("sidebarP").innerHTML = dbDesc;
+            document.getElementById("sidebarT").innerHTML = "Project Owners:";
+            document.getElementById("sidebarP").innerHTML = x.project_owner;
             document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
-            alert(sample.nodeValue);
+            // alert(sample.nodeValue);
           });
           data.appendChild(add);
           
@@ -200,9 +221,7 @@ block content
             alert(description.nodeValue);
           });
           data.appendChild(join);
-          
           row.appendChild(data);
           
           table.appendChild(row);
         }
-  
