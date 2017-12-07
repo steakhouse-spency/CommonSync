@@ -1,16 +1,83 @@
 extends layout
-head
-  title #{title}
-  
+block nav-content
+  li
+    a#blck(href='login')
+      span.glyphicon.glyphicon-log-in
+      |  Login
+  li
+    a#blck(href='signup')
+      span.glyphicon.glyphicon-user
+      |  Sign Up
+
 block content
- #index_title
-   h1(align='center' id='index_title_h1' )= title
-   h2(align='center' id='index_title_subtitle' ) Dream Team: #{title}
- #index_buttons
-   center 
-    a(href='login')
-     button(type="button" ) Login
-    a(href='signup')
-     button(type="button") Sign-Up
-    a(href='home')
-     button(type="button") Home Test
+  .jumbotron.text-center#jtron
+    h3(align="center" id="jtron-intro")
+      | Join over 
+      u 4
+      |  people with the world's leading 
+      u Collaboration Platform
+    h1(align='center' id='jtron-text')=title
+    h2(align='center' id="jtron-lower-text") SYNCHRONIZING THE WORLD
+    hr(style="width:15%; border-color:black; margin-top:4%; margin-bottom:4%")
+    p#jtron-lower-p
+        | Begin your Common Sync journey today.
+        br
+        | As soon as you’ve set-up your account you can start collaborating with people around the world!
+    a.btn.btn-primary.btn-lg(href='/signup' role='button' id="jtron-button") Sync Now!
+    a.btn.btn-primary.btn-lg(href='#jtron2' role='button' id="jtron-button") Learn More
+  .jumbotron.text-center.jtron-white#jtron2
+    h1#jtron2-title(align='center') How does Common Sync work?
+    h3(align='center' style='color:black;font-size:xx-large;margin-top:5%' ) 3 easy steps:
+    .container(style="margin-top:5%")
+      .row
+        .col-sm-4#col-container
+          a(href="#jtron3")
+            h2#jtron2-steps-text Join
+          a(href="#jtron3")
+            img(src="https://cdn1.iconfinder.com/data/icons/material-core/20/account-circle-512.png" style=" width: 100px; height:100px")
+        .col-sm-4
+          a(href="#jtron4")
+            h2#jtron2-steps-text Organize
+          a(href="#jtron4")
+            img(href="#jtron4" src="/img/new_puzzle.png" style=" width: 100px; height:100px")
+        .col-sm-4#col-container
+          a(href="#jtron5")
+            h2#jtron2-steps-text Collaborate
+          a(href="#jtron5")
+            img( src="https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Settings-3-512.png" style=" width: 100px; height:100px")
+  .container-fluid#jtron3(style="height:100vh")
+    .row
+      .col-sm-4.col-white.col-side.col-left
+        h1#col-text Join the community
+        a.btn.btn-primary.btn-lg(href='#jtron4' role='button' id="jtron-button") Next
+      .col-sm-8.desc-side.desc-right
+        h1#desc-text Add personal interests to your Common Sync account so we can connect you to the appropriate people and projects.
+        img(id="col-image" src="http://images.clipartpanda.com/network-clipart-network-clipart-network-999px.png")
+  .container-fluid#jtron4(style="height:100vh")
+    .row
+      .col-sm-8.col-green.desc-side.desc-left
+        h1#desc-text Organize your ideas by creating projects or simply joining existing projects
+        img#col-image(src="http://moziru.com/images/puzzle-clipart-student-cooperation-9.png")
+      .col-sm-4.col-white.col-side.col-right
+        h1#col-text Organize on our platform
+        a.btn.btn-primary.btn-lg(href='#jtron3' role='button' id="jtron-button") Back
+        a.btn.btn-primary.btn-lg(href='#jtron5' role='button' id="jtron-button") Next
+  .container-fluid#jtron5(style="height:100vh")
+    .row
+      .col-sm-4.col-white.col-side.col-left
+        h1#col-text Collaborate with the world
+        a.btn.btn-primary.btn-lg(href='#jtron4' role='button' id="jtron-button") Back
+        a.btn.btn-primary.btn-lg(href='/signup' role='button' id="jtron-button") Sign up!
+      .col-sm-8.col-green.desc-side.desc-right
+        h1#desc-text Work with individuals around the world on projects that you enjoy!
+        img#col-image(src="http://moziru.com/images/gears-clipart-cartoon-15.png")
+        
+  .jumbotron#jtron-footer
+      p#cs-quote(align='center') "We're here for a good time, not a long time"
+      p(align='center' ) -Developers at Common Sync
+      img(src="https://www.canbike.org/public/images/030414/Bitcoin_Accepted_Here_Business_Sign_Horizontal-4800px.png" style="margin-bottom:1%;width:150px; height:60px")
+      img(src="/img/thottie.png" style="margin-bottom:1%;width:150px; height:150px")
+      .footer-text
+        | ©2017 Common Sync, Inc. All Rights Reserved.
+        br.hide-xs
+        |  This website may contain mature content. 

@@ -1,6 +1,17 @@
 extends layout
+block nav-content
+  li
+    a#blck(href='login')
+      span.glyphicon.glyphicon-log-in
+      |  Login
+  li
+    a#blck(href='/')
+      span.glyphicon.glyphicon-exit
+      |  Cancel
+  
+      
 block content
-  .main.container
+  .main.container(style="margin-top: 5%")
     .row
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Sign Up
@@ -42,6 +53,7 @@ block content
             input#pw2.form-control(type='password' name='confirmPassword' required)
             button.btn.btn-primary(type = 'submit' onclick="submitClick();") Data base test
           // button.btn.btn-primary(type='submit' onclick="checkform();") Sign up
+  
 
           
           
@@ -92,80 +104,6 @@ block content
       // pushing the users interests
       //projects
       //TO:DO find a way to reference off of a unique ID.
-      
-      
-      
-      
-      
-    }
-    
-    function checkform() {
-      var password = document.getElementById("pw").value;
-      var confirmPW = document.getElementById("pw2").value;
-      var name = document.getElementsByName("name")[0].value;
-      var username = document.getElementsByName("username")[0].value;
-      var email = document.getElementsByName("email")[0].value;
-      
-      //interests
-      var networking = document.getElementsByName("networking")[0].checked;
-      var security = document.getElementsByName("security")[0].checked;
-      var webdev = document.getElementsByName("web development")[0].checked;
-      var mobiledev = document.getElementsByName("mobile development")[0].checked;
-      var java = document.getElementsByName("Java")[0].checked;
-      var cpp = document.getElementsByName("C++")[0].checked;
-      var python = document.getElementsByName("Python")[0].checked;
-      var javascript = document.getElementsByName("Javascript")[0].checked;
-        
-      var myMap = new Map();
-      myMap.set("networking", networking);
-      myMap.set("security", security);
-      myMap.set("webdev", webdev);
-      myMap.set("mobiledev", mobiledev);
-      myMap.set("java", java);
-      myMap.set("cpp", cpp);
-      myMap.set("python", python);
-      myMap.set("javascript", javascript);
-    
-      // get all the inputs within the submitted form
-      var inputs = document.getElementsByTagName("input");
-      
-      for (var i = 0; i < inputs.length; i++) {
-          // only validate the inputs that have the required attribute
-          if(inputs[i].hasAttribute("required")){
-            if(inputs[i].value == ""){
-              // found an empty field that is required
-              alert("Please fill all required fields");
-              return false;
-            }
-            // else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
-            //   alert('Input must be alphanumeric');
-            //   return false;
-            // }
-          }
-      }
-      if(password !== confirmPW){
-        alert("The passwords must match!");
-        return false;
-      }
-      if(password.length < 8){
-        alert("The password must be at least 8 characters long!");
-        return false;
-      }
-      accessDB(password, email, username, name, myMap);
-      // todo: redirect to a new page after the user has been added to the database.
-      location.href="index";
-    }
-  
-    // todo: store the user data in firebase.
-    function accessDB(password, email, username, name, interests){
-      // variables list
-      // password = password
-      // email = email
-      // username = username
-      // full name = name
-      // interests = T/F key value pairs within myMap object
-      
-      return true;
-      
-      
+      //Find a way to redirect a page after user data is added to firebase
+      //window.location.replace("home.jade");
     }

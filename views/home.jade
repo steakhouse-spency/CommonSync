@@ -1,38 +1,48 @@
 extends layout
+block nav-content
 head
   title #{title}
   
+  link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
 style.
       main {margin:0;}
       
+      body{
+        background: #333;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      table, th, td {
+        border: 5px solid black;
+        border-collapse: collapse;
+      }
 block content
   .main.container
-    div.navbar
-        #myTopnav.topnav
-          a.active(href='#home') Home
-          |   
-          a(href='joinProject') Join Project
-          |   
-          a(href='createProject') Create Project
-          |   
-          a(href='#about') Account
-          |   
-          button.dropbtn(onclick='myFunction()') &#x2630
-            #myDropdown.dropdown-content 
-              a(href='#home') Settings
-              br
-              a(href='#about') Logout
-              br
-           
-          script.
-              console.log("script test");
-              // When the user clicks on the button,
+    //navigation bar code 
+   
+   div.navbar
+      #myTopnav.topnav
+        a.active(href='home') Home
+        |   
+        a(href='createProject') Create Project
+        |   
+        a(href='#about') Account  
+        |   
+        button.dropbtn(onclick='dropdown()') &#x2630
+        #myDropdown.dropdown-content 
+         a(href='settings') Settings
+         br
+         a(href='#about') Logout
+         br
+        script.
+            console.log("nav bar loading...")
+              // When the user clicks on the dropdown button,
               //toggle between hiding and showing the dropdown content 
               
-              function myFunction() {
-                  console.log("myFunction triggered");
+              function dropdown() {
+                  console.log("dropdown function triggered");
                   document.getElementById("myDropdown").classList.toggle("show");
-                  console.log("myFunction success");
+                  console.log("dropdown function success")
                   }
                 // Close the dropdown if the user clicks outside of it
                 
@@ -48,20 +58,151 @@ block content
                   }
                   }
                   }
-                console.log("script finish");
-    div.home_page_body
-    body
-      section#main_feed
-         h1 Main Feed
-         p stuff will go here
-         
-        aside#main_sidebar 
-            h1 Sidebar 
-            p more stuff will go here 
-    
-              
-
-
-              
+                console.log("done.");
+      script.
+        function ReadCookie(){
+        var allcookies = document.cookie;
+        console.log("All Cookies : " + allcookies );
+        cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++)
+        {
+          name = cookiearray[i].split('=')[0];
+          value = cookiearray[i].split('=')[1];
+          console.log("Key is : " + name + " and Value is : " + value);
+        }
+          
+        }
+        ReadCookie();
+       
         
-              
+    div.home_page_body
+      body
+       a(href='createProject') Create Project
+        section#search_bar
+          .wrap
+            .search
+              input.searchTerm(type='text', placeholder='Search Projects By Tags', size='35', name='pTags')
+              button.searchButton(type='submit' onclick='saveTags()') &#x1F50D
+        section#homePage_feed
+          div#main_feed
+            h1(align="center") Projects
+            | Sort by: 
+            select#sortMenu
+             option(value='popular') Popular
+             |     
+             option(value='relevant') Relevant
+             |  
+             option(value='abc') Alphabetical
+             |     
+             option(value='recent') Recent
+            br
+            div(style='overflow:scroll;height:500px;width:100%;overflow:auto;')
+              table#main_table
+          div#main_sidebar 
+           h1#sidebarT Sidebar 
+           p#sidebarP more stuff will go here 
+      //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
+ 
+    script.
+        function returnProjects(){
+          database = firebase.database();
+          var ref = database.ref('Projects');
+          ref.on('value', gotData, errData);
+          console.log("Got into proj function");
+          return true;
+        }
+        function gotData(data){
+          console.log("Going to read data now hehe");
+          
+          //var user = document.getElementById('Projects').value;
+          console.log(data.val());
+          var projects = data.val();
+          Object.keys(projects).forEach(function(key){
+          console.log(key, projects[key]);
+          });
+          //var keys = Object.keys(projects);
+          //console.log(keys);
+          // for(var i=0; i< keys.length; i++){
+          //     var k = keys[i];
+          //     console.log(k);
+          //     var project = projects[k].project_description;
+          //     // console.log(project);
+            
+          // }
+          console.log("Finished traversing");
+          
+        }
+        function errData(err){
+        console.log('Error!');
+        window.alert(err);
+          
+        }
+        returnProjects();
+        function saveTags(){
+          // If the user doesn't enter anything into the field and clicks the search button, don't search!
+          var emptyField = document.getElementsByName("pTags")[0].value;
+          if(emptyField == null || emptyField == ""){
+            return false;
+          }
+          var tags = document.getElementsByName("pTags")[0].value.split(' ');
+          // have to access db to pull project info based on tag matches from array
+          returnProjects();
+          var list = [
+            { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
+            { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
+            { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
+          ];
+          for(x in list){
+            addRow(list[x]);
+          }
+        }
+          
+        function addRow(x){
+          console.log(x);
+          var table = document.getElementById("main_table");
+          
+          var rowCount = table.rows.length;
+          var row = table.insertRow(rowCount);
+          
+          var data = document.createElement("td");
+          
+          // todo: load database title into this variable
+          var postTitle = x.title;
+          var strong = document.createElement("strong");
+          var sample = document.createTextNode(postTitle);
+          strong.appendChild(sample);
+          data.appendChild(strong);
+          
+          // todo: load database description into this variable
+          var dbDesc = x.description;
+          var para = document.createElement("p");
+          para.setAttribute('style', 'max-width:900px; word-wrap:break-word');
+          var description = document.createTextNode(dbDesc);
+          para.appendChild(description);
+          data.appendChild(para);
+          
+          var add = document.createElement("button");
+          add.innerHTML = "&#9733";
+          add.addEventListener ("click", function() {
+            // add the tags to users collection of interests in the db
+            document.getElementById("sidebarT").innerHTML = "Project Description";
+            document.getElementById("sidebarP").innerHTML = dbDesc;
+            document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
+            alert(sample.nodeValue);
+          });
+          data.appendChild(add);
+          
+          var join = document.createElement("button");
+          join.innerHTML = "Join";
+          join.addEventListener ("click", function() {
+            // add user name to project collection of collaborators
+            // may have to get username from cookie here
+            alert(description.nodeValue);
+          });
+          data.appendChild(join);
+          
+          row.appendChild(data);
+          
+          table.appendChild(row);
+        }
+  

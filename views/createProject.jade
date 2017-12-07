@@ -2,12 +2,51 @@ extends layout
 
 block content
   .main.container
+    div.navbar
+      #myTopnav.topnav
+        a.active(href='home') Home
+        |   
+        a(href='createProject') Create Project
+        |   
+        a(href='#about') Account  
+        |   
+        button.dropbtn(onclick='dropdown()') &#x2630
+        #myDropdown.dropdown-content 
+           a(href='settings') Settings
+           br
+           a(href='#about') Logout
+           br
+        script.
+            console.log("nav bar loading...")
+              // When the user clicks on the dropdown button,
+              //toggle between hiding and showing the dropdown content 
+              
+              function dropdown() {
+                  console.log("dropdown function triggered");
+                  document.getElementById("myDropdown").classList.toggle("show");
+                  console.log("dropdown function success")
+                  }
+                // Close the dropdown if the user clicks outside of it
+                
+              window.onclick = function(event) {
+                  if (!event.target.matches('.dropbtn')) {
+                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                  var i;
+                  for (i = 0; i < dropdowns.length; i++) {
+                  var openDropdown = dropdowns[i];
+                  if (openDropdown.classList.contains('show')) {
+                  openDropdown.classList.remove('show');
+                  }
+                  }
+                  }
+                  }
+                console.log("done.");
     .row
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Create Project
 
         // register form
-        form(method='POST' onSubmit="checkform();")
+        form(target ="_blank")
           div.projectName
             label(for='pName') Project Name: 
             input#pName.form-control(type='text', placeholder='Project Name' name='pName' required)
@@ -25,10 +64,11 @@ block content
             p
                 textarea(cols='40', rows='10', name='tags' placeholder="Enter relevant project tags here separated by whitespace")
           
-          button.btn.btn-primary(type='submit') Create Project
+          button.btn.btn-primary(type = 'submit' onclick="checkform();") Create Project
           
   script.
     function checkform() {
+    
       var name = document.getElementsByName("pName")[0].value;
       var owner = document.getElementsByName("pOwner")[0].value;
       var description = document.getElementsByName("textarea")[0].value;
@@ -36,35 +76,70 @@ block content
     
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");
+      //ReadCookie();
+      //console.log("Entered into the ReadCookie method");
+      var allcookies = document.cookie;
+      console.log("All Cookies : " + allcookies );
+      cookiearray = allcookies.split(';');
+      var userEname = "";
+      var userPvalue = "";
+       for(var i=0; i<cookiearray.length; i++)
+      {
+        userEname = cookiearray[i].split('=')[0];
+        userPvalue = cookiearray[i].split('=')[1];
+        
+         
+          if(userEname.trim() =='username')
+          {
+            //console.log("Key is : " + userEname + " and Value is : " + userPvalue);
+            break;
+          }
+          else
+          {
+            console.log(userEname.length);
+            console.log('username'.length);
+          }
+        
+      }
       
       for (var i = 0; i < inputs.length; i++) {
           // only validate the inputs that have the required attribute
-          if(inputs[i].hasAttribute("required")){
-            if(inputs[i].value == ""){
-              // found an empty field that is required
-              alert("Please fill all required fields");
-              return false;
-            }
-            else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
-              alert('Input must be alphanumeric');
-              return false;
-            }
-          }
+          // if(inputs[i].hasAttribute("required")){
+          //   if(inputs[i].value == ""){
+          //     // found an empty field that is required
+          //     alert("Please fill all required fields");
+          //     return false;
+          //   }
+          //   else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
+          //     alert('Input must be alphanumeric');
+          //     return false;
+          //   }
+          //}
       }
       
-      accessDB(name, owner, description, tags);
+      accessDB(name, owner, description, tags, userEname, userPvalue);
       // todo: redirect to a new page after the project has been added to the database.
-      location.href="createProject";
+     // location.href="createProject";
     }
   
     // todo: store the project data in firebase.
-    function accessDB(name, owner, description, tags){
-      // variables list
-      // name = project name
-      // owner = project owner
-      // description = string describing project
-      // tags = array with user inputted tags
-      
-      return true;
-    }
+    function accessDB(name, owner, description, tags, userEname, userPvalue){
+    console.log(userPvalue);
+    window.alert("Entered accessDB method");
   
+      
+      var database = firebase.database();
+      var reference = database.ref("Projects").child(userPvalue);
+      var Projects ={
+        project_name:name,
+        project_owner: owner,
+        project_description: description,
+        project_tags: tags
+       
+      }
+      reference.push(Projects);
+      console.log("Finished Pushing mah dude");
+      
+    return true;
+    }
+   
