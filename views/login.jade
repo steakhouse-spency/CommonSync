@@ -1,47 +1,132 @@
 extends layout
-
+block nav-content
+  li
+    a#blck(href='/signup')
+      span.glyphicon.glyphicon-user
+      |  Sign Up
+  li
+    a#blck(href='/')
+      span.glyphicon.glyphicon-exit
+      |  Cancel
+  
 block content
-  .main.container
+
+  .main.container(style="margin-top: 5%")
     .row
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Log In
-        form(method='POST' onSubmit='checkform();')
-          div.email
-            label(for='email') Email
-            input.form-control(type='text' id='email' placeholder='email' name='email' required)
+        form(target ="_blank" name="myForm")
+          div.username
+            label(for='username') Username
+            input.form-control(type='text' id='username' placeholder='username' name='username' required)
           div.password
             label(for='password') Password
             input.form-control(type='password' id='password' placeholder='password' name='password' required)
-          button.btn.btn-primary(type='submit' onclick="checkform();") Log in 
-
+          button.btn.btn-primary(type='submit' onclick="checkform();" formaction ='home') Log in
+          
   script.
     function checkform(){
-      var password = document.getElementById("password").value;
-      var email = document.getElementById("email").value;
+      var password = document.getElementById('password').value;
+      var username = document.getElementById('username').value;
       
       var inputs = document.getElementsByTagName("input");
       
-      for (var i = 0; i < inputs.length; i++) {
-          // only validate the inputs that have the required attribute
-          if(inputs[i].hasAttribute("required")){
-            if(inputs[i].value == ""){
-              // found an empty field that is required
-              alert("Please fill all required fields");
-              return false;
-            }
-            else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
-              alert('Input must be alphanumeric');
-              return false;
-            }
-          }
-      }
-      accessDB(password, email);
+      // for (var i = 0; i < inputs.length; i++) {
+      //     // only validate the inputs that have the required attribute
+      //     if(inputs[i].hasAttribute("required")){
+      //       if(inputs[i].value == ""){
+      //         // found an empty field that is required
+      //         alert("Please fill all required fields");
+      //         return false;
+      //       }
+      //       else if(/[^a-zA-Z0-9@]/.test(inputs[i].value)) {
+      //         alert('Input must be alphanumeric');
+      //         return false;
+      //       }
+      //     }
+      // }
+      accessDB(password, username);
       // todo: try and get the page to redirect after verifying the login
-      location.href="index";
+      //location.href="index";
+
     }
     
-    // todo: verify the user exists in firebase and return true or false
-    function accessDB(password, email){
+    function accessDB(password, username){
+    
+    database = firebase.database();
+    var ref = database.ref('Users');
+    ref.on('value', gotData, errData);
+    //window.alert(email, password);
     
       return true;
     }
+    function gotData(data)
+    {
+    var user = document.getElementById('username').value;
+    console.log(data.val());
+    var users = data.val();
+    var keys = Object.keys(users);
+    console.log(keys);
+    for(var i=0; i< keys.length; i++)
+    {
+      var k = keys[i];
+      var username = users[k].username;
+      var useremail = users[k].email;
+     
+    
+     if( user == username)
+     {
+      console.log(" found it");
+      //console.log(useremail, username);
+      WriteCookie();
+      //ReadCookie()
+       
+     }
+     //to do: refernce another page after login in
+     
+     
+     
+     
+    }
+      
+    }
+    function errData(err)
+    {
+      console.log('Error!');
+      window.alert(err);
+    }
+    function WriteCookie()
+    {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      console.log(username, password);
+      if( username == ""  || password == "")
+      {
+          alert("Enter some value!");
+          return;
+      }
+      cookievalue= escape(username) + ";";
+      document.cookie="username=" + cookievalue;
+      console.log("Setting Username : " + "username=" + cookievalue );
+      
+      cookievalueP= escape(password) + ";";
+      document.cookie="password=" + cookievalueP;
+      console.log("Setting Password : " + "password=" + cookievalueP );
+      
+    }
+     function ReadCookie()
+     {
+      var allcookies = document.cookie;
+      console.log("All Cookies : " + allcookies );
+      cookiearray = allcookies.split(';');
+      for(var i=0; i<cookiearray.length; i++)
+      {
+      name = cookiearray[i].split('=')[0];
+      value = cookiearray[i].split('=')[1];
+      console.log("Key is : " + name + " and Value is : " + value);
+        
+      }
+      }
+            
+            
+
