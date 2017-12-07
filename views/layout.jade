@@ -8,10 +8,10 @@ html(lang='en')
     script(type='text/javascript', src='/socket.io/socket.io.js')
     script(src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js")
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
     script.
+      console.log("Connecting to firebase...");
       var config = {
       apiKey: "APIKEY",
       authDomain: "common-sync.firebaseapp.com",
@@ -21,7 +21,8 @@ html(lang='en')
       messagingSenderId: "SENDER"
       };
       firebase.initializeApp(config);
-  body
+      console.log("done.");
+  body(style="background-color: #66c182")
     nav.navbar.navbar-inverse.navbar-fixed-top(id="nav-bar")
       .container-fluid
         .navbar-header
