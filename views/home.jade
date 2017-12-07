@@ -18,30 +18,24 @@ block nav-content
             a(href='#about') Logout
             br
      script.
-            console.log("nav bar loading...")
-              // When the user clicks on the dropdown button,
-              //toggle between hiding and showing the dropdown content 
-              
-              function dropdown() {
-                  console.log("dropdown function triggered");
-                  document.getElementById("myDropdown").classList.toggle("show");
-                  console.log("dropdown function success")
-                  }
-                // Close the dropdown if the user clicks outside of it
-                
-              window.onclick = function(event) {
-                  if (!event.target.matches('.dropbtn')) {
-                  var dropdowns = document.getElementsByClassName("dropdown-content");
-                  var i;
-                  for (i = 0; i < dropdowns.length; i++) {
-                  var openDropdown = dropdowns[i];
-                  if (openDropdown.classList.contains('show')) {
-                  openDropdown.classList.remove('show');
-                  }
-                  }
-                  }
-                  }
-                console.log("done."); 
+
+head
+  title #{title}
+  
+  link(rel='stylesheet', href='https://fonts.googleapis.com/icon?family=Material+Icons')
+style.
+
+      main {margin:0;}
+      
+      body{
+        background: #333;
+        font-family: 'Open Sans', sans-serif;
+      }
+      
+      table, th, td {
+        border: 5px solid black;
+        border-collapse: collapse;
+      }
 head
   title #{title}
   
@@ -80,32 +74,18 @@ block content
              |     
              option(value='recent') Recent
             table#main_table
-              tr 
-                td 
-                  strong Sample Post 
-                  p Description of Post 
-                  button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
-                  button.joinBtn(onclick='joinBtn()') Join
-               tr 
-                td 
-                  strong Another Sample Post 
-                  p Description of Post 
-                  button#interestBtn.interestsBtn(onclick='likeBtn()') &#9733
-                    button#joinBtn.joinBtn(onclick='joinBtn()') Join
+            div(style='overflow:scroll;height:500px;width:100%;overflow:auto;')
+              table#main_table
           div#main_sidebar 
            h1 Sidebar 
            p  more stuff will go here 
-    
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
     script.
         //if user clicks interestsBtn
         
         function likeBtn() {
-          //update user intersts in firbase table 
-          
-          
-          
+          //update user intersts in firebase table 
           //change the color 
           
            var property = document.getElementById("interestBtn");
@@ -117,7 +97,56 @@ block content
               like=false;
                console.log("color should go bck to normal");
           }
+        var projects = Object();
+        function returnProjects(){
+          database = firebase.database();
+          var ref = database.ref('Projects');
+          ref.on('value', gotData, errData);
+          console.log("Got into proj function");
+          return true;
+        }
+        
+        function gotData(data){
+          console.log("Going to read data now hehe");
           
+          console.log(data.val());
+          projects = data.val();
+          // Object.keys(projects).forEach(function(key){
+          // console.log(key, projects[key]);
+          // });
+          
+          console.log("Finished traversing");
+          return projects;
+        }
+        
+        function errData(err){
+        console.log('Error!');
+        window.alert(err);
+        }
+        
+        returnProjects();
+        function saveTags(){
+          // if the user has not signed in or the cookie for some reason has become erased, redirect the user back to the login page
+          var allcookies = document.cookie;
+          //console.log("All Cookies : " + allcookies );
+          cookiearray = allcookies.split(';');
+          for(var i=0; i<cookiearray.length; i++){
+            name = cookiearray[i].split('=')[0];
+            value = cookiearray[i].split('=')[1];
+            //console.log("Key is : " + name + " and Value is : " + value);
+          }
+          if(name == "" || name == undefined){
+            return false;
+            //redirect to login.jade, then return false
+          }
+          if(!tableIsEmpty()){
+            return false;
+          }
+          
+          // If the user doesn't enter anything into the field and clicks the search button, don't search!
+          var emptyField = document.getElementsByName("pTags")[0].value;
+          if(emptyField == null || emptyField == ""){
+            return false;
           }
     
         //if user clicks on join button 
@@ -128,11 +157,29 @@ block content
         function saveTags(){
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
           // have to access db to pull project info based on tag matches from array
-          returnProjects(tags);
-          addRow();
+          returnProjects();
+          // Object.keys(projects).forEach(function(key){
+          //   console.log(key, projects[key]);
+          // });
+          // var list = [
+          //   { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
+          //   { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
+          //   { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
+          // ];
+          
+          for(y in projects){
+            for(x in projects[y]){
+              addRow(projects[y][x]);
+            }
+          }
         }
         
-        function addRow(){
+        function tableIsEmpty() {
+          return (/^(\s|&nbsp;)*$/.test(document.getElementById("main_table").innerHTML));
+        }
+          
+        function addRow(x){
+          console.log(x);
           var table = document.getElementById("main_table");
           
           var rowCount = table.rows.length;
@@ -140,11 +187,15 @@ block content
           
           var data = document.createElement("td");
           
+          // todo: load database title into this variable
+          var postTitle = x.project_name;
           var strong = document.createElement("strong");
           var sample = document.createTextNode("Sample Post");
           strong.appendChild(sample);
           data.appendChild(strong);
           
+          // todo: load database description into this variable
+          var dbDesc = x.project_description;
           var para = document.createElement("p");
           var description = document.createTextNode("Project Description");
           para.appendChild(description);
@@ -153,8 +204,11 @@ block content
           var add = document.createElement("button");
           add.innerHTML = "Add to Interests";
           add.addEventListener ("click", function() {
-            // add the tags to users collection of interests?
-            alert("Hello World!");
+            // add the tags to users collection of interests in the db
+            document.getElementById("sidebarT").innerHTML = "Project Owners:";
+            document.getElementById("sidebarP").innerHTML = x.project_owner;
+            document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
+            // alert(sample.nodeValue);
           });
           data.appendChild(add);
           
@@ -165,12 +219,10 @@ block content
             alert("Hello World!");
           });
           data.appendChild(join);
-          
           row.appendChild(data);
           
           table.appendChild(row);
         }
-        
         function returnProjects(tags){
           
         }
