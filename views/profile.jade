@@ -13,13 +13,14 @@ block nav-content
           span.glyphicon.glyphicon-log-out
           |  Log out
 
+
 block content
     .container-fluid#profile(style="height:100")
         .row.profile-row(align="center")
             img.profile-picture( src="https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png" )
         .row.profile-row(align="center")
             .col-sm
-                h1.profile-name=name
+                h1.profile-name#profile-name=name
                 hr(style="width:15%; border-color:black; margin-top:4%; margin-bottom:4%")
         .row.profile-row(align="center")
             .col-sm-6(align="center")
@@ -32,5 +33,22 @@ block content
                     | PROJECTS:
                 h3.profile-projects 
                     | #{projects}
-// h3=interests[0]
-// h3=projects[0]
+    script.
+        function ReadCookie(){
+            var allcookies = document.cookie;
+            console.log("All Cookies : " + allcookies );
+            cookiearray = allcookies.split(';');
+            name = "no user"
+            for(var i=0; i<cookiearray.length; i++){
+                name = cookiearray[i].split('=')[0];
+                value = cookiearray[i].split('=')[1];
+                console.log("Key is : " + name + " and Value is : " + value);
+            }
+            // value = cookiearray[1].split('=')[1];
+
+            
+            
+        } 
+        ReadCookie();
+      
+
