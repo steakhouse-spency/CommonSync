@@ -104,6 +104,40 @@ block content
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
  
     script.
+        function returnProjects(){
+          database = firebase.database();
+          var ref = database.ref('Projects');
+          ref.on('value', gotData, errData);
+          console.log("Got into proj function");
+          return true;
+        }
+        function gotData(data){
+          console.log("Going to read data now hehe");
+          
+          //var user = document.getElementById('Projects').value;
+          console.log(data.val());
+          var projects = data.val();
+          Object.keys(projects).forEach(function(key){
+          console.log(key, projects[key]);
+          });
+          //var keys = Object.keys(projects);
+          //console.log(keys);
+          // for(var i=0; i< keys.length; i++){
+          //     var k = keys[i];
+          //     console.log(k);
+          //     var project = projects[k].project_description;
+          //     // console.log(project);
+            
+          // }
+          console.log("Finished traversing");
+          
+        }
+        function errData(err){
+        console.log('Error!');
+        window.alert(err);
+          
+        }
+        returnProjects();
         function saveTags(){
           // if the user has not signed in or the cookie for some reason has become erased, redirect the user back to the login page
           var allcookies = document.cookie;
@@ -125,7 +159,7 @@ block content
           }
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
           // have to access db to pull project info based on tag matches from array
-          returnProjects(tags);
+          returnProjects();
           var list = [
             { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
             { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
@@ -179,12 +213,7 @@ block content
             alert(description.nodeValue);
           });
           data.appendChild(join);
-          
           row.appendChild(data);
           
           table.appendChild(row);
-        }
-        
-        function returnProjects(tags){
-          
         }
