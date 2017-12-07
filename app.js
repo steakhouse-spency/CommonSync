@@ -15,7 +15,7 @@ var login = require('./routes/login');
 var signup = require('./routes/signup');
 var home = require('./routes/home');
 var createProject = require('./routes/createProject');
-
+var profile = require('./routes/profile');
 
 //make public folder public
 
@@ -29,6 +29,7 @@ app.use('/users', users);
 app.use('/signup', signup);
 app.use('/login', login);
 app.use('/createProject', createProject);
+app.use('/profile', profile);
 
 //retrieve homepage login/signup button links  
 console.log("Getting routes... ");
@@ -36,6 +37,8 @@ app.get('/login', login);
 app.get('/signup', signup);
 app.get('/home', home);
 app.get('/createProject', createProject);
+app.get('/profile', profile);
+
 
 app.get('*', function(req, res, next) {
   var err = new Error();

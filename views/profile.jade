@@ -1,0 +1,36 @@
+extends layout
+block nav-left-content
+  li
+    a#blck(href='/home') Home
+  li
+    a#blck(href='/home') Create Project
+  li
+    a#blck(href='/home') Settings
+
+block nav-content
+    li
+        a#blck(href='/')
+          span.glyphicon.glyphicon-log-out
+          |  Log out
+
+block content
+    .container-fluid#profile(style="height:100")
+        .row.profile-row(align="center")
+            img.profile-picture( src="https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png" )
+        .row.profile-row(align="center")
+            .col-sm
+                h1.profile-name=name
+                hr(style="width:15%; border-color:black; margin-top:4%; margin-bottom:4%")
+        .row.profile-row(align="center")
+            .col-sm-6(align="center")
+                h2.profile-interests 
+                    | INTERESTS:
+                h3.profile-interests
+                    | #{interests}
+            .col-sm-6(align="center")
+                h2.profile-interests
+                    | PROJECTS:
+                h3.profile-projects 
+                    | #{projects}
+// h3=interests[0]
+// h3=projects[0]
