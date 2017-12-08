@@ -34,16 +34,30 @@ block content
                 h3.profile-projects 
                     | #{projects}
     script.
+    
+        function accessDB(password, username){
+            database = firebase.database();
+            var ref = database.ref('Users');
+            ref.on('value', gotData, errData);
+            //window.alert(email, password);
+            return true;
+        }
+        
         function ReadCookie(){
             var allcookies = document.cookie;
             console.log("All Cookies : " + allcookies );
             cookiearray = allcookies.split(';');
             name = "no user"
-            for(var i=0; i<cookiearray.length; i++){
+            value = "none"
+            for(var i=0; i<2; i++){
                 name = cookiearray[i].split('=')[0];
                 value = cookiearray[i].split('=')[1];
-                console.log("Key is : " + name + " and Value is : " + value);
             }
+            
+            if(value != "none"){
+                
+            }
+
             // value = cookiearray[1].split('=')[1];
 
             
