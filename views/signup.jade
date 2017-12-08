@@ -51,7 +51,7 @@ block content
           div.confirmPassWord
             label(for='pw2') Confirm Password:
             input#pw2.form-control(type='password' name='confirmPassword' required)
-            button.btn.btn-primary(type = 'submit' onclick="submitClick();") Data base test
+          button.btn.btn-primary(type = 'submit' onclick="submitClick();" formaction ='home') Data base test
           // button.btn.btn-primary(type='submit' onclick="checkform();") Sign up
   
 
@@ -123,5 +123,5 @@ block content
       //projects
       //TO:DO find a way to reference off of a unique ID.
       //Find a way to redirect a page after user data is added to firebase
-      //window.location.replace("home.jade");
+      window.location.replace("home.jade");
     }
