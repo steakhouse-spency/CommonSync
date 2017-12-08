@@ -1,23 +1,23 @@
 extends layout
 block nav-content
-style.
-  * {box-sizing: border-box}
-  body {font-family: "Lato", sans-serif;}
-  
-block content 
-    div.navbar
-      #myTopnav.topnav
-        a.active(href='home') Home
-        |   
-        a(href='createProject') Create Project
-        |   
-        a(href='#about') Account  
-        |   
-        button.dropbtn(onclick='dropdown()') &#x2630
-        #myDropdown.dropdown-content 
-         a(href='settings') Settings
-         a(href='#about') Logout
-        script.
+  li
+    a#blck(href='home')
+      |  Home
+  li
+    a#blck(href='createProject')
+      |  Create Project
+  li
+     a#blck(href='#')
+      |  Account
+  li
+     button#blck.dropbtn(onclick='dropdown()')
+      |  &#x2630
+     #myDropdown.dropdown-content 
+            a(href='settings') Settings
+            br
+            a(href='#about') Logout
+            br
+     script.
             console.log("nav bar loading...")
               // When the user clicks on the dropdown button,
               //toggle between hiding and showing the dropdown content 
@@ -41,25 +41,36 @@ block content
                   }
                   }
                   }
-                console.log("done.");
+                console.log("done."); 
+style.
+  * {box-sizing: border-box}
+  body {font-family: "Lato", sans-serif;}
+  
+block content 
     body#settings_header
+        img( src="/img/gear.png" style=" width: 100px; height:100px; margin:10px;" )
         center 
             h1  Settings 
             .tab
-              button#defaultOpen.tablinks(onclick="openCity(event, 'London')") Account
-              button.tablinks(onclick="openCity(event, 'Paris')") Paris
-              button.tablinks(onclick="openCity(event, 'Tokyo')") Tokyo
-            #London.tabcontent
-              h3 London
-              p London is the capital city of England.
-            #Paris.tabcontent
-              h3 Paris
-              p Paris is the capital of France.
-            #Tokyo.tabcontent
-              h3 Tokyo
-              p Tokyo is the capital of Japan.
+              button#defaultOpen.tablinks(onclick="openCity(event, 'Account')") Account
+              button.tablinks(onclick="openCity(event, 'Activity')") Activity
+              button.tablinks(onclick="openCity(event, 'Logout')") Logout
+            #Account.tabcontent
+              .options_layout
+                h3(align="center") Account
+                h4(align="center") Edit your personal settings 
+                br
+                p(align="left")
+                 | Email
+                 | Change Password
+            #Activity.tabcontent
+              .options_layout
+                h3 Activity
+                h4 View and edit your activity settings.
+            #Logout.tabcontent
+              h3 Logout
             script.
-              function openCity(evt, cityName) {
+              function openCity(evt, option) {
               var i, tabcontent, tablinks;
               tabcontent = document.getElementsByClassName("tabcontent");
               for (i = 0; i < tabcontent.length; i++) {
@@ -69,7 +80,7 @@ block content
               for (i = 0; i < tablinks.length; i++) {
               tablinks[i].className = tablinks[i].className.replace(" active", "");
               }
-              document.getElementById(cityName).style.display = "block";
+              document.getElementById(option).style.display = "block";
               evt.currentTarget.className += " active";
               }
               // Get the element with id="defaultOpen" and click on it
