@@ -1,5 +1,5 @@
 extends layout
-block nav-content
+block nav-left-content
   li
     a#blck(href='home')
       |  Home
@@ -7,8 +7,8 @@ block nav-content
     a#blck(href='createProject')
       |  Create Project
   li
-     a#blck(href='#')
-      |  Account
+     a#blck(href='profile')
+      |  Profile
   li
      button#blck.dropbtn(onclick='dropdown()')
       |  &#x2630
@@ -77,7 +77,7 @@ style.
         border-collapse: collapse;
       }
 block content
-  .main.container
+  .main.container(style="height:100vh")
     div.home_page_body
       body
         div#search_bar
@@ -101,8 +101,8 @@ block content
             div(style='overflow:scroll;height:500px;width:100%;overflow:auto;')
               table#main_table
           div#main_sidebar 
-           h1 Sidebar 
-           p  more stuff will go here 
+           h1#sidebarT Sidebar 
+           p#sidebarP  more stuff will go here 
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
   script.
@@ -207,10 +207,10 @@ block content
           var add = document.createElement("button");
           add.innerHTML = "&#9733";
           add.addEventListener ("click", function() {
-            // add the tags to users collection of interests in the db
             document.getElementById("sidebarT").innerHTML = "Project Owners:";
             document.getElementById("sidebarP").innerHTML = x.project_owner;
             document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
+            // add the tags to users collection of interests in the db
             // alert(sample.nodeValue);
           });
           data.appendChild(add);

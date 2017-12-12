@@ -10,7 +10,7 @@ router.get('/profile', function(req, res, next) {
         // get interests
         // get projects
     console.log("profile...");
-  res.render('profile', {title:'Common Sync: thotiana',name:'thotiana', interests: 'C, MPI, CUDA', projects: 'Thot Coin, Common Sync'}); //['C','MPI', 'CUDA', 'Python'], projects: ['Thot Coin', 'Common Sync']});
+  res.render('profile', {title:'Common Sync: thotiana',name:'thotiana', interests: 'C, MPI, CUDA', projects: 'Common Sync'}); //['C','MPI', 'CUDA', 'Python'], projects: ['Thot Coin', 'Common Sync']});
 
 });
 

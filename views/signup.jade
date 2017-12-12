@@ -15,7 +15,7 @@ block content
     .row
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Sign Up
-        form(target ="_blank")
+        form(target ="_signup")
           div.fullName
             label(for='name') Name:
             input#name.form-control(type='text', placeholder='first and last' name='name' required)
@@ -53,9 +53,6 @@ block content
             input#pw2.form-control(type='password' name='confirmPassword' required)
           button.btn.btn-primary(type = 'submit' onclick="submitClick();" formaction ='home') Data base test
           // button.btn.btn-primary(type='submit' onclick="checkform();") Sign up
-  
-
-          
           
   script.
     function submitClick(){

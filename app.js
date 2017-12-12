@@ -1,3 +1,4 @@
+console.log("app.js fired");
 var firebase = require('firebase');
 var express = require('express');
 
