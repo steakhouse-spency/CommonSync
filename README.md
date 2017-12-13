@@ -11,5 +11,5 @@ A user can search for any project, regardless of which user created it.
 At the top of our home.jade page, users will be able to use a nav bar to navigate various other pages in our site.
 If the user chooses to visit the create project page, they will be able to create a project by entering a project owner name, a project description, project tags, as well as a list of project tags.
 Upon submitting this form, the data is saved into the database and users can then go back to the home page and search their project.
-If the user decides to visit our settings.jade page, they will be able to see their 
+If the user decides to visit our settings.jade page, they will be able to see and edit their personal settings, they will be able to view their recent activity, and they will be able to logout.
 If the user decides to visit our profile.jade page, they will be able to see various information about their account that is pulled from cookies and the database using javascript.
