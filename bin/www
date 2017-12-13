@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 console.log("www fired");
-var app = require('../app');
+require('../app');
 // var debug = require('debug')('workspace:server');
 // var http = require('http');
 

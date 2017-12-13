@@ -15,7 +15,7 @@ block content
     .row
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Sign Up
-        form(target ="_signup")
+        form(target ="_self")
           div.fullName
             label(for='name') Name:
             input#name.form-control(type='text', placeholder='first and last' name='name' required)
@@ -51,7 +51,7 @@ block content
           div.confirmPassWord
             label(for='pw2') Confirm Password:
             input#pw2.form-control(type='password' name='confirmPassword' required)
-          button.btn.btn-primary(type = 'submit' onclick="submitClick();" formaction ='home') Data base test
+          button.btn.btn-primary(type = 'submit' onclick="submitClick();"  formaction ='' ) Data base test
           // button.btn.btn-primary(type='submit' onclick="checkform();") Sign up
           
   script.
@@ -59,7 +59,9 @@ block content
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");
       
+      // check if data is missing
       for (var i = 0; i < inputs.length; i++) {
+          
           // only validate the inputs that have the required attribute
           if(inputs[i].hasAttribute("required")){
             if(inputs[i].value == ""){
@@ -73,10 +75,20 @@ block content
             }
           }
       }
+      // check if passwords are equal
+      if(inputs[11].value != inputs[12].value){
+        alert("emails are not equal")
+        return false;
+        window.location.replace("/signup");
+      }
+      
+
       
       //TODO: store config information into env variables.
       window.alert("Finally I can test!!");
+      
       // general user information 
+      
       var password = document.getElementById("pw").value;
       var confirmPW = document.getElementById("pw2").value;
       var name = document.getElementsByName("name")[0].value;
@@ -89,12 +101,12 @@ block content
       name: name,
       username: username,
       email: email
-        
       }
       ref.push(data)
       // pushing a unique user into the database.
       //interests
       
+      // insert interest as tags
       var networking = document.getElementsByName("networking")[0].checked;
       var security = document.getElementsByName("security")[0].checked;
       var webdev = document.getElementsByName("web development")[0].checked;
@@ -120,5 +132,5 @@ block content
       //projects
       //TO:DO find a way to reference off of a unique ID.
       //Find a way to redirect a page after user data is added to firebase
-      window.location.replace("home.jade");
+      window.location.replace("/home");
     }
