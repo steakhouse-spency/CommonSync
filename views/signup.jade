@@ -136,5 +136,26 @@ block content
       //projects
       //TO:DO find a way to reference off of a unique ID.
       //Find a way to redirect a page after user data is added to firebase
+      
+      function WriteCookie()
+      {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('pw').value;
+        console.log(username, password);
+        if( username == ""  || password == "")
+        {
+            alert("Enter some value!");
+            return;
+        }
+        cookievalue= escape(username) + ";";
+        document.cookie="username=" + cookievalue;
+        console.log("Setting Username : " + "username=" + cookievalue );
+        
+        cookievalueP= escape(password) + ";";
+        document.cookie="password=" + cookievalueP;
+        console.log("Setting Password : " + "password=" + cookievalueP );
+        
+      }
+      WriteCookie();
       window.location.replace("/home");
     }
