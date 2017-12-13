@@ -18,8 +18,7 @@ jobs:
 
     steps:
       - checkout
-      - run: 
-          post: -./test.sh
+      - run: post: -./test.sh
 
 
       # Download and cache dependencies
