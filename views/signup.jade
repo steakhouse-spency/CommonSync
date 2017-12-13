@@ -67,19 +67,20 @@ block content
             if(inputs[i].value == ""){
               // found an empty field that is required
               alert("Please fill all required fields");
-              return false;
+              return;
             }
             else if(/[^a-zA-Z0-9@. ]/.test(inputs[i].value)) {
               alert('Input must be alphanumeric');
-              return false;
+              return;
             }
           }
       }
       // check if passwords are equal
       if(inputs[11].value != inputs[12].value){
-        alert("emails are not equal")
-        return false;
-        window.location.replace("/signup");
+        alert("The Passwords you have entered do not match!")
+        // window.location.replace("/signup");
+
+        return;
       }
       
 
@@ -103,6 +104,8 @@ block content
       email: email
       }
       ref.push(data)
+      console.log("pushed user into db");
+
       // pushing a unique user into the database.
       //interests
       
@@ -128,6 +131,7 @@ block content
         
       }
       ref2.push(interests);
+      console.log("pushed interest into db");
       // pushing the users interests
       //projects
       //TO:DO find a way to reference off of a unique ID.
