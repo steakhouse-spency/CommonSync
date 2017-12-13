@@ -118,6 +118,20 @@ block content
     
   script.
       var projects = Object();
+      var allcookies = document.cookie;
+      var cookiearray = allcookies.split(';');
+      var username = cookiearray[1].split('=')[1];
+      var pword = cookiearray[2].split('=')[1];
+      
+      var allcookies = document.cookie;
+      console.log("All Cookies : " + allcookies );
+      cookiearray = allcookies.split(';');
+      for(var i=0; i<cookiearray.length; i++)
+      {
+      name = cookiearray[i].split('=')[0];
+      value = cookiearray[i].split('=')[1];
+      console.log("Key is : " + name + " and Value is : " + value);
+      }
         function returnProjects(){
           database = firebase.database();
           var ref = database.ref('Projects');
@@ -168,20 +182,13 @@ block content
           if(emptyField == null || emptyField == ""){
             return false;
           }
-          var tags = document.getElementsByName("pTags")[0].value.split(' ');
-          // for(t in tags){
-          //   tags[t] = tags[t].replace(/,\s*$/, "");
-          // }
+          var tags = document.getElementsByName("pTags")[0].value.split(',');
+          for(t in tags){
+            tags[t] = tags[t].replace(/,\s*$/, "");
+            tags[t] = tags[t].trim();
+          }
           // have to access db to pull project info based on tag matches from array
           returnProjects();
-          // Object.keys(projects).forEach(function(key){
-          //   console.log(key, projects[key]);
-          // });
-          // var list = [
-          //   { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
-          //   { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
-          //   { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
-          // ];
           
           for(t in tags){
             for(y in projects){
@@ -189,7 +196,7 @@ block content
                 if(projects[y][x].project_tags.indexOf(tags[t]) > -1){
                   console.log(projects[y][x].project_tags, tags[t]);
                   console.log(projects[y][x].project_tags.indexOf(tags[t]));
-                  addRow(projects[y][x]);
+                  addRow(projects[y][x], x);
                 }
               }
             }
@@ -200,7 +207,7 @@ block content
           return (/^(\s|&nbsp;)*$/.test(document.getElementById("main_table").innerHTML));
         }
           
-        function addRow(x){
+        function addRow(x, ref){
           console.log(x);
           var table = document.getElementById("main_table");
           
@@ -238,9 +245,12 @@ block content
           var join = document.createElement("button");
           join.innerHTML = "Join";
           join.addEventListener ("click", function() {
-            // add user name to project collection of collaborators
-            // may have to get username from cookie here
-            alert(description.nodeValue);
+            console.log(ref);
+            x.collaborators.push(username)
+            var database = firebase.database();
+            var reference = database.ref("Projects").child(username).child(ref);
+            reference.update(x);
+            alert("You have been added to the list of collaboraters for project: " + x.project_name);
           });
           data.appendChild(join);
           row.appendChild(data);
