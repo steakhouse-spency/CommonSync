@@ -1,5 +1,5 @@
 extends layout
-block nav-left-content
+block nav-content
   li
     a#blck(href='home')
       |  Home
@@ -7,8 +7,8 @@ block nav-left-content
     a#blck(href='createProject')
       |  Create Project
   li
-     a#blck(href='profile')
-      |  Profile
+     a#blck(href='#')
+      |  Account
   li
      button#blck.dropbtn(onclick='dropdown()')
       |  &#x2630
@@ -49,7 +49,7 @@ block content
         h1.display-4.m-b-2 Create Project
 
         // register form
-        form(target ="_self" )
+        form(target ="_blank")
           div.projectName
             label(for='pName') Project Name: 
             input#pName.form-control(type='text', placeholder='Project Name' name='pName' required)
@@ -76,9 +76,6 @@ block content
       var owner = document.getElementsByName("pOwner")[0].value;
       var description = document.getElementsByName("textarea")[0].value;
       var tags = document.getElementsByName("tags")[0].value.split(' ');
-      for(t in tags){
-        tags[t] = tags[t].replace(/,\s*$/, "");
-      }
     
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");
@@ -129,22 +126,24 @@ block content
     }
   
     // todo: store the project data in firebase.
-    function accessDB(name, owner, description, tags, userEname, userPvalue){
-    console.log(userPvalue);
-    window.alert("Entered accessDB method");
   
+    function accessDB(name, owner, description, tags, userEname, userPvalue){
+      console.log(userPvalue);
+      window.alert("Entered accessDB method");
+    
+        
+        var database = firebase.database();
+        var reference = database.ref("Projects").child(userPvalue);
+        var Projects ={
+          project_name:name,
+          project_owner: owner,
+          project_description: description,
+          project_tags: tags
+         
+        }
+        reference.push(Projects);
+        console.log("Finished Pushing mah dude");
+        
+      return true;
       
-      var database = firebase.database();
-      var reference = database.ref("Projects").child(userPvalue);
-      var Projects ={
-        project_name:name,
-        project_owner: owner,
-        project_description: description,
-        project_tags: tags
-       
-      }
-      reference.push(Projects);
-      console.log("Finished Pushing mah dude");
-      
-    return true;
     }

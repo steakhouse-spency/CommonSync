@@ -107,131 +107,146 @@ block content
     
   script.
       var projects = Object();
-        function returnProjects(){
-          database = firebase.database();
-          var ref = database.ref('Projects');
-          ref.on('value', gotData, errData);
-          console.log("Got into proj function");
-          return true;
+      function returnProjects(){
+        database = firebase.database();
+        var ref = database.ref('Projects');
+        ref.on('value', gotData, errData);
+        console.log("Got into proj function");
+        return true;
+      }
+        
+      function gotData(data){
+        console.log("Going to read data now hehe");
+        
+        console.log(data.val());
+        projects = data.val();
+        // Object.keys(projects).forEach(function(key){
+        // console.log(key, projects[key]);
+        // });
+        
+        console.log("Finished traversing");
+        return projects;
+      }
+      
+      function errData(err){
+        console.log('Error!');
+        window.alert(err);
+      }
+      
+      returnProjects();
+      function saveTags(){
+        // if the user has not signed in or the cookie for some reason has become erased, redirect the user back to the login page
+        var allcookies = document.cookie;
+        //console.log("All Cookies : " + allcookies );
+        cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++){
+          name = cookiearray[i].split('=')[0];
+          value = cookiearray[i].split('=')[1];
+          //console.log("Key is : " + name + " and Value is : " + value);
+        }
+        if(name == "" || name == undefined){
+          return false;
+          //redirect to login.jade, then return false
+        }
+        if(!tableIsEmpty()){
+          return false;
         }
         
-        function gotData(data){
-          console.log("Going to read data now hehe");
-          
-          console.log(data.val());
-          projects = data.val();
-          // Object.keys(projects).forEach(function(key){
-          // console.log(key, projects[key]);
-          // });
-          
-          console.log("Finished traversing");
-          return projects;
+        // If the user doesn't enter anything into the field and clicks the search button, don't search!
+        var emptyField = document.getElementsByName("pTags")[0].value;
+        if(emptyField == null || emptyField == ""){
+          return false;
         }
-        
-        function errData(err){
-          console.log('Error!');
-          window.alert(err);
-        }
-        
+        var tags = document.getElementsByName("pTags")[0].value.split(' ');
+        // for(t in tags){
+        //   tags[t] = tags[t].replace(/,\s*$/, "");
+        // }
+        // have to access db to pull project info based on tag matches from array
         returnProjects();
-        function saveTags(){
-          // if the user has not signed in or the cookie for some reason has become erased, redirect the user back to the login page
-          var allcookies = document.cookie;
-          //console.log("All Cookies : " + allcookies );
-          cookiearray = allcookies.split(';');
-          for(var i=0; i<cookiearray.length; i++){
-            name = cookiearray[i].split('=')[0];
-            value = cookiearray[i].split('=')[1];
-            //console.log("Key is : " + name + " and Value is : " + value);
-          }
-          if(name == "" || name == undefined){
-            return false;
-            //redirect to login.jade, then return false
-          }
-          if(!tableIsEmpty()){
-            return false;
-          }
-          
-          // If the user doesn't enter anything into the field and clicks the search button, don't search!
-          var emptyField = document.getElementsByName("pTags")[0].value;
-          if(emptyField == null || emptyField == ""){
-            return false;
-          }
-          var tags = document.getElementsByName("pTags")[0].value.split(' ');
-          // for(t in tags){
-          //   tags[t] = tags[t].replace(/,\s*$/, "");
-          // }
-          // have to access db to pull project info based on tag matches from array
-          returnProjects();
-          // Object.keys(projects).forEach(function(key){
-          //   console.log(key, projects[key]);
-          // });
-          // var list = [
-          //   { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
-          //   { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
-          //   { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
-          // ];
-          
-          for(t in tags){
-            for(y in projects){
-              for(x in projects[y]){
-                if(projects[y][x].project_tags.indexOf(tags[t]) > -1){
-                  console.log(projects[y][x].project_tags, tags[t]);
-                  console.log(projects[y][x].project_tags.indexOf(tags[t]));
-                  addRow(projects[y][x]);
-                }
+        // Object.keys(projects).forEach(function(key){
+        //   console.log(key, projects[key]);
+        // });
+        // var list = [
+        //   { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
+        //   { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
+        //   { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
+        // ];
+        
+        for(t in tags){
+          for(y in projects){
+            for(x in projects[y]){
+              if(projects[y][x].project_tags.indexOf(tags[t]) > -1){
+                console.log(projects[y][x].project_tags, tags[t]);
+                console.log(projects[y][x].project_tags.indexOf(tags[t]));
+                addRow(projects[y][x]);
               }
             }
           }
         }
+      }
+      
+      function tableIsEmpty() {
+        return (/^(\s|&nbsp;)*$/.test(document.getElementById("main_table").innerHTML));
+      }
         
-        function tableIsEmpty() {
-          return (/^(\s|&nbsp;)*$/.test(document.getElementById("main_table").innerHTML));
+      function addRow(x){
+        console.log(x);
+        var table = document.getElementById("main_table");
+        
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+        
+        var data = document.createElement("td");
+        
+        // todo: load database title into this variable
+        var postTitle = x.project_name;
+        var strong = document.createElement("strong");
+        var sample = document.createTextNode(postTitle);
+        strong.appendChild(sample);
+        data.appendChild(strong);
+        
+        // todo: load database description into this variable
+        var dbDesc = x.project_description;
+        var para = document.createElement("p");
+        para.setAttribute('style', 'max-width:900px; word-wrap:break-word');
+        var description = document.createTextNode(dbDesc);
+        para.appendChild(description);
+        data.appendChild(para);
+        
+        var add = document.createElement("button");
+        add.innerHTML = "&#9733";
+        add.addEventListener ("click", function() {
+          document.getElementById("sidebarT").innerHTML = "Project Owners:";
+          document.getElementById("sidebarP").innerHTML = x.project_owner;
+          document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
+          // add the tags to users collection of interests in the db
+          // alert(sample.nodeValue);
+        });
+        data.appendChild(add);
+        
+        var join = document.createElement("button");
+        join.innerHTML = "Join";
+        join.addEventListener ("click", function() {
+          // add user name to project collection of collaborators
+          // may have to get username from cookie here
+          alert(description.nodeValue);
+        });
+        data.appendChild(join);
+        row.appendChild(data);
+        
+        table.appendChild(row);
+      }
+        
+      function ReadCookie(){
+        var allcookies = document.cookie;
+        console.log("All Cookies : " + allcookies );
+        cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++)
+        {
+        name = cookiearray[i].split('=')[0];
+        value = cookiearray[i].split('=')[1];
+        console.log("Key is : " + name + " and Value is : " + value);
+          
         }
-          
-        function addRow(x){
-          console.log(x);
-          var table = document.getElementById("main_table");
-          
-          var rowCount = table.rows.length;
-          var row = table.insertRow(rowCount);
-          
-          var data = document.createElement("td");
-          
-          // todo: load database title into this variable
-          var postTitle = x.project_name;
-          var strong = document.createElement("strong");
-          var sample = document.createTextNode(postTitle);
-          strong.appendChild(sample);
-          data.appendChild(strong);
-          
-          // todo: load database description into this variable
-          var dbDesc = x.project_description;
-          var para = document.createElement("p");
-          para.setAttribute('style', 'max-width:900px; word-wrap:break-word');
-          var description = document.createTextNode(dbDesc);
-          para.appendChild(description);
-          data.appendChild(para);
-          
-          var add = document.createElement("button");
-          add.innerHTML = "&#9733";
-          add.addEventListener ("click", function() {
-            document.getElementById("sidebarT").innerHTML = "Project Owners:";
-            document.getElementById("sidebarP").innerHTML = x.project_owner;
-            document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
-            // add the tags to users collection of interests in the db
-            // alert(sample.nodeValue);
-          });
-          data.appendChild(add);
-          
-          var join = document.createElement("button");
-          join.innerHTML = "Join";
-          join.addEventListener ("click", function() {
-            // add user name to project collection of collaborators
-            // may have to get username from cookie here
-            alert(description.nodeValue);
-          });
-          data.appendChild(join);
-          row.appendChild(data);
-          
-          table.appendChild(row);}
+      }
+      ReadCookie();
