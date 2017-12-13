@@ -87,6 +87,20 @@ block content
               button.searchButton(type='submit' onclick='saveTags()') &#x1F50D
         section#homePage_feed
           div#main_feed
+            h1(align="center" id="welcome") helooo
+              script.
+                function welcomeuser() {
+                  document.getElementById('welcome').innerHTML = "welcome" + ;
+                  var allcookies = document.cookie;
+                  //console.log("All Cookies : " + allcookies );
+                  cookiearray = allcookies.split(';');
+                  for(var i=0; i<cookiearray.length; i++){
+                    name = cookiearray[i].split('=')[0];
+                    value = cookiearray[i].split('=')[1];
+                    console.log("Key is : " + name + " and Value is : " + value);
+                  }
+                }
+                window.onload = welcomeuser;
             h1(align="center") Projects
             | Sort by: 
             select#sortMenu
