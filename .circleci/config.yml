@@ -18,7 +18,10 @@ jobs:
 
     steps:
       - checkout
-      - run: ./test.sh
+      - run: 
+          post:
+          - ./test.sh
+
 
       # Download and cache dependencies
       - restore_cache:
