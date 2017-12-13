@@ -172,6 +172,9 @@ block content
             return false;
           }
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
+          // for(t in tags){
+          //   tags[t] = tags[t].replace(/,\s*$/, "");
+          // }
           // have to access db to pull project info based on tag matches from array
           returnProjects();
           // Object.keys(projects).forEach(function(key){
@@ -183,9 +186,15 @@ block content
           //   { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
           // ];
           
-          for(y in projects){
-            for(x in projects[y]){
-              addRow(projects[y][x]);
+          for(t in tags){
+            for(y in projects){
+              for(x in projects[y]){
+                if(projects[y][x].project_tags.indexOf(tags[t]) > -1){
+                  console.log(projects[y][x].project_tags, tags[t]);
+                  console.log(projects[y][x].project_tags.indexOf(tags[t]));
+                  addRow(projects[y][x]);
+                }
+              }
             }
           }
         }

@@ -76,6 +76,9 @@ block content
       var owner = document.getElementsByName("pOwner")[0].value;
       var description = document.getElementsByName("textarea")[0].value;
       var tags = document.getElementsByName("tags")[0].value.split(' ');
+      for(t in tags){
+        tags[t] = tags[t].replace(/,\s*$/, "");
+      }
     
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");
