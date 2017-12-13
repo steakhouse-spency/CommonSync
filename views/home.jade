@@ -107,6 +107,9 @@ block content
     
   script.
       var projects = Object();
+      var allcookies = document.cookie;
+      var cookiearray = allcookies.split(';');
+      var username = cookiearray[1].split('=')[1];
         function returnProjects(){
           database = firebase.database();
           var ref = database.ref('Projects');
@@ -220,9 +223,8 @@ block content
           var join = document.createElement("button");
           join.innerHTML = "Join";
           join.addEventListener ("click", function() {
-            // add user name to project collection of collaborators
-            // may have to get username from cookie here
-            alert(description.nodeValue);
+            x.collaborators.push(username)
+            alert("You have been added to the list of collaboraters for project: " + x.project_name);
           });
           data.appendChild(join);
           row.appendChild(data);
