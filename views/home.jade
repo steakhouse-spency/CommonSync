@@ -1,5 +1,5 @@
 extends layout
-block nav-content
+block nav-left-content
   li
     a#blck(href='home')
       |  Home
@@ -7,8 +7,8 @@ block nav-content
     a#blck(href='createProject')
       |  Create Project
   li
-     a#blck(href='#')
-      |  Account
+     a#blck(href='profile')
+      |  Profile
   li
      button#blck.dropbtn(onclick='dropdown()')
       |  &#x2630
@@ -77,7 +77,7 @@ style.
         border-collapse: collapse;
       }
 block content
-  .main.container
+  .main.container(style="height:100vh")
     div.home_page_body
       body
         div#search_bar
@@ -101,8 +101,8 @@ block content
             div(style='overflow:scroll;height:500px;width:100%;overflow:auto;')
               table#main_table
           div#main_sidebar 
-           h1 Sidebar 
-           p  more stuff will go here 
+           h1#sidebarT Sidebar 
+           p#sidebarP  more stuff will go here 
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
   script.
@@ -158,6 +158,9 @@ block content
             return false;
           }
           var tags = document.getElementsByName("pTags")[0].value.split(' ');
+          // for(t in tags){
+          //   tags[t] = tags[t].replace(/,\s*$/, "");
+          // }
           // have to access db to pull project info based on tag matches from array
           returnProjects();
           // Object.keys(projects).forEach(function(key){
@@ -169,9 +172,15 @@ block content
           //   { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
           // ];
           
-          for(y in projects){
-            for(x in projects[y]){
-              addRow(projects[y][x]);
+          for(t in tags){
+            for(y in projects){
+              for(x in projects[y]){
+                if(projects[y][x].project_tags.indexOf(tags[t]) > -1){
+                  console.log(projects[y][x].project_tags, tags[t]);
+                  console.log(projects[y][x].project_tags.indexOf(tags[t]));
+                  addRow(projects[y][x]);
+                }
+              }
             }
           }
         }
@@ -207,10 +216,10 @@ block content
           var add = document.createElement("button");
           add.innerHTML = "&#9733";
           add.addEventListener ("click", function() {
-            // add the tags to users collection of interests in the db
             document.getElementById("sidebarT").innerHTML = "Project Owners:";
             document.getElementById("sidebarP").innerHTML = x.project_owner;
             document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
+            // add the tags to users collection of interests in the db
             // alert(sample.nodeValue);
           });
           data.appendChild(add);

@@ -1,5 +1,5 @@
 extends layout
-block nav-content
+block nav-left-content
   li
     a#blck(href='home')
       |  Home
@@ -7,8 +7,8 @@ block nav-content
     a#blck(href='createProject')
       |  Create Project
   li
-     a#blck(href='#')
-      |  Account
+     a#blck(href='profile')
+      |  Profile
   li
      button#blck.dropbtn(onclick='dropdown()')
       |  &#x2630
@@ -49,7 +49,7 @@ block content
         h1.display-4.m-b-2 Create Project
 
         // register form
-        form(target ="_blank")
+        form(target ="_self" )
           div.projectName
             label(for='pName') Project Name: 
             input#pName.form-control(type='text', placeholder='Project Name' name='pName' required)
@@ -76,6 +76,9 @@ block content
       var owner = document.getElementsByName("pOwner")[0].value;
       var description = document.getElementsByName("textarea")[0].value;
       var tags = document.getElementsByName("tags")[0].value.split(' ');
+      for(t in tags){
+        tags[t] = tags[t].replace(/,\s*$/, "");
+      }
     
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");

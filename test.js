@@ -1,29 +1,6 @@
-//const firebase = require("firebase");
-//const firebase = require('firebase-admin');
 
-
-// Initialize Firebase
-//   var config = {
-//     apiKey: "AIzaSyAMHYGpu-H8_QgL2_XJJlZldZyOXHRu3Do",
-//     authDomain: "common-sync.firebaseapp.com",
-//     databaseURL: "https://common-sync.firebaseio.com",
-//     projectId: "common-sync",
-//     storageBucket: "common-sync.appspot.com",
-//     messagingSenderId: "225743183786"
-//   };
-//   firebase.initializeApp(config);
-//   var database = firebase.database();
-//   var ref = database.ref('Users');
-//   console.log(ref.value);
- 
-
-
-   
-   // console.log(ref.value);
-  
-  
 var admin = require("firebase-admin");
-var serviceAccount = require("./config.json");
+var serviceAccount = require("./.config.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -48,7 +25,7 @@ var assert = require('assert');
 // });
 
 //************
-describe('Test firebasedb relational instance', function() {
+describe('Test firebasedb relational instances', function() {
 
 
   var database = admin.database();
@@ -233,5 +210,6 @@ admin.app().delete().then(function() {
   console.log("Closed firebase connection");
   admin.database().ref().remove("Test");
   admin.database().ref().remove("Test2");
+  admin.database().ref().remove("Test3");
 });
 // All tests are removed from firebase db after we extract our dummy data.

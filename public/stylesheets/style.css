@@ -77,28 +77,33 @@ margin:10px;
     background-color: #3e8e41;
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
+    overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    text-align: left;
     right: 0px;
 }
 
 .dropdown-content a {
-    float: none;
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    text-align: left;
 }
 
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
+.dropdown a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
 
 /*Nav*/
 #nav-bar{
@@ -106,13 +111,7 @@ margin:10px;
     margin-bottom:-4px;
     background-color: #efefef;
     border-color: transparent;
-}
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-/*thottie*/
-#bd{
-    background-color: black;
+    
 }
 #nav-bar-brand{
     color:#66c182;
@@ -235,10 +234,6 @@ margin:10px;
     text-shadow: 2px 2.5px 5px  black;
     line-height: 130%;
     letter-spacing: 5px;
-
-
-
-    
 }
 
 .jtron-green{
@@ -298,6 +293,31 @@ margin:10px;
     text-align: center;
 }
 
+#profile{
+    padding-top: 10%;
+    height:100vh;
+    background-color: #efefef;
+    margin-left: 15%;
+    margin-right:15%;
+
+}
+.profile-row{
+    margin-left: 15%;
+    margin-right:15%;
+}
+.profile-picture{
+    width:100px;
+    height:100px;
+}
+.profile-name{
+    color:#66c182;
+    text-shadow: 1px 2px 1px  black;}
+.profile-interests{
+    text-align:center;
+}
+
+
+
 
 
 
@@ -315,7 +335,7 @@ margin:10px;
   width: 100%;
   border: 3px solid #333;
   padding: 5px;
-  height: 35px;
+  height: 20px;
   border-radius: 5px;
   outline: none;
   color: #333;
