@@ -12,7 +12,6 @@ block nav-left-content
   li
     a#blck(href='settings')
       |  Settings
-
 block nav-content
     li
         a#blck(href='/')
@@ -26,49 +25,131 @@ block content
             img.profile-picture( src="https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png" )
         .row.profile-row(align="center")
             .col-sm
-                h1.profile-name#profile-name=name
+                h1.profile-name#profile-name
                 hr(style="width:15%; border-color:black; margin-top:4%; margin-bottom:4%")
         .row.profile-row(align="center")
             .col-sm-6(align="center")
                 h2.profile-interests 
                     | INTERESTS:
-                h3.profile-interests
+                h3.profile-interests#interest
                     | #{interests}
             .col-sm-6(align="center")
                 h2.profile-interests
                     | PROJECTS:
-                h3.profile-projects 
+                h3.profile-projects#project
                     | #{projects}
     script.
-    
-        function accessDB(password, username){
-            database = firebase.database();
-            var ref = database.ref('Users');
-            ref.on('value', gotData, errData);
-            //window.alert(email, password);
-            return true;
-        }
-        
-        function ReadCookie(){
-            var allcookies = document.cookie;
-            console.log("All Cookies : " + allcookies );
-            cookiearray = allcookies.split(';');
-            name = "no user"
-            value = "none"
-            for(var i=0; i<2; i++){
-                name = cookiearray[i].split('=')[0];
-                value = cookiearray[i].split('=')[1];
-            }
-            
-            if(value != "none"){
-                
-            }
+      var allcookies = document.cookie;
+      cookiearray = allcookies.split(';');
+      var user = cookiearray[1].split('=')[1];
+      var pword = cookiearray[2].split('=')[1];
+      console.log("cookie: ", user);
+ 
+      document.getElementById('profile-name').innerHTML = user;
 
-            // value = cookiearray[1].split('=')[1];
+      window.onload = accessDB;
+  
+      function accessDB(){
+      // get username
+      
+          var allcookies = document.cookie; 
+          cookiearray = allcookies.split(';');
+          var user = cookiearray[1].split('=')[1];
+          var pword = cookiearray[2].split('=')[1];
 
-            
-            
-        } 
-        ReadCookie();
+          database = firebase.database();
+          var ref = database.ref('Interests');
+          ref.on('value', gotData, errData);
+          
+          var ref2 = database.ref('Projects');
+          ref2.on('value', gotDataI, errDataI);
+          
+          return true;
+      }
+      function gotDataI(data){
+          console.log("Projects!!")
+          // get username
+          var allcookies = document.cookie;
+          cookiearray = allcookies.split(';');
+          var user = cookiearray[1].split('=')[1];
+          var pword = cookiearray[2].split('=')[1];
+          // get interest
+          
+          
+          var projects = data.val();
+          
+          
+          
+          
+          var listofprojs = "";
+
+            for(y in projects){
+              if(y == user){
+                for(x in projects[y]){
+                  listofprojs += projects[y][x].project_name + "</br>";
+                }
+                break;
+              }
+          }
+          
+          // var listofprojs = "";
+          // for(var i = 0; i < projectsArray.length; i++){
+          //   if(projectsArray[i] == true){
+          //     listofprojs += projectsArray[i] + "</br>";
+          //   }
+          // }
+
+          document.getElementById('project').innerHTML = listofprojs;
+      }
+      function gotData(data){
+
+          // get username
+          var allcookies = document.cookie;
+          cookiearray = allcookies.split(';');
+          var user = cookiearray[1].split('=')[1];
+          var pword = cookiearray[2].split('=')[1];
+          // get interest
+          
+          
+          var interests = data.val();
+          
+          var interestsMap = ["C++", "Java", "Javascript", "Networking", "Python", "Security", "Web Development"];
+          var interestsArray = [];
+          for(y in interests){
+            if(y == user){
+              for(x in interests[y]){
+                interestsArray.push(interests[y][x].cpp);
+                interestsArray.push(interests[y][x].java);
+                interestsArray.push(interests[y][x].js);
+                interestsArray.push(interests[y][x].networking);
+                interestsArray.push(interests[y][x].python);
+                interestsArray.push(interests[y][x].security);
+                interestsArray.push(interests[y][x].webdev);
+                break;
+              }
+            }
+          }
+          
+          console.log(interestsArray);
+          var listofints = "";
+          for(var i = 0; i < interestsArray.length; i++){
+            if(interestsArray[i] == true){
+              listofints += interestsMap[i] + "</br>";
+            }
+          }
+
+          document.getElementById('interest').innerHTML = listofints;
+      }
+      function errData(err)
+      {
+        console.log('Error!');
+        window.alert(err);
+      } 
+      function errDataI(err)
+      {
+        console.log('Error!');
+        window.alert(err);
+      }
+
       
 
