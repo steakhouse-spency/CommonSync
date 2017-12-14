@@ -1,17 +1,15 @@
 # CommonSync
-## Notes:
-### Commit 1
-Please run my code using **app.js** instead of **bin/www**, for the moment. 
-* updated the landing page from the default express one
-  * added buttons 
-  * updated fonts
-* integrated socket.io (this is my first attempt so if there is anything wrong let me know
-  * there is a window that pops up to test socket.io, it's only for testing purposes so disregard 
-  
-### Commit 2
-Please run my code using **app.js** instead of **bin/www**, for the moment. 
-* Routing between pages fixed, so the buttons work now 
-* Started working on signup and login forms
-
-Now that I have a understanding express routing better hopefully linking between pages shouldnt't such a problem. The 
-rest of the page should come smoothly. I can focus on other stuff now.
+## Notes: Run code using **app.js**. 
+### User Experience
+Users should be greeted with our splash page upon visiting our site and be given various options to navigate the page.
+Upon signing up or logging in with a previously set up account, users are redirected to our main page 'home.jade' through javascript.
+The signin and login pages both use javascript to test and make sure that data entered by the user is valid data for the type of field expected.
+Our site keeps track of user sessions via using cookies with javascript.
+This page should have an option to search for projects that are already in the database via tags associated with that project.
+Originally, we had this functionality split off into its own page, but later decided that because of the idea behind our site, it should be a prominent feature on the home page.
+A user can search for any project, regardless of which user created it.
+At the top of our home.jade page, users will be able to use a nav bar to navigate various other pages in our site.
+If the user chooses to visit the create project page, they will be able to create a project by entering a project owner name, a project description, project tags, as well as a list of project tags.
+Upon submitting this form, the data is saved into the database and users can then go back to the home page and search their project.
+If the user decides to visit our settings.jade page, they will be able to see and edit their personal settings, they will be able to view their recent activity, and they will be able to logout.
+If the user decides to visit our profile.jade page, they will be able to see various information about their account that is pulled from cookies and the database using javascript.

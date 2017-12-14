@@ -87,6 +87,17 @@ block content
               button.searchButton(type='submit' onclick='saveTags()') &#x1F50D
         section#homePage_feed
           div#main_feed
+            h1(align="center" id="welcome") helooo
+              script.
+                function welcomeuser() {
+                  var allcookies = document.cookie;
+                  cookiearray = allcookies.split(';');
+                  username = cookiearray[1].split('=')[1]
+                  document.getElementById('welcome').innerHTML = "Welcome <u>" + username + "</u>" ;
+
+                  
+                }
+                window.onload = welcomeuser;
             h1(align="center") Projects
             | Sort by: 
             select#sortMenu
@@ -107,6 +118,19 @@ block content
     
   script.
       var projects = Object();
+      var allcookies = document.cookie;
+      var cookiearray = allcookies.split(';');
+      var username = cookiearray[1].split('=')[1];
+      var pword = cookiearray[2].split('=')[1];
+      
+      var allcookies = document.cookie;
+      console.log("All Cookies : " + allcookies );
+      cookiearray = allcookies.split(';');
+      for(var i=0; i<cookiearray.length; i++){
+      name = cookiearray[i].split('=')[0];
+      value = cookiearray[i].split('=')[1];
+      console.log("Key is : " + name + " and Value is : " + value);
+      }
         function returnProjects(){
           database = firebase.database();
           var ref = database.ref('Projects');
@@ -157,20 +181,13 @@ block content
           if(emptyField == null || emptyField == ""){
             return false;
           }
-          var tags = document.getElementsByName("pTags")[0].value.split(' ');
-          // for(t in tags){
-          //   tags[t] = tags[t].replace(/,\s*$/, "");
-          // }
+          var tags = document.getElementsByName("pTags")[0].value.split(',');
+          for(t in tags){
+            tags[t] = tags[t].replace(/,\s*$/, "");
+            tags[t] = tags[t].trim();
+          }
           // have to access db to pull project info based on tag matches from array
           returnProjects();
-          // Object.keys(projects).forEach(function(key){
-          //   console.log(key, projects[key]);
-          // });
-          // var list = [
-          //   { title: 'Project Oxford', description: 'Lorem ipsum dolor sit amet, essent iracundia consectetuer sed te. Iisque lucilius accommodare qui cu, mel tollit timeam perfecto in. Sit in lorem oblique, eu nihil consetetur ius, civibus ocurreret eum in. No his esse consetetur, ex has splendide scribentur.'},
-          //   { title: 'Project Yale', description: 'Elitr utamur eam ne, ea mea repudiare similique. Sit cibo lobortis comprehensam ne. Possit mollis accusata ex pro, vim ei porro velit. Mea vivendo vivendum mandamus ex, nam ferri facer ut, ei mel causae sadipscing. Eum id nusquam mediocrem, error dolorem mediocrem qui ea.'},
-          //   { title: 'Project Biotech', description: 'Id doming epicurei per, ius ei illum dicat postea, laboramus adolescens definitiones ea has. Vim duis augue scribentur eu, vim id natum conclusionemque. Per error primis maluisset at, utinam adversarium nam ea. Eam hinc habeo alienum te, in duo rebum postea putent. Et vivendum sapientem mei, erant adipisci in sit, habeo saepe sadipscing eu mei. Eum ei velit indoctum complectitur.'}
-          // ];
           
           for(t in tags){
             for(y in projects){
@@ -178,7 +195,7 @@ block content
                 if(projects[y][x].project_tags.indexOf(tags[t]) > -1){
                   console.log(projects[y][x].project_tags, tags[t]);
                   console.log(projects[y][x].project_tags.indexOf(tags[t]));
-                  addRow(projects[y][x]);
+                  addRow(projects[y][x], x);
                 }
               }
             }
@@ -189,7 +206,7 @@ block content
           return (/^(\s|&nbsp;)*$/.test(document.getElementById("main_table").innerHTML));
         }
           
-        function addRow(x){
+        function addRow(x, ref){
           console.log(x);
           var table = document.getElementById("main_table");
           
@@ -198,14 +215,12 @@ block content
           
           var data = document.createElement("td");
           
-          // todo: load database title into this variable
           var postTitle = x.project_name;
           var strong = document.createElement("strong");
           var sample = document.createTextNode(postTitle);
           strong.appendChild(sample);
           data.appendChild(strong);
           
-          // todo: load database description into this variable
           var dbDesc = x.project_description;
           var para = document.createElement("p");
           para.setAttribute('style', 'max-width:900px; word-wrap:break-word');
@@ -216,21 +231,46 @@ block content
           var add = document.createElement("button");
           add.innerHTML = "&#9733";
           add.addEventListener ("click", function() {
-            document.getElementById("sidebarT").innerHTML = "Project Owners:";
-            document.getElementById("sidebarP").innerHTML = x.project_owner;
+            document.getElementById("sidebarT").innerHTML = "Project Title:";
+            document.getElementById("sidebarP").innerHTML = x.project_name;
             document.getElementById("sidebarP").setAttribute('style', 'max-width:200px; word-wrap:break-word');
-            // add the tags to users collection of interests in the db
-            // alert(sample.nodeValue);
           });
           data.appendChild(add);
           
           var join = document.createElement("button");
           join.innerHTML = "Join";
           join.addEventListener ("click", function() {
-            // add user name to project collection of collaborators
-            // may have to get username from cookie here
-            alert(description.nodeValue);
+            console.log(username);
+            if(username == undefined){
+              return false;
+            }
+            console.log(ref);
+            //duplicate usernames in collaborators list not allowed
+            if(x.collaborators.includes(username)){
+              alert("You are currently a collaborator for project: " + x.project_name);
+              return false;
+            }
+            x.collaborators.push(username)
+            var database = firebase.database();
+            var reference = database.ref("Projects").child(x.collaborators[0]).child(ref);
+            reference.update(x);
+            alert("You have been added to the list of collaboraters for project: " + x.project_name);
+            
+            //add paragraph elements of collaborator names to sidebar
+            var sidebar = document.getElementById("main_sidebar");
+            var collabNames = "";
+            var collaborator = document.createElement("p");
+            for(y in x.collaborators){
+              collabNames = collabNames + x.collaborators[y] + ", ";
+            }
+            collabNames = collabNames.slice(0, -2);
+            var q = document.createTextNode(collabNames);
+            collaborator.appendChild(q);
+            document.getElementById("sidebarT").innerHTML = x.project_name;
+            document.getElementById("sidebarP").innerHTML = "Collaborators: ";
+            sidebar.appendChild(collaborator);
           });
+          
           data.appendChild(join);
           row.appendChild(data);
           
