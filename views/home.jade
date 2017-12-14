@@ -1,7 +1,7 @@
 extends layout
 block nav-left-content
   li
-    a#blck(href='home')
+    a#blck(href='#')
       |  Home
   li
     a#blck(href='createProject')
@@ -10,38 +10,9 @@ block nav-left-content
      a#blck(href='profile')
       |  Profile
   li
-     button#blck.dropbtn(onclick='dropdown()')
-      |  &#x2630
-     #myDropdown.dropdown-content 
-            a(href='settings') Settings
-            br
-            a(href='#about') Logout
-            br
-     script.
-      console.log("nav bar loading...")
-              // When the user clicks on the dropdown button,
-              //toggle between hiding and showing the dropdown content 
-              
-              function dropdown() {
-                  console.log("dropdown function triggered");
-                  document.getElementById("myDropdown").classList.toggle("show");
-                  console.log("dropdown function success")
-                  }
-                // Close the dropdown if the user clicks outside of it
-                
-              window.onclick = function(event) {
-                  if (!event.target.matches('.dropbtn')) {
-                  var dropdowns = document.getElementsByClassName("dropdown-content");
-                  var i;
-                  for (i = 0; i < dropdowns.length; i++) {
-                  var openDropdown = dropdowns[i];
-                  if (openDropdown.classList.contains('show')) {
-                  openDropdown.classList.remove('show');
-                  }
-                  }
-                  }
-                  }
-                console.log("done.");
+    a#blck(href='settings')
+      |  Settings
+      
 block nav-content
   li
     a#blck(href='/')
@@ -108,26 +79,27 @@ block content
       var username = cookiearray[1].split('=')[1];
       var pword = cookiearray[2].split('=')[1];
       
+      // if user trys to access /home without logging in
       if(username == "none")
       {
-        window.location = "/"
+        window.location = "/";
       }
       var allcookies = document.cookie;
       console.log("All Cookies : " + allcookies );
       cookiearray = allcookies.split(';');
       for(var i=0; i<cookiearray.length; i++)
       {
-      name = cookiearray[i].split('=')[0];
-      value = cookiearray[i].split('=')[1];
-      console.log("Key is : " + name + " and Value is : " + value);
+        name = cookiearray[i].split('=')[0];
+        value = cookiearray[i].split('=')[1];
+        console.log("Key is : " + name + " and Value is : " + value);
       }
-        function returnProjects(){
-          database = firebase.database();
-          var ref = database.ref('Projects');
-          ref.on('value', gotData, errData);
-          console.log("Got into proj function");
-          return true;
-        }
+      function returnProjects(){
+        database = firebase.database();
+        var ref = database.ref('Projects');
+        ref.on('value', gotData, errData);
+        console.log("Got into proj function");
+        return true;
+      }
         
         function gotData(data){
           console.log("Going to read data now hehe");

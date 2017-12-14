@@ -47,45 +47,52 @@ block content
           }
         }
       }
+      //accessDB(password,username);
       // validate input
       WriteCookie();
     }
     
     function accessDB(password, username){
-      database = firebase.database();
-      var ref = database.ref('Users');
-      ref.on('value', gotData, errData);
-      return true;
+      window.alert("made into accessDB");
+      // database = firebase.database();
+      // var ref = database.ref('Users');
+      // ref.on('value', gotData, errData);
+      // return true;
     }
     
     function WriteCookie(){
       var username = document.getElementById('username').value;
       var password = document.getElementById('password').value;
-      console.log(username, password);
-      if( username == ""  || password == "")
-      {
-          alert("Enter some value!");
-          return;
-      }
-      cookievalue= escape(username) + ";";
-      document.cookie="username=" + cookievalue;
-      console.log("Setting Username : " + "username=" + cookievalue );
+      document.cookie = "username=" + username;
+      document.cookie = "password=" + password;
+      // console.log(username, password);
+      // if( username == ""  || password == "")
+      // {
+      //     alert("Enter some value!");
+      //     return;
+      // }
+      // cookievalue= escape(username) + ";";
+      // document.cookie="username=" + cookievalue;
+      // console.log("Setting Username : " + "username=" + cookievalue );
       
-      cookievalueP= escape(password) + ";";
-      document.cookie="password=" + cookievalueP;
-      console.log("Setting Password : " + "password=" + cookievalueP );
+      // cookievalueP= escape(password) + ";";
+      // document.cookie="password=" + cookievalueP;
+      // console.log("Setting Password : " + "password=" + cookievalueP );
     }
     function gotData(data){
+      console.log("made it into gotdata")
       var user = document.getElementById('username').value;
       console.log(data.val());
       var users = data.val();
       var keys = Object.keys(users);
       console.log(keys);
+      var check = "";
       for(var i=0; i< keys.length; i++)
       {
         var k = keys[i];
         var username = users[k].username;
         var useremail = users[k].email;
+        check += i + ": " + username + " " + password + "\n";
        
       
        if(user == username)
@@ -98,13 +105,14 @@ block content
        }
        //to do: refernce another page after login in
       }
+      window.alert("check: " + check);
+      WriteCookie();
     }
     function errData(err)
     {
       console.log('Error!');
       window.alert(err);
     }
-    
     function ReadCookie(){
       var allcookies = document.cookie;
       console.log("All Cookies : " + allcookies );

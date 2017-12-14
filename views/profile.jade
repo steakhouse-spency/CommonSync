@@ -1,11 +1,17 @@
 extends layout
 block nav-left-content
   li
-    a#blck(href='/home') Home
+    a#blck(href='home')
+      |  Home
   li
-    a#blck(href='/home') Create Project
+    a#blck(href='createProject')
+      |  Create Project
   li
-    a#blck(href='/home') Settings
+     a#blck(href='#')
+      |  Profile
+  li
+    a#blck(href='settings')
+      |  Settings
 
 block nav-content
     li
