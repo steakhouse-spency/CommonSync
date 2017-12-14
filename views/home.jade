@@ -245,6 +245,9 @@ block content
               return false;
             }
             console.log(ref);
+            if(collaboraters.includes(username)){
+              return false;
+            }
             x.collaborators.push(username)
             var database = firebase.database();
             var reference = database.ref("Projects").child(username).child(ref);
@@ -259,8 +262,8 @@ block content
               collaborator.appendChild(name);
               sidebar.appendChild(collaborator);
             }
-            
           });
+          
           data.appendChild(join);
           row.appendChild(data);
           
