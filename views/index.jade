@@ -7,9 +7,16 @@ block nav-content
   li
     a#blck(href='signup')
       span.glyphicon.glyphicon-user
-      |  Sign Up
+      |  Sign 
+      
+
 
 block content
+  script.
+    document.cookie = "username=none";
+    document.cookie = "password=none"
+    console.log("Cookie!: " + document.cookie);
+    
   .jumbotron.text-center#jtron
     h3(align="center" id="jtron-intro")
       | Join over 
