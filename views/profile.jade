@@ -39,11 +39,34 @@ block content
                 h3.profile-projects#project
                     | #{projects}
     script.
-      var allcookies = document.cookie;
-      cookiearray = allcookies.split(';');
-      var user = cookiearray[0].split('=')[1];
-      var pword = cookiearray[1].split('=')[1];
-      console.log("cookie: ", user);
+      function getUsername(){
+        var allcookies = document.cookie;
+        cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++)
+        {
+          var name = cookiearray[i].split('=')[0];
+          console.log("name: " + name);
+          if(name.trim() == "username")
+              return cookiearray[i].split('=')[1];
+        }  
+        return "none";
+      }
+      function getPassword(){
+        var allcookies = document.cookie;
+        cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++)
+        {
+          var name = cookiearray[i].split('=')[0];
+          console.log("password: " + name);
+          if(name.trim() == "password")
+              return cookiearray[i].split('=')[1];
+        }  
+        return "none";
+      }
+      
+      var user = getUsername();
+      // var pword = getPassword();
+      // console.log("cookie: ", user);
  
       document.getElementById('profile-name').innerHTML = user;
 
@@ -52,10 +75,9 @@ block content
       function accessDB(){
       // get username
       
-          var allcookies = document.cookie; 
-          cookiearray = allcookies.split(';');
-          var user = cookiearray[0].split('=')[1];
-          var pword = cookiearray[1].split('=')[1];
+    
+          // var user = getUsername();
+          // var pword = getPassword();
 
           database = firebase.database();
           var ref = database.ref('Interests');
@@ -68,11 +90,10 @@ block content
       }
       function gotDataI(data){
           console.log("Projects!!")
-          // get username
-          var allcookies = document.cookie;
-          cookiearray = allcookies.split(';');
-          var user = cookiearray[0].split('=')[1];
-          var pword = cookiearray[1].split('=')[1];
+          // get username/pword
+
+          var user = getUsername();
+          // var pword = getPassword();
           // get interest
           
           
@@ -104,10 +125,9 @@ block content
       function gotData(data){
 
           // get username
-          var allcookies = document.cookie;
-          cookiearray = allcookies.split(';');
-          var user = cookiearray[0].split('=')[1];
-          var pword = cookiearray[1].split('=')[1];
+          var user = getUsername();
+          // var pword = getPassword();
+          
           // get interest
           
           

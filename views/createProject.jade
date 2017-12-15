@@ -7,8 +7,8 @@ block nav-left-content
     a#blck(href='#')
       |  Create Project
   li
-     a#blck(href='#')
-      |  Account
+     a#blck(href='profile')
+      |  Profile
   li
     a#blck(href='settings')
       |  Settings
@@ -20,7 +20,7 @@ block content
         h1.display-4.m-b-2 Create Project
 
         // register form
-        form(target ="_blank")
+        form(target ="_self")
           div.projectName
             label(for='pName') Project Name: 
             input#pName.form-control(type='text', placeholder='Project Name' name='pName' required)
@@ -38,6 +38,29 @@ block content
           button.btn.btn-primary(type = 'submit' onclick="checkform();") Create Project
           
   script.
+    function getUsername(){
+      var allcookies = document.cookie;
+      cookiearray = allcookies.split(';');
+      for(var i=0; i<cookiearray.length; i++)
+      {
+        var name = cookiearray[i].split('=')[0];
+        if(name.trim() == "username")
+            return cookiearray[i].split('=')[1];
+      }  
+      return "none";
+    }
+    function getPassword(){
+      var allcookies = document.cookie;
+      cookiearray = allcookies.split(';');
+      for(var i=0; i<cookiearray.length; i++)
+      {
+        var name = cookiearray[i].split('=')[0];
+        if(name.trim() == "password")
+            return cookiearray[i].split('=')[1];
+      }  
+      return "none";
+    }
+    
     function checkform() {
     
       var name = document.getElementsByName("pName")[0].value;
@@ -48,26 +71,26 @@ block content
       var inputs = document.getElementsByTagName("input");
       //ReadCookie();
       //console.log("Entered into the ReadCookie method");
-      var allcookies = document.cookie;
-      console.log("All Cookies : " + allcookies );
-      cookiearray = allcookies.split(';');
-      var userEname = "";
-      var userPvalue = "";
-       for(var i=0; i<cookiearray.length; i++)
-      {
-        userEname = cookiearray[i].split('=')[0];
-        userPvalue = cookiearray[i].split('=')[1];
+      // var allcookies = document.cookie;
+      // console.log("All Cookies : " + allcookies );
+      // cookiearray = allcookies.split(';');
+      // var userEname = "";
+      // var userPvalue = "";
+      // for(var i=0; i<cookiearray.length; i++)
+      // {
+      //   userEname = cookiearray[i].split('=')[0];
+      //   userPvalue = cookiearray[i].split('=')[1];
         
          
-          if(userEname.trim() =='username'){
-            //console.log("Key is : " + userEname + " and Value is : " + userPvalue);
-            break;
-          } else{
-            console.log(userEname.length);
-            console.log('username'.length);
-          }
+      //     if(userEname.trim() =='username'){
+      //       console.log("Key is : " + userEname + " and Value is : " + userPvalue);
+      //       break;
+      //     } else{
+      //       console.log(userEname.length);
+      //       console.log('username'.length);
+      //     }
         
-      }
+      // }
       
       for (var i = 0; i < inputs.length; i++) {
           // only validate the inputs that have the required attribute
@@ -83,22 +106,21 @@ block content
             }
           }
       }
+ 
+      username = getUsername();
       
-      var allcookies = document.cookie;
-      cookiearray = allcookies.split(';');
-      username = cookiearray[0].split('=')[1]
-      
-      accessDB(name, description, tags, username, userPvalue);
+      accessDB(name, description, tags, username);
+      window.location = "/home";
+
     }
   
 
   
-    function accessDB(name, owner, description, tags, userEname, userPvalue){
-      console.log(userPvalue);
-      window.alert("Entered accessDB method");
+    function accessDB(name, description, tags, userEname){
+      window.alert("Project Created!");
     
       var database = firebase.database();
-      var reference = database.ref("Projects").child(userPvalue);
+      var reference = database.ref("Projects").child(userEname);
       var Projects ={
         project_name:name,
         project_description: description,
@@ -106,7 +128,6 @@ block content
         collaborators: [userEname]
       }
       reference.push(Projects);
-      console.log("Finished Pushing mah dude");
-      
+
       return true;
     }
