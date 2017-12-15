@@ -1,5 +1,5 @@
 extends layout
-block nav-content
+block nav-left-content
   li
     a#blck(href='home')
       |  Home
@@ -86,7 +86,7 @@ block content
       
       var allcookies = document.cookie;
       cookiearray = allcookies.split(';');
-      username = cookiearray[1].split('=')[1]
+      username = cookiearray[0].split('=')[1]
       
       accessDB(name, description, tags, username, userPvalue);
     }

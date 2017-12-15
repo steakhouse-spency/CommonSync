@@ -50,7 +50,7 @@ block content
               function welcomeuser() {
                 var allcookies = document.cookie;
                 cookiearray = allcookies.split(';');
-                var user = cookiearray[1].split('=')[1];
+                var user = cookiearray[0].split('=')[1];
                 document.getElementById('welcome').innerHTML = "Welcome <u>" + user + "</u>" ;
               }
               window.onload = welcomeuser;
