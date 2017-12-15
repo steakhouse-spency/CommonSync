@@ -1,5 +1,5 @@
 extends layout
-block nav-left-content
+block nav-content
   li
     a#blck(href='home')
       |  Home
@@ -7,8 +7,8 @@ block nav-left-content
     a#blck(href='#')
       |  Create Project
   li
-     a#blck(href='profile')
-      |  Profile
+     a#blck(href='#')
+      |  Account
   li
     a#blck(href='settings')
       |  Settings
@@ -20,7 +20,7 @@ block content
         h1.display-4.m-b-2 Create Project
 
         // register form
-        form(target ="_self" )
+        form(target ="_blank")
           div.projectName
             label(for='pName') Project Name: 
             input#pName.form-control(type='text', placeholder='Project Name' name='pName' required)
@@ -43,9 +43,6 @@ block content
       var name = document.getElementsByName("pName")[0].value;
       var description = document.getElementsByName("textarea")[0].value;
       var tags = document.getElementsByName("tags")[0].value.split(' ');
-      for(t in tags){
-        tags[t] = tags[t].replace(/,\s*$/, "");
-      }
     
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");
@@ -62,13 +59,10 @@ block content
         userPvalue = cookiearray[i].split('=')[1];
         
          
-          if(userEname.trim() =='username')
-          {
+          if(userEname.trim() =='username'){
             //console.log("Key is : " + userEname + " and Value is : " + userPvalue);
             break;
-          }
-          else
-          {
+          } else{
             console.log(userEname.length);
             console.log('username'.length);
           }
@@ -95,16 +89,14 @@ block content
       username = cookiearray[1].split('=')[1]
       
       accessDB(name, description, tags, username, userPvalue);
-      // todo: redirect to a new page after the project has been added to the database.
-
     }
   
-    // todo: store the project data in firebase.
-    function accessDB(name, description, tags, userEname, userPvalue){
-      console.log(userPvalue);
-    // window.alert("Entered accessDB method");
+
   
-      
+    function accessDB(name, owner, description, tags, userEname, userPvalue){
+      console.log(userPvalue);
+      window.alert("Entered accessDB method");
+    
       var database = firebase.database();
       var reference = database.ref("Projects").child(userPvalue);
       var Projects ={
@@ -116,5 +108,5 @@ block content
       reference.push(Projects);
       console.log("Finished Pushing mah dude");
       
-    return true;
+      return true;
     }

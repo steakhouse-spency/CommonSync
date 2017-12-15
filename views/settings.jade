@@ -28,36 +28,104 @@ block content
         center 
             h1  Settings 
             .tab
-              button#defaultOpen.tablinks(onclick="openCity(event, 'Account')") Account
-              button.tablinks(onclick="openCity(event, 'Activity')") Activity
-              button.tablinks(onclick="openCity(event, 'Logout')") Logout
-            #Account.tabcontent
+              button#defaultOpen.tablinks(onclick="openOption(event, 'username')") Change Username
+              button.tablinks(onclick="openOption(event, 'email')") Change Email
+              button.tablinks(onclick="openOption(event, 'password')") Change Password
+            #username.tabcontent
               .options_layout
-                h3(align="center") Account
-                h4(align="center") Edit your personal settings 
+                h3(align="center") Username
+                h4(align="center") Change your username 
                 br
                 p(align="left")
-                 | Email
-                 | Change Password
-            #Activity.tabcontent
+                 | Change Username:
+                 input#newUsername(type='text')
+                 button#newUsernameBtn(onclick="updateUsername();") Change
+            #email.tabcontent
               .options_layout
-                h3 Activity
-                h4 View and edit your activity settings.
-            #Logout.tabcontent
-              h3 Logout
+                h3(align="center") Email
+                h4(align="center") Change your email
+                br
+                p(align="left")
+                 | Change Email:
+                 input#newEmail(type='text')
+                 button#newEmailBtn(onclick="updateEmail();") Change
+            #password.tabcontent
+              .options_layout
+                h3(align="center") Password
+                h4(align="center") Change your password
+                br
+                p(align="left")
+                 | Change Password:
+                 input#newPass(type='text')
+                 button#newPassBtn(onclick="updatePass();") Change
             script.
-              function openCity(evt, option) {
-              var i, tabcontent, tablinks;
-              tabcontent = document.getElementsByClassName("tabcontent");
-              for (i = 0; i < tabcontent.length; i++) {
-              tabcontent[i].style.display = "none";
+              //sets options table
+              
+              function openOption(evt, option) {
+                console.log("tabs opening...");
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(option).style.display = "block";
+                evt.currentTarget.className += " active";
+                console.log("done.")
               }
-              tablinks = document.getElementsByClassName("tablinks");
-              for (i = 0; i < tablinks.length; i++) {
-              tablinks[i].className = tablinks[i].className.replace(" active", "");
-              }
-              document.getElementById(option).style.display = "block";
-              evt.currentTarget.className += " active";
-              }
-              // Get the element with id="defaultOpen" and click on it
+              //sets default information
+              
               document.getElementById("defaultOpen").click();
+              
+              //updates username
+              
+              var newUser = document.getElementById('newUsername').value;
+              
+              function updateUsername(newUser) {
+                console.log(cookievalue);
+              }
+              
+              
+              
+              function gotData(data){
+                console.log("Retrieving Users info...");
+                
+                console.log(data.val());
+                projects = data.val();
+                // Object.keys(projects).forEach(function(key){
+                // console.log(key, projects[key]);
+                // });
+                
+                console.log("Finished traversing");
+                return projects;
+              }
+              
+              function errData(err){
+                console.log('Error!');
+                window.alert(err);
+              }
+              
+              function returnUsers(){
+              
+              //my attempt to access the usernname cookie
+              cookievalue=escape(username) + ";";
+              console.log(cookievalue);
+                database = firebase.database();
+                var ref = database.ref('Users');
+                ref.on('value', gotData, errData);
+                console.log("Got into users function");
+                return true;
+              }
+            
+              
+              returnUsers();
+              
+              
+              
+              
+              
+              
+                  
