@@ -4,44 +4,15 @@ block nav-left-content
     a#blck(href='home')
       |  Home
   li
-    a#blck(href='createProject')
+    a#blck(href='#')
       |  Create Project
   li
-     a#blck(href='profile')
-      |  Profile
+     a#blck(href='#')
+      |  Account
   li
-     button#blck.dropbtn(onclick='dropdown()')
-      |  &#x2630
-     #myDropdown.dropdown-content 
-            a(href='settings') Settings
-            br
-            a(href='#about') Logout
-            br
-     script.
-            console.log("nav bar loading...")
-              // When the user clicks on the dropdown button,
-              //toggle between hiding and showing the dropdown content 
-              
-              function dropdown() {
-                  console.log("dropdown function triggered");
-                  document.getElementById("myDropdown").classList.toggle("show");
-                  console.log("dropdown function success")
-                  }
-                // Close the dropdown if the user clicks outside of it
-                
-              window.onclick = function(event) {
-                  if (!event.target.matches('.dropbtn')) {
-                  var dropdowns = document.getElementsByClassName("dropdown-content");
-                  var i;
-                  for (i = 0; i < dropdowns.length; i++) {
-                  var openDropdown = dropdowns[i];
-                  if (openDropdown.classList.contains('show')) {
-                  openDropdown.classList.remove('show');
-                  }
-                  }
-                  }
-                  }
-                console.log("done."); 
+    a#blck(href='settings')
+      |  Settings
+      
 block content
   .main.container
     .row
@@ -49,13 +20,10 @@ block content
         h1.display-4.m-b-2 Create Project
 
         // register form
-        form(target ="_self" )
+        form(target ="_blank")
           div.projectName
             label(for='pName') Project Name: 
             input#pName.form-control(type='text', placeholder='Project Name' name='pName' required)
-          div.projectOwner
-            label(for='pOwner') Project Owner: 
-            input#pOwner.form-control(type='text', placeholder='Project Owner' name='pOwner' required)
           div.description
             p 
                 span Enter the Project Description
@@ -73,12 +41,8 @@ block content
     function checkform() {
     
       var name = document.getElementsByName("pName")[0].value;
-      var owner = document.getElementsByName("pOwner")[0].value;
       var description = document.getElementsByName("textarea")[0].value;
       var tags = document.getElementsByName("tags")[0].value.split(' ');
-      for(t in tags){
-        tags[t] = tags[t].replace(/,\s*$/, "");
-      }
     
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");
@@ -95,13 +59,10 @@ block content
         userPvalue = cookiearray[i].split('=')[1];
         
          
-          if(userEname.trim() =='username')
-          {
+          if(userEname.trim() =='username'){
             //console.log("Key is : " + userEname + " and Value is : " + userPvalue);
             break;
-          }
-          else
-          {
+          } else{
             console.log(userEname.length);
             console.log('username'.length);
           }
@@ -123,28 +84,29 @@ block content
           }
       }
       
-      accessDB(name, owner, description, tags, userEname, userPvalue);
-      // todo: redirect to a new page after the project has been added to the database.
-
+      var allcookies = document.cookie;
+      cookiearray = allcookies.split(';');
+      username = cookiearray[0].split('=')[1]
+      
+      accessDB(name, description, tags, username, userPvalue);
     }
   
-    // todo: store the project data in firebase.
-    function accessDB(name, owner, description, tags, userEname, userPvalue){
-    console.log(userPvalue);
-    window.alert("Entered accessDB method");
+
   
-      
+    function accessDB(name, owner, description, tags, userEname, userPvalue){
+      console.log(userPvalue);
+      window.alert("Entered accessDB method");
+    
       var database = firebase.database();
       var reference = database.ref("Projects").child(userPvalue);
       var Projects ={
         project_name:name,
-        project_owner: owner,
         project_description: description,
-        project_tags: tags
-       
+        project_tags: tags,
+        collaborators: [userEname]
       }
       reference.push(Projects);
       console.log("Finished Pushing mah dude");
       
-    return true;
+      return true;
     }
