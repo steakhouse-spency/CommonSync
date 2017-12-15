@@ -30,32 +30,35 @@ block content
       
       // get all the inputs within the submitted form
       
+
       var inputs = document.getElementsByTagName("input");
       for (var i = 0; i < inputs.length; i++) {
-          // only validate the inputs that have the required attribute
-          if(inputs[i].hasAttribute("required")){
-            if(inputs[i].value == ""){
-              // found an empty field that is required
-              alert("Please fill all required fields");
-              return false;
-            }
-            else if(/[^a-zA-Z0-9@. ]/.test(inputs[i].value)) {
-              alert('Input must be alphanumeric');
-              return false;
-            }
+        // only validate the inputs that have the required attribute
+        if(inputs[i].hasAttribute("required")){
+          if(inputs[i].value == ""){
+            // found an empty field that is required
+            alert("Please fill all required fields");
+            return false;
           }
+          else if(/[^a-zA-Z0-9@. ]/.test(inputs[i].value)) {
+            alert('Input must be alphanumeric');
+            return false;
+          }
+        }
       }
-
+      accessDB(password,username);
+      WriteCookie();
+      // validate input
     }
     
     function accessDB(password, username){
+      // window.alert("made into accessDB");
       database = firebase.database();
       var ref = database.ref('Users');
       ref.on('value', gotData, errData);
-      //window.alert(email, password);
-      
-        return true;
-     }
+      return true;
+    }
+            
     function gotData(data)
       {
       console.log("gotdata function started...");
@@ -80,35 +83,36 @@ block content
         //ReadCookie()
          
        }
-       //to do: refernce another page after login in
        
       }
             console.log("done.");
     }
     function errData(err)
-      {
-        console.log('Error!');
-        window.alert("err");
-      }
+    {
+      console.log('Error!');
+      window.alert(err);
+    }
     function WriteCookie()
-      { console.log("writing cookie...")
-        var username = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
-        console.log(username, password);
-        if( username == ""  || password == "")
-        {
-            alert("Enter some value!");
-            return;
-        }
-        cookievalue= escape(username) + ";";
-        Cookies.set('name', 'value');
-        document.cookie="username=" + cookievalue;
-        console.log("Setting Username : " + "username=" + cookievalue );
-        
-        cookievalueP= escape(password) + ";";
-        document.cookie="password=" + cookievalueP;
-        console.log("Setting Password : " + "password=" + cookievalueP );
-        console.log("done.")
+    {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      document.cookie = "username=" + username;
+      document.cookie = "password=" + password;
+      // var username = document.getElementById('username').value;
+      // var password = document.getElementById('password').value;
+      // console.log(username, password);
+      // if( username == ""  || password == "")
+      // {
+      //     alert("Enter some value!");
+      //     return;
+      // }
+      // cookievalue= escape(username) + ";";
+      // document.cookie="username=" + cookievalue;
+      // console.log("Setting Username : " + "username=" + cookievalue );
+      
+      // cookievalueP= escape(password) + ";";
+      // document.cookie="password=" + cookievalueP;
+      // console.log("Setting Password : " + "password=" + cookievalueP );
     }
     function ReadCookie(){
         var allcookies = document.cookie;
@@ -123,7 +127,4 @@ block content
         }
     }
     
-   
-            
-            
-
+         

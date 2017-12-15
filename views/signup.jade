@@ -55,6 +55,24 @@ block content
           // button.btn.btn-primary(type='submit' onclick="checkform();") Sign up
           
   script.
+    function WriteCookie()
+    {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('pw').value;
+      console.log(username, password);
+      if( username == ""  || password == "")
+      {
+          alert("Enter some value!");
+          return;
+      }
+      cookievalue= escape(username) + ";";
+      document.cookie="username=" + cookievalue;
+      console.log("Setting Username : " + "username=" + cookievalue );
+      
+      cookievalueP= escape(password) + ";";
+      document.cookie="password=" + cookievalueP;
+      console.log("Setting Password : " + "password=" + cookievalueP );
+    }
     function submitClick(){
       // get all the inputs within the submitted form
       var inputs = document.getElementsByTagName("input");
@@ -86,7 +104,7 @@ block content
 
       
       //TODO: store config information into env variables.
-      window.alert("Finally I can test!!");
+      // window.alert("Finally I can test!!");
       
       // general user information 
       
@@ -132,9 +150,11 @@ block content
       }
       ref2.push(interests);
       console.log("pushed interest into db");
+      WriteCookie();
+      window.location.replace("/home");
+      
       // pushing the users interests
       //projects
       //TO:DO find a way to reference off of a unique ID.
       //Find a way to redirect a page after user data is added to firebase
-      window.location.replace("/home");
     }
