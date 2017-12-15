@@ -77,7 +77,7 @@ block content
       var allcookies = document.cookie;
       var cookiearray = allcookies.split(';');
       var username = cookiearray[1].split('=')[1];
-      console.log("username: "+ username);
+      console.log("cookies: " +  document.cookie);
       var pword = cookiearray[2].split('=')[1];
       
       // if user trys to access /home without logging in
