@@ -48,9 +48,9 @@ block content
             h1(align="center" id="welcome") Hello
             script.
               function welcomeuser() {
-                var allcookies = document.cookie;
-                cookiearray = allcookies.split(';');
-                var user = cookiearray[0].split('=')[1];
+                // var allcookies = document.cookie;
+                // cookiearray = allcookies.split(';');
+                var user = getUsername();
                 document.getElementById('welcome').innerHTML = "Welcome <u>" + user + "</u>" ;
               }
               window.onload = welcomeuser;
@@ -73,27 +73,32 @@ block content
       //here we define the functions for the search bar, the sorting menu, and the buttons. Also programatically populate the feed with project posts from the database.
     
   script.
+  
+      function getUsername(){
+        var allcookies = document.cookie;
+        cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++)
+        {
+          var name = cookiearray[i].split('=')[0];
+          if(name.trim() == "username")
+              return cookiearray[i].split('=')[1];
+        }  
+        return "none";
+      }
       var projects = Object();
-      var allcookies = document.cookie;
-      var cookiearray = allcookies.split(';');
-      var username = cookiearray[0].split('=')[1];
-      console.log("cookies: " +  document.cookie);
-      var pword = cookiearray[1].split('=')[1];
+      // var allcookies = document.cookie;
+      // var cookiearray = allcookies.split(';');
+      var username = getUsername();
+      // console.log("cookies: " +  document.cookie);
+      // var pword = cookiearray[1].split('=')[1];
       
       // if user trys to access /home without logging in
       if(username == "none")
       {
         window.location = "/";
       }
-      var allcookies = document.cookie;
-      console.log("All Cookies : " + allcookies );
-      cookiearray = allcookies.split(';');
-      for(var i=0; i<cookiearray.length; i++)
-      {
-        name = cookiearray[i].split('=')[0];
-        value = cookiearray[i].split('=')[1];
-        console.log("Key is : " + name + " and Value is : " + value);
-      }
+
+      
       function returnProjects(){
         database = firebase.database();
         var ref = database.ref('Projects');
@@ -102,74 +107,74 @@ block content
         return true;
       }
         
-        function gotData(data){
-          console.log("Going to read data now hehe");
-          
-          console.log(data.val());
-          projects = data.val();
-          // Object.keys(projects).forEach(function(key){
-          // console.log(key, projects[key]);
-          // });
-          
-          console.log("Finished traversing");
-          return projects;
+      function gotData(data){
+        console.log("Going to read data now hehe");
+        
+        console.log(data.val());
+        projects = data.val();
+        // Object.keys(projects).forEach(function(key){
+        // console.log(key, projects[key]);
+        // });
+        
+        console.log("Finished traversing");
+        return projects;
+      }
+      
+      function errData(err){
+        console.log('Error!');
+        window.alert(err);
+      }
+      
+      returnProjects();
+      function saveTags(){
+        // if the user has not signed in or the cookie for some reason has become erased, redirect the user back to the login page
+        var allcookies = document.cookie;
+        //console.log("All Cookies : " + allcookies );
+        cookiearray = allcookies.split(';');
+        for(var i=0; i<cookiearray.length; i++){
+          name = cookiearray[i].split('=')[0];
+          value = cookiearray[i].split('=')[1];
+          //console.log("Key is : " + name + " and Value is : " + value);
+        }
+        if(name == "" || name == undefined){
+          return false;
+          //redirect to login.jade, then return false
+        }
+        if(!tableIsEmpty()){
+          return false;
         }
         
-        function errData(err){
-          console.log('Error!');
-          window.alert(err);
+        // If the user doesn't enter anything into the field and clicks the search button, don't search!
+        var emptyField = document.getElementsByName("pTags")[0].value;
+        if(emptyField == null || emptyField == ""){
+          return false;
         }
-        
+        var tags = document.getElementsByName("pTags")[0].value.split(',');
+        for(t in tags){
+          tags[t] = tags[t].replace(/,\s*$/, "");
+          tags[t] = tags[t].trim();
+        }
+        // have to access db to pull project info based on tag matches from array
         returnProjects();
-        function saveTags(){
-          // if the user has not signed in or the cookie for some reason has become erased, redirect the user back to the login page
-          var allcookies = document.cookie;
-          //console.log("All Cookies : " + allcookies );
-          cookiearray = allcookies.split(';');
-          for(var i=0; i<cookiearray.length; i++){
-            name = cookiearray[i].split('=')[0];
-            value = cookiearray[i].split('=')[1];
-            //console.log("Key is : " + name + " and Value is : " + value);
-          }
-          if(name == "" || name == undefined){
-            return false;
-            //redirect to login.jade, then return false
-          }
-          if(!tableIsEmpty()){
-            return false;
-          }
-          
-          // If the user doesn't enter anything into the field and clicks the search button, don't search!
-          var emptyField = document.getElementsByName("pTags")[0].value;
-          if(emptyField == null || emptyField == ""){
-            return false;
-          }
-          var tags = document.getElementsByName("pTags")[0].value.split(',');
-          for(t in tags){
-            tags[t] = tags[t].replace(/,\s*$/, "");
-            tags[t] = tags[t].trim();
-          }
-          // have to access db to pull project info based on tag matches from array
-          returnProjects();
-          
-          for(t in tags){
-            for(y in projects){
-              for(x in projects[y]){
-                if(projects[y][x].project_tags.indexOf(tags[t]) > -1){
-                  console.log(projects[y][x].project_tags, tags[t]);
-                  console.log(projects[y][x].project_tags.indexOf(tags[t]));
-                  addRow(projects[y][x], x);
-                }
+        
+        for(t in tags){
+          for(y in projects){
+            for(x in projects[y]){
+              if(projects[y][x].project_tags.indexOf(tags[t]) > -1){
+                console.log(projects[y][x].project_tags, tags[t]);
+                console.log(projects[y][x].project_tags.indexOf(tags[t]));
+                addRow(projects[y][x], x);
               }
             }
           }
         }
+      }
+      
+      function tableIsEmpty() {
+        return (/^(\s|&nbsp;)*$/.test(document.getElementById("main_table").innerHTML));
+      }
         
-        function tableIsEmpty() {
-          return (/^(\s|&nbsp;)*$/.test(document.getElementById("main_table").innerHTML));
-        }
-          
-        function addRow(x, ref){
+      function addRow(x, ref){
           console.log(x);
           var table = document.getElementById("main_table");
           
