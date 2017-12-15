@@ -86,10 +86,10 @@ block content
     function errData(err)
       {
         console.log('Error!');
-        window.alert(err);
+        window.alert("err");
       }
     function WriteCookie()
-      {
+      { console.log("writing cookie...")
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
         console.log(username, password);
@@ -99,12 +99,14 @@ block content
             return;
         }
         cookievalue= escape(username) + ";";
+        Cookies.set('name', 'value');
         document.cookie="username=" + cookievalue;
         console.log("Setting Username : " + "username=" + cookievalue );
         
         cookievalueP= escape(password) + ";";
         document.cookie="password=" + cookievalueP;
         console.log("Setting Password : " + "password=" + cookievalueP );
+        console.log("done.")
     }
     function ReadCookie(){
         var allcookies = document.cookie;
