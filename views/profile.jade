@@ -41,8 +41,8 @@ block content
     script.
       var allcookies = document.cookie;
       cookiearray = allcookies.split(';');
-      var user = cookiearray[1].split('=')[1];
-      var pword = cookiearray[2].split('=')[1];
+      var user = cookiearray[0].split('=')[1];
+      var pword = cookiearray[1].split('=')[1];
       console.log("cookie: ", user);
  
       document.getElementById('profile-name').innerHTML = user;
@@ -54,8 +54,8 @@ block content
       
           var allcookies = document.cookie; 
           cookiearray = allcookies.split(';');
-          var user = cookiearray[1].split('=')[1];
-          var pword = cookiearray[2].split('=')[1];
+          var user = cookiearray[0].split('=')[1];
+          var pword = cookiearray[1].split('=')[1];
 
           database = firebase.database();
           var ref = database.ref('Interests');
@@ -71,8 +71,8 @@ block content
           // get username
           var allcookies = document.cookie;
           cookiearray = allcookies.split(';');
-          var user = cookiearray[1].split('=')[1];
-          var pword = cookiearray[2].split('=')[1];
+          var user = cookiearray[0].split('=')[1];
+          var pword = cookiearray[1].split('=')[1];
           // get interest
           
           
@@ -106,8 +106,8 @@ block content
           // get username
           var allcookies = document.cookie;
           cookiearray = allcookies.split(';');
-          var user = cookiearray[1].split('=')[1];
-          var pword = cookiearray[2].split('=')[1];
+          var user = cookiearray[0].split('=')[1];
+          var pword = cookiearray[1].split('=')[1];
           // get interest
           
           

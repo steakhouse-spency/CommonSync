@@ -76,9 +76,9 @@ block content
       var projects = Object();
       var allcookies = document.cookie;
       var cookiearray = allcookies.split(';');
-      var username = cookiearray[1].split('=')[1];
+      var username = cookiearray[0].split('=')[1];
       console.log("cookies: " +  document.cookie);
-      var pword = cookiearray[2].split('=')[1];
+      var pword = cookiearray[1].split('=')[1];
       
       // if user trys to access /home without logging in
       if(username == "none")
