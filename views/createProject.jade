@@ -1,47 +1,18 @@
 extends layout
-block nav-content
+block nav-left-content
   li
     a#blck(href='home')
       |  Home
   li
-    a#blck(href='createProject')
+    a#blck(href='#')
       |  Create Project
   li
      a#blck(href='#')
       |  Account
   li
-     button#blck.dropbtn(onclick='dropdown()')
-      |  &#x2630
-     #myDropdown.dropdown-content 
-            a(href='settings') Settings
-            br
-            a(href='#about') Logout
-            br
-     script.
-            console.log("nav bar loading...")
-              // When the user clicks on the dropdown button,
-              //toggle between hiding and showing the dropdown content 
-              
-              function dropdown() {
-                  console.log("dropdown function triggered");
-                  document.getElementById("myDropdown").classList.toggle("show");
-                  console.log("dropdown function success")
-                  }
-                // Close the dropdown if the user clicks outside of it
-                
-              window.onclick = function(event) {
-                  if (!event.target.matches('.dropbtn')) {
-                  var dropdowns = document.getElementsByClassName("dropdown-content");
-                  var i;
-                  for (i = 0; i < dropdowns.length; i++) {
-                  var openDropdown = dropdowns[i];
-                  if (openDropdown.classList.contains('show')) {
-                  openDropdown.classList.remove('show');
-                  }
-                  }
-                  }
-                  }
-                console.log("done."); 
+    a#blck(href='settings')
+      |  Settings
+      
 block content
   .main.container
     .row
@@ -115,15 +86,12 @@ block content
       
       var allcookies = document.cookie;
       cookiearray = allcookies.split(';');
-      username = cookiearray[1].split('=')[1]
+      username = cookiearray[0].split('=')[1]
       
       accessDB(name, description, tags, username, userPvalue);
-
     }
   
-    function accessDB(name, description, tags, userEname, userPvalue){
-    console.log(userPvalue);
-    window.alert("Entered accessDB method");
+
   
     function accessDB(name, owner, description, tags, userEname, userPvalue){
       console.log(userPvalue);
@@ -140,5 +108,5 @@ block content
       reference.push(Projects);
       console.log("Finished Pushing mah dude");
       
-    return true;
+      return true;
     }
