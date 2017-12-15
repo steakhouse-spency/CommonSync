@@ -93,7 +93,7 @@ block content
       window.alert(err);
     }
     function WriteCookie()
-    {
+    { console.log("WriteCookie started...")
       var username = document.getElementById('username').value;
       var password = document.getElementById('password').value;
       document.cookie = "username=" + username;
@@ -113,6 +113,8 @@ block content
       // cookievalueP= escape(password) + ";";
       // document.cookie="password=" + cookievalueP;
       // console.log("Setting Password : " + "password=" + cookievalueP );
+      
+      console.log("...done.");
     }
     function ReadCookie(){
         var allcookies = document.cookie;

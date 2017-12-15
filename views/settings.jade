@@ -59,74 +59,73 @@ block content
                  input#newPass(type='text')
                  button#newPassBtn(onclick="updatePass();") Change
             script.
-              //sets options table
-              
-              function openOption(evt, option) {
-                console.log("tabs opening...");
-                var i, tabcontent, tablinks;
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+                function openOption(evt, option){
+                    console.log("tabs opening...");
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(option).style.display = "block";
+                    evt.currentTarget.className += " active";
+                    console.log("done."); 
                 }
-                tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                //sets default information
+                
+                document.getElementById("defaultOpen").click();
+                
+                //updates username
+                
+                var newUser = document.getElementById('newUsername').value;
+                
+                function updateUsername(newUser) {
+                  console.log(document.cookie);
                 }
-                document.getElementById(option).style.display = "block";
-                evt.currentTarget.className += " active";
-                console.log("done.")}
-              //sets default information
-              
-              document.getElementById("defaultOpen").click();
-              
-              //updates username
-              
-              var newUser = document.getElementById('newUsername').value;
-              
-              function updateUsername(newUser) {
-                console.log(document.cookie);
-              }
-              function gotData(data){
-                console.log("Retrieving Users info...");
-                
-                console.log(data.val());
-                projects = data.val();
-                // Object.keys(projects).forEach(function(key){
-                // console.log(key, projects[key]);
-                // });
-                
-                console.log("Finished traversing");
-                return projects;
-              }
-              function errData(err){
-                console.log('Error!');
-                window.alert(err);
-              }
-              function returnUsers(){
-                  //my attempt to access the usernname cookie
-                  cookievalue=escape(username) + ";";
-                  console.log("yumm "+document.cookie);
-                    database = firebase.database();
-                    var ref = database.ref('Users');
-                    ref.on('value', gotData, errData);
-                    console.log("Got into users function");
-                    return true;
-              }
-              function ReadCookie(){
-                var allcookies = document.cookie;
-                console.log("All Cookies : " + allcookies );
-                cookiearray = allcookies.split(';');
-                for(var i=0; i<cookiearray.length; i++)
-                {
-                name = cookiearray[i].split('=')[0];
-                value = cookiearray[i].split('=')[1];
-                console.log("Key is : " + name + " and Value is : " + value);
+                function gotData(data){
+                  console.log("Retrieving Users info...");
                   
-               }
-              ReadCookie();
-              
-              
-              
+                  console.log(data.val());
+                  projects = data.val();
+                  // Object.keys(projects).forEach(function(key){
+                  // console.log(key, projects[key]);
+                  // });
+                  
+                  console.log("Finished traversing");
+                  return projects;
+                }
+                function errData(err){
+                  console.log('Error!');
+                  window.alert(err);
+                }
+                function returnUsers(){
+                    //my attempt to access the usernname cookie
+                    cookievalue=escape(username) + ";";
+                    console.log("yumm "+document.cookie);
+                      database = firebase.database();
+                      var ref = database.ref('Users');
+                      ref.on('value', gotData, errData);
+                      console.log("Got into users function");
+                      return true;
+                }
+                function ReadCookie(){
+                  var allcookies = document.cookie;
+                  console.log("All Cookies : " + allcookies );
+                  cookiearray = allcookies.split(';');
+                  for(var i=0; i<cookiearray.length; i++)
+                  {
+                  name = cookiearray[i].split('=')[0];
+                  value = cookiearray[i].split('=')[1];
+                  console.log("Key is : " + name + " and Value is : " + value);
+                    
+                 }
+                ReadCookie();
+                
+                
+                
               
               
               
